@@ -1,0 +1,2838 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>ALAKA Media — Hikâyesi olmayan hiçbir şeyle alakamız yok.</title>
+    <meta name="description"
+        content="Bazı hikâyeler tamamlanmaz. ALAKA Media — sinematik görsel hikâyeler ve yapımlar." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+
+    <!-- 
+        ALAKA Media — Cinematic Editorial One-Page
+        ==========================================
+        
+        Philosophy: 
+        - "Hikâyesi olmayan hiçbir şeyle alakamız yok."
+        - Story first, feeling before information
+        - Narrative-driven, not sales-driven
+        
+        Design Language:
+        - Warm, human, cinematic
+        - Editorial typography
+        - Generous whitespace as design element
+        - Subtle transitions, no aggressive CTAs
+        
+        Structure:
+        1. Hero/Promo (Anasayfa) — Visual highlight reel
+        2. Statement — "Bazı hikâyeler tamamlanmaz."
+        3. BAK — Programlar/Yapımlar (Projects grid)
+        4. BAK — Upcoming Projects (Intentionally unfinished)
+        5. OKU — Manifesto & Ekip (Team portraits)
+        6. TEMAS — Contact form
+    -->
+
+    <!-- Styles -->
+    <link href="css/plugins.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="css/f13db92b_649838.css" rel="stylesheet" type="text/css" />
+
+    <!-- Google Fonts - Playfair Display for elegant headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+        rel="stylesheet">
+
+    <!-- Editorial Styles - Cinematic, minimal, typography-driven -->
+    <style>
+        /* ==========================================================================
+           ALAKA Editorial Styles
+           Mobile-first approach with generous whitespace and slow visual rhythm
+           ========================================================================== */
+
+        /* CSS Custom Properties for consistent design language */
+        :root {
+            --color-dark: #1a1a1a;
+            --color-light: #f5f5f3;
+            --color-muted: #8a8a8a;
+            --color-accent: #2c2c2c;
+            --font-primary: 'Raleway', sans-serif;
+            --spacing-xs: 1rem;
+            --spacing-sm: 2rem;
+            --spacing-md: 4rem;
+            --spacing-lg: 8rem;
+            --spacing-xl: 12rem;
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-subtle: 0.3s ease;
+        }
+
+        /* Base reset for editorial feel */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--color-light);
+            color: var(--color-dark);
+            overflow-x: hidden;
+        }
+
+        /* ==========================================================================
+           Header Navigation - Clean, white background
+           ========================================================================== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            pointer-events: none;
+        }
+
+        .site-header>* {
+            pointer-events: auto;
+        }
+
+        /* Logo - sol tarafta, siyah */
+        .header-logo {
+            max-width: 120px;
+            filter: brightness(0);
+            opacity: 1;
+            transition: opacity var(--transition-subtle);
+        }
+
+        .header-logo:hover {
+            opacity: 0.7;
+        }
+
+        /* Main navigation - ortada */
+        .header-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 3rem;
+        }
+
+        .header-nav a {
+            color: var(--color-dark);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            opacity: 1;
+            transition: opacity var(--transition-subtle);
+        }
+
+        .header-nav a:hover {
+            opacity: 0.6;
+        }
+
+        /* Hamburger - sağda, siyah */
+        .navigation-toggle {
+            display: none;
+            /* Hidden on desktop */
+            /* stays on right */
+        }
+
+        .navigation-toggle-bars {
+            background: var(--color-dark) !important;
+        }
+
+        /* Mobile nav adjustments */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+
+            .navigation-toggle {
+                display: block;
+                /* Show on mobile */
+            }
+
+            .header-logo {
+                max-width: 80px;
+            }
+        }
+
+        /* ==========================================================================
+           Section 1: HERO - Editorial Grid Showcase
+           Modern, asymmetric grid with featured content
+           ========================================================================== */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: 100px 20px 40px;
+            background: var(--color-light);
+            box-sizing: border-box;
+        }
+
+        /* Editorial Grid Layout */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 140px);
+        }
+
+        @media (min-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Showcase Card Base */
+        .showcase-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            min-height: 250px;
+        }
+
+        .showcase-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .showcase-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Card Overlay */
+        .showcase-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.7) 0%,
+                    rgba(0, 0, 0, 0.2) 50%,
+                    rgba(0, 0, 0, 0.1) 100%);
+            z-index: 1;
+            transition: background 0.4s ease;
+        }
+
+        .showcase-card:hover::before {
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.8) 0%,
+                    rgba(0, 0, 0, 0.3) 50%,
+                    rgba(0, 0, 0, 0.2) 100%);
+        }
+
+        /* Card Content */
+        .showcase-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .showcase-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .showcase-title {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .showcase-subtitle {
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        /* Featured Card - Large Left */
+        .showcase-card.featured {
+            grid-row: span 2;
+        }
+
+        @media (min-width: 768px) {
+            .showcase-card.featured .showcase-title {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+            }
+
+            .showcase-card.featured .showcase-content {
+                padding: 40px;
+            }
+        }
+
+        /* Dark Card Variant */
+        .showcase-card.dark-card {
+            background: #0a0a0a;
+        }
+
+        .showcase-card.dark-card img {
+            opacity: 0.9;
+        }
+
+        /* Play Button */
+        .showcase-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .showcase-play svg {
+            width: 28px;
+            height: 28px;
+            color: var(--color-dark);
+            margin-left: 4px;
+        }
+
+        .showcase-card:hover .showcase-play {
+            opacity: 1;
+        }
+
+        .showcase-card:hover .showcase-play:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #fff;
+        }
+
+        /* ==========================================================================
+           Section 2: STATEMENT - A pause, a breath
+        /* ==========================================================================
+           Section 3: BAK - Projects Grid with Category Tabs
+           ========================================================================== */
+        .bak-section {
+            padding: var(--spacing-md) 0 0 0;
+            background: var(--color-light);
+        }
+
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto var(--spacing-md);
+            padding: 0 20px;
+        }
+
+        .category-tab {
+            padding: 12px 28px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-muted);
+            background: transparent;
+            border: 1px solid #e0e0e0;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            color: var(--color-dark);
+            border-color: var(--color-dark);
+        }
+
+        .category-tab.active {
+            color: #fff;
+            background: var(--color-dark);
+            border-color: var(--color-dark);
+        }
+
+        /* Category Content Panels */
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Post Category Badge */
+        .post-category-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            z-index: 3;
+        }
+
+        /* Hidden post for filtering */
+        .insta-post.hidden {
+            display: none;
+        }
+
+        /* Section label - subtle, editorial */
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-muted);
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Section head - main section titles (BAK, OKU, TEMAS) */
+        .section-head {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-dark);
+            text-align: center;
+            margin-bottom: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+        }
+
+        .section-head-light {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Projects grid - responsive, clean */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 600px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Project item - image first, no text visible */
+        .project-item {
+            position: relative;
+            aspect-ratio: 9/16;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow), opacity var(--transition-slow);
+        }
+
+        .project-item:hover img {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        /* Project overlay - appears on hover, subtle */
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-sm);
+            opacity: 0;
+            transition: opacity var(--transition-slow);
+        }
+
+        .project-item:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-title {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-meta {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.1em;
+        }
+
+        /* ==========================================================================
+           Video Showcase - Clean grid with play buttons
+           ========================================================================== */
+        .video-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        @media (min-width: 768px) {
+            .video-showcase {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        .video-card {
+            position: relative;
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .video-thumb {
+            position: relative;
+            aspect-ratio: 9/16;
+            background: #000;
+        }
+
+        .video-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-thumb img {
+            transform: scale(1.05);
+            opacity: 0.8;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .play-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--color-dark);
+            margin-left: 3px;
+        }
+
+        .video-card:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: #fff;
+        }
+
+        /* ==========================================================================
+           Instagram-style Post Grid
+           ========================================================================== */
+        /* Category Tabs - Filter buttons */
+        .category-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 70px !important;
+            margin-top: 50px !important;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .category-tab {
+            background: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tab:hover {
+            border-color: var(--color-dark);
+            color: var(--color-dark);
+        }
+
+        .category-tab.active {
+            background: var(--color-dark);
+            color: #fff;
+            border-color: var(--color-dark);
+        }
+
+        .insta-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            background: var(--color-light);
+        }
+
+        @media (min-width: 600px) {
+            .insta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .insta-post {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .insta-post:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .post-media {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+
+        .post-slider {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .post-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .post-slider img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scroll-snap-align: start;
+            transition: transform 0.5s ease;
+        }
+
+        .insta-post:hover .post-slider img {
+            transform: scale(1.03);
+        }
+
+        /* Carousel Navigation Arrows */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .post-media:hover .slider-arrow {
+            opacity: 1;
+        }
+
+        .slider-arrow:hover {
+            background: #fff;
+        }
+
+        .slider-arrow.prev {
+            left: 8px;
+        }
+
+        .slider-arrow.next {
+            right: 8px;
+        }
+
+        .slider-arrow svg {
+            width: 16px;
+            height: 16px;
+            color: #333;
+        }
+
+        .slider-arrow.hidden {
+            display: none;
+        }
+
+        /* Carousel Dots Indicator */
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .slider-dot.active {
+            background: #fff;
+        }
+
+        /* Multiple images indicator */
+        .multi-image-indicator {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 5;
+        }
+
+        .multi-image-indicator svg {
+            width: 14px;
+            height: 14px;
+            color: #fff;
+        }
+
+        .post-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .post-media:hover .post-play {
+            opacity: 1;
+        }
+
+        .post-play svg {
+            width: 28px;
+            height: 28px;
+            color: #fff;
+            margin-left: 4px;
+        }
+
+        .post-play:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .post-content {
+            padding: 1.25rem;
+        }
+
+        .post-caption {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-dark);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .post-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            color: var(--color-muted);
+            font-size: 0.75rem;
+            padding: 0.6rem 1rem;
+            margin-top: 0.75rem;
+            cursor: pointer;
+            font-family: var(--font-primary);
+            letter-spacing: 0.08em;
+            text-transform: capitalize;
+            transition: all 0.3s ease;
+        }
+
+        .post-more::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .post-more:hover {
+            color: var(--color-dark);
+            border-color: var(--color-dark);
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .post-more:hover::after {
+            transform: translateX(4px);
+        }
+
+        .post-detail {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .post-detail.active {
+            display: block;
+        }
+
+        .post-detail p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* View All Button */
+        .view-all-container {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--color-light);
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            border: 2px solid var(--color-dark);
+            border-radius: 50px;
+            color: var(--color-dark);
+            font-family: var(--font-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            padding: 1rem 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: var(--color-dark);
+            color: var(--color-light);
+        }
+
+        .view-all-btn .btn-arrow {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-btn:hover .btn-arrow {
+            transform: translateY(3px);
+        }
+
+        .view-all-btn.expanded .btn-arrow {
+            transform: rotate(180deg);
+        }
+
+        .view-all-btn.expanded:hover .btn-arrow {
+            transform: rotate(180deg) translateY(3px);
+        }
+
+        /* Hidden posts - initially hidden after first 6 */
+        .insta-post.initially-hidden {
+            display: none;
+        }
+
+        .insta-grid.expanded .insta-post.initially-hidden {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Quiet line - sessiz satır */
+        .quiet-line {
+            padding: var(--spacing-sm) var(--spacing-sm);
+            background: var(--color-light);
+            text-align: center;
+        }
+
+        .quiet-line p {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            font-weight: 400;
+            font-style: italic;
+            color: var(--color-muted);
+            margin: 0;
+            letter-spacing: 0.03em;
+        }
+
+        .quiet-line p::before,
+        .quiet-line p::after {
+            content: '';
+            display: inline-block;
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2));
+        }
+
+        .quiet-line p::after {
+            background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.2));
+        }
+
+        @media (min-width: 768px) {
+
+            .quiet-line p::before,
+            .quiet-line p::after {
+                width: 120px;
+            }
+        }
+
+        /* ==========================================================================
+           Manifesto Section - Editorial typography
+           ========================================================================== */
+        .manifesto-section {
+            padding: var(--spacing-md) var(--spacing-sm);
+            background: var(--color-light);
+        }
+
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .manifesto-content .section-head {
+            margin-bottom: 5rem;
+        }
+
+        .manifesto-lead {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .manifesto-text {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--color-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .manifesto-closing {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--color-dark);
+            margin-top: var(--spacing-sm);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==========================================================================
+           Transition Statement - After Hero Wall
+           Centered statement with vertical spacing
+           ========================================================================== */
+        .transition-statement-section {
+            padding: var(--spacing-md) var(--spacing-sm);
+            background: var(--color-light);
+            text-align: center;
+        }
+
+        .statement-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .statement-line {
+            flex: 0 0 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3));
+        }
+
+        .statement-line:last-child {
+            background: linear-gradient(to left, transparent, rgba(0, 0, 0, 0.3));
+        }
+
+        .transition-statement {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+            font-weight: 400;
+            font-style: italic;
+            text-transform: none;
+            color: var(--color-dark);
+            margin: 0;
+            letter-spacing: 0.02em;
+            line-height: 1.3;
+        }
+
+        @media (min-width: 768px) {
+            .statement-line {
+                flex: 0 0 150px;
+            }
+        }
+
+        /* ==========================================================================
+           Section 4: UPCOMING - Quiet, spacious
+           Communicates continuity, intentionally unfinished
+           ========================================================================== */
+        .upcoming-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-dark);
+            overflow: hidden;
+        }
+
+        .upcoming-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+        }
+
+        .upcoming-visual img,
+        .upcoming-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upcoming-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+
+        .upcoming-label {
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .upcoming-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .upcoming-title .title-line {
+            flex: 0 0 60px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5));
+        }
+
+        .upcoming-title .title-line:last-child {
+            background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.5));
+        }
+
+        .upcoming-title .title-text {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+        }
+
+        @media (min-width: 768px) {
+            .upcoming-title .title-line {
+                flex: 0 0 120px;
+            }
+        }
+
+        /* ==========================================================================
+           Section 5: OKU - Manifesto & Team
+           Editorial text blocks, magazine-style
+           ========================================================================== */
+        .oku-section {
+            padding: var(--spacing-xl) var(--spacing-sm);
+            background: var(--color-light);
+        }
+
+        .oku-container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Bio Toggle Styles */
+        .team-bio {
+            display: none;
+            /* Initially hidden */
+            margin-top: 1rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .team-bio.active {
+            display: block;
+        }
+
+        .team-bio-toggle {
+            display: inline-block;
+            margin-top: 0.5rem;
+            background: none;
+            border: none;
+            border-bottom: 1px solid var(--color-muted);
+            color: var(--color-dark);
+            font-family: var(--font-primary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            padding: 2px 0;
+            transition: all 0.3s ease;
+        }
+
+        .team-bio-toggle:hover {
+            color: var(--color-muted);
+            border-color: transparent;
+        }
+
+        /* Manifesto - editorial, cut paragraphs */
+        .manifesto {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .manifesto-text {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.8;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .manifesto-text:first-of-type::first-letter {
+            font-size: 4em;
+            float: left;
+            line-height: 0.8;
+            margin: 0 0.15em 0 0;
+            font-weight: 300;
+        }
+
+        /* Team - character portraits, not CVs */
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        @media (min-width: 700px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--spacing-lg);
+            }
+        }
+
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+        }
+
+        .team-portrait {
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            background: var(--color-muted);
+        }
+
+        .team-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .team-member:hover .team-portrait img {
+            transform: scale(1.03);
+        }
+
+        .team-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-dark);
+            margin-top: var(--spacing-xs);
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-muted);
+        }
+
+        /* English role subtitle */
+        .team-role-en {
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            opacity: 0.7;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .team-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-accent);
+            margin-top: 0.75rem;
+        }
+
+        /* Team grid adjustments for more members */
+        @media (min-width: 1000px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ==========================================================================
+           Section 6: TEMAS - Contact
+           Minimal, non-intrusive, lightweight
+           ========================================================================== */
+        .temas-section {
+            padding: var(--spacing-xl) var(--spacing-sm);
+            background: var(--color-dark);
+            color: #fff;
+        }
+
+        .temas-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .temas-section .section-head {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .temas-intro {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-lg);
+            color: rgba(255, 255, 255, 0.7);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        /* Contact form - lightweight, minimal */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .form-field {
+            position: relative;
+        }
+
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            color: #fff;
+            transition: border-color var(--transition-subtle);
+        }
+
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-field textarea {
+            resize: none;
+            min-height: 100px;
+        }
+
+        /* File upload - subtle */
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .file-upload-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: color var(--transition-subtle);
+        }
+
+        .file-upload-label:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        /* Submit button - not strong, intentionally soft */
+        .submit-btn {
+            margin-top: var(--spacing-sm);
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-subtle);
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: #fff;
+        }
+
+        /* ==========================================================================
+           Footer - Almost invisible
+           ========================================================================== */
+        .site-footer {
+            padding: var(--spacing-lg) var(--spacing-sm);
+            background: var(--color-dark);
+            text-align: center;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-social a {
+            color: #fff;
+            opacity: 0.7;
+            transition: opacity var(--transition-subtle);
+        }
+
+        .footer-social a:hover {
+            opacity: 1;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           Project Modal - Soft, editorial expand
+           ========================================================================== */
+        .project-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm);
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-slow);
+        }
+
+        .project-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: var(--color-light);
+            padding: var(--spacing-md);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--spacing-sm);
+            right: var(--spacing-sm);
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity var(--transition-subtle);
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-image {
+            width: 100%;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--color-accent);
+        }
+
+        .modal-more {
+            display: inline-block;
+            margin-top: var(--spacing-sm);
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color var(--transition-subtle);
+        }
+
+        .modal-more:hover {
+            color: var(--color-dark);
+        }
+
+        /* ==========================================================================
+           Utilities
+           ========================================================================== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Preloader override for editorial feel */
+        #preloader {
+            background: var(--color-light);
+        }
+
+        /* ==========================================================================
+           Footer Styles - Full featured
+           ========================================================================== */
+        .site-footer {
+            background: #fff;
+            padding: var(--spacing-md) var(--spacing-sm);
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-nav a {
+            color: var(--color-dark);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity var(--transition-subtle);
+        }
+
+        .footer-nav a:hover {
+            opacity: 1;
+        }
+
+        .footer-privacy {
+            border-left: 1px solid rgba(0, 0, 0, 0.2);
+            padding-left: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-social a {
+            color: var(--color-dark);
+            opacity: 0.6;
+            transition: opacity var(--transition-subtle), transform var(--transition-subtle);
+        }
+
+        .footer-social a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--color-dark);
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+            margin: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .footer-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-privacy {
+                border-left: none;
+                padding-left: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                padding-top: 1rem;
+            }
+        }
+
+        /* ==========================================================================
+           Privacy Modal Styles
+           ========================================================================== */
+        .privacy-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .privacy-modal.active {
+            display: flex;
+        }
+
+        .privacy-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .privacy-modal-content {
+            position: relative;
+            background: #fff;
+            max-width: 800px;
+            max-height: 85vh;
+            width: 90%;
+            padding: 3rem;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .privacy-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--color-muted);
+            cursor: pointer;
+            transition: color var(--transition-subtle);
+            line-height: 1;
+        }
+
+        .privacy-modal-close:hover {
+            color: var(--color-dark);
+        }
+
+        .privacy-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--color-muted);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .privacy-text p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--color-accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .privacy-closing {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .privacy-modal-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .privacy-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body id="home">
+
+    <!-- ==========================================================================
+         Preloader - keeping original for smooth loading
+         ========================================================================== -->
+    <div id="preloader">
+        <div id="preloader-status">
+            <div class="preloader-position loader">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         Header - Minimal, almost invisible navigation
+         Brand stays in background, function over form
+         ========================================================================== -->
+    <header class="site-header">
+        <a href="#home" class="header-logo-link">
+            <img src="images/logo.svg" alt="ALAKA" class="header-logo" />
+        </a>
+
+        <!-- Center navigation -->
+        <nav class="header-nav">
+            <a href="#home">ANA SAYFA</a>
+            <a href="#bak">BAK</a>
+            <a href="#oku">OKU</a>
+            <a href="#temas">TEMAS</a>
+        </nav>
+
+        <!-- Hamburger menu -->
+        <button class="navigation-toggle" data-navigation-toggle="toggle">
+            <span class="navigation-toggle-icon">
+                <span class="navigation-toggle-bars"></span>
+                <span class="navigation-toggle-bars"></span>
+                <span class="navigation-toggle-bars"></span>
+            </span>
+        </button>
+    </header>
+
+    <!-- Navigation overlay - preserved from original theme -->
+    <div class="navigation-overlay"></div>
+    <nav class="navigation">
+        <div class="center-container">
+            <div class="center-block">
+                <ul class="menu main-menu">
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="#home">ANA SAYFA</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="#bak">BAK</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="#oku">OKU</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="#temas">TEMAS</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <!-- ==========================================================================
+         BÖLÜM 1: ANASAYFA (Hero)
+         ========================================
+         Editorial Grid Showcase - MUBI/Netflix tarzı
+         Modern, asymmetric layout with featured content
+         ========================================================================== -->
+    <section class="hero-section" id="home">
+        <div class="showcase-grid">
+
+            <!-- Featured Card - Sol taraf, büyük -->
+            <article class="showcase-card featured">
+                <img src="the-wall/1-2.jpg" alt="Award-Winning Films" loading="eager" />
+                <a href="#bak" class="showcase-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </a>
+                <div class="showcase-content">
+                    <span class="showcase-label">Ödüllü Yapımlar</span>
+                    <h2 class="showcase-title">AWARD-<br>WINNING<br>FILMS</h2>
+                    <p class="showcase-subtitle">Sinematik hikâyeler ve belgeseller</p>
+                </div>
+            </article>
+
+            <!-- Card 2 - Üst sıra -->
+            <article class="showcase-card dark-card">
+                <img src="the-wall/2-2.jpg" alt="Art + Music Docs" loading="eager" />
+                <a href="#bak" class="showcase-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </a>
+                <div class="showcase-content">
+                    <span class="showcase-label">Belgesel</span>
+                    <h2 class="showcase-title">ART + MUSIC<br>DOCS</h2>
+                </div>
+            </article>
+
+            <!-- Card 3 - Üst sıra -->
+            <article class="showcase-card">
+                <img src="the-wall/3-2.jpg" alt="New + Upcoming Releases" loading="eager" />
+                <a href="#bak" class="showcase-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </a>
+                <div class="showcase-content">
+                    <span class="showcase-label">Yakında</span>
+                    <h2 class="showcase-title">NEW +<br>UPCOMING<br>RELEASES</h2>
+                </div>
+            </article>
+
+            <!-- Card 4 - Alt sıra -->
+            <article class="showcase-card">
+                <img src="the-wall/4-2.jpg" alt="The Modern Line" loading="eager" />
+                <a href="#bak" class="showcase-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </a>
+                <div class="showcase-content">
+                    <span class="showcase-label">Özel Seri</span>
+                    <h2 class="showcase-title">THE<br>MODERN<br>LINE</h2>
+                </div>
+            </article>
+
+            <!-- Card 5 - Alt sıra -->
+            <article class="showcase-card">
+                <img src="the-wall/5-2.jpg" alt="Behind The Scenes" loading="eager" />
+                <a href="#bak" class="showcase-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                </a>
+                <div class="showcase-content">
+                    <span class="showcase-label">Kamera Arkası</span>
+                    <h2 class="showcase-title">BEHIND<br>THE<br>SCENES</h2>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Ara Geçiş: Core Statement
+         ========================================
+         Ana wall'dan sonra ortada metin, üst ve alttan boşluk
+         ========================================================================== -->
+    <section class="transition-statement-section">
+        <div class="statement-wrapper">
+            <span class="statement-line"></span>
+            <p class="transition-statement">Bazı Hikâyeler Tamamlanmaz.</p>
+            <span class="statement-line"></span>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BÖLÜM 2: BAK — Programlar & Yapımlar
+         ========================================
+         Instagram 3'lü grid modeli
+         Her program için bir post gibi düşünülebilir
+         Fotoğraflar slide edilebilir
+         "Daha fazla" tıklanınca detay metni
+         ========================================================================== -->
+    <section class="bak-section" id="bak">
+
+        <!-- Section Head -->
+        <h2 class="section-head">BAK</h2>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">Tümü</button>
+            <button class="category-tab" data-category="belgesel">Belgesel</button>
+            <button class="category-tab" data-category="produksiyon">Prodüksiyon</button>
+            <button class="category-tab" data-category="sohbet">Sohbet</button>
+            <button class="category-tab" data-category="roportaj">Röportaj</button>
+        </div>
+
+        <!-- Instagram-style 3-column grid -->
+        <div class="insta-grid">
+
+            <!-- Post 1 - Röportaj (Carousel örneği) -->
+            <article class="insta-post" data-category="roportaj">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Röportaj</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">Murat Aygen'le Profesyoneller...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Alanlarında başarılı isimlerin kariyer yolculukları, dönüm noktaları ve yaşam dersleri. Her
+                            bölümde bir profesyonelin hikâyesi.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 2 - Sohbet -->
+            <article class="insta-post" data-category="sohbet">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=_sOMGLS_IAA" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Sohbet</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">ALAKA Sohbetleri...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Gündelik hayatın içinden, samimi ve düşündüren sohbetler. Konuklarımızla birlikte yaşamın
+                            farklı yüzlerini keşfediyoruz.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 3 - Prodüksiyon -->
+            <article class="insta-post" data-category="produksiyon">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/_6AYSfBg5Lw/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=vpISLKcltB4" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Prodüksiyon</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">Sahne Arkası...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Yapımların perde arkasına yolculuk. Ekibin emeklerinden set anılarına, görünmeyeni görünür
+                            kılıyoruz.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 4 - Belgesel -->
+            <article class="insta-post initially-hidden" data-category="belgesel">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=lvAGfxynzzM" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Belgesel</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">Hikâyeler...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Gerçek insanların gerçek hikâyeleri. İlham veren, dönüştüren, umut aşılayan yaşanmışlıklar.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 5 - Belgesel -->
+            <article class="insta-post initially-hidden" data-category="belgesel">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/_6AYSfBg5Lw/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=_6AYSfBg5Lw" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Belgesel</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">Belgesel...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Derinlemesine araştırılmış, titizlikle üretilmiş belgesel çalışmaları. Gerçeği arayan bir
+                            bakış açısı.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 6 - Röportaj -->
+            <article class="insta-post initially-hidden" data-category="roportaj">
+                <div class="post-media">
+                    <div class="post-slider">
+                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
+                    </div>
+                    <button class="slider-arrow prev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <button class="slider-arrow next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 6l6 6-6 6" />
+                        </svg>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="slider-dot active"></span>
+                        <span class="slider-dot"></span>
+                        <span class="slider-dot"></span>
+                    </div>
+                    <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </a>
+                    <span class="post-category-badge">Röportaj</span>
+                </div>
+                <div class="post-content">
+                    <p class="post-caption">Özel Röportaj...</p>
+                    <button class="post-more">daha fazla</button>
+                    <div class="post-detail">
+                        <p>Seçkin isimlerle derinlemesine söyleşiler. Sorularımız cesur, cevaplarımız içten.</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Tümünü Gör Butonu -->
+        <div class="view-all-container">
+            <button class="view-all-btn" id="viewAllBtn">
+                <span class="btn-text">Tümünü Gör</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+
+    </section>
+
+    <!-- Sessiz satır - Grid'in scroll devamı -->
+    <div class="quiet-line">
+        <p>Hikâyesi olmayan hiçbir şeyle alakamız yok.</p>
+    </div>
+
+    <!-- ==========================================================================
+         Manifesto Section - Editorial text between BAK and Upcoming
+         ========================================================================== -->
+    <section class="manifesto-section">
+        <div class="manifesto-content">
+            <h2 class="section-head">ALAKA MEDIA</h2>
+            <p class="manifesto-lead">Görüntülerin, seslerin ve sözcüklerin hızla tükendiği bir çağda biz, insanın
+                kendisiyle, doğayla ve birbirleriyle yeniden bağ kurabileceği hikâyeler üretiriz.</p>
+
+            <p class="manifesto-text">Her ALAKA projesi tesadüfe değil, düşünce, vicdan ve sezgiyle doğar.</p>
+
+            <p class="manifesto-text">Bu yüzden ALAKA bir marka değil, üretmenin ve anlamı çoğaltmanın yolculuğudur. Bir
+                markadan çok; bir ekosistem, bir okul, bir hatırlama alanı...</p>
+
+            <p class="manifesto-text">Bizim için her üretim bir iz bırakma sorumluluğudur. Samimiyet, estetik dürüstlük,
+                insan merkezlilik ve çeşitlilik her işimizin özüdür.</p>
+
+            <p class="manifesto-closing">Her ALAKA projesi bir cevaptan çok bir sorudur — çünkü değişim sorularla
+                başlar.</p>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BÖLÜM 3: BAK DEVAM — Upcoming Projects
+         ========================================
+         İleride film/dizi vb. projeleri için kullanılacak alan
+         Sessiz ve boşluklu bir alan
+         Şimdilik upcoming project olarak bırakılacak
+         Büyük etkileyici görsel/video
+         ========================================================================== -->
+    <section class="upcoming-section">
+        <div class="upcoming-visual">
+            <video autoplay muted loop playsinline>
+                <source src="videos/1.mp4" type="video/mp4" />
+            </video>
+        </div>
+        <div class="upcoming-content">
+            <h2 class="section-head section-head-light">UPCOMING PROJECT</h2>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BÖLÜM 4: OKU — Manifesto & Ekip
+         ========================================
+         Yaklaşım / Manifesto / Ekip
+         Editorial text blocks, magazine-style layout
+         Team as character portraits, not CVs - character-driven descriptions
+         ========================================================================== -->
+    <section class="oku-section" id="oku">
+        <div class="oku-container">
+
+            <!-- Section Head -->
+            <h2 class="section-head">OKU</h2>
+
+            <!-- Team - character portraits with editorial descriptions -->
+            <div class="team-grid">
+
+                <!-- MURAT AYGEN -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/murataygen.png" alt="Murat Aygen" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">MURAT AYGEN</h4>
+                    <p class="team-role">Kurucu & CEO, Yaratıcı Yönetmen</p>
+                    <p class="team-role-en">(Founder & CEO)</p>
+                </article>
+
+                <!-- NİHAN AYGEN -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/nihanaygen.png" alt="Nihan Aygen" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">NİHAN AYGEN</h4>
+                    <p class="team-role">Kurucu Ortak & İçerik Geliştirme Direktörü</p>
+                    <p class="team-role-en">(Co-Founder & Director of Content Development)</p>
+                </article>
+
+                <!-- KAAN TOLGA DEĞİRMENCİ -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/tolga.png" alt="Kaan Tolga Değirmenci" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">KAAN TOLGA DEĞİRMENCİ</h4>
+                    <p class="team-role">Yapımcı</p>
+                    <p class="team-role-en">(Producer & Director of Digital Operations)</p>
+                    <p class="team-bio">
+                        Üretimi yalnızca yönetmez; baştan sona tasarlar, riski daha ortaya çıkmadan çözer.
+                    </p>
+                </article>
+
+                <!-- DENİZ AKSOY -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/deniz.png" alt="Deniz Aksoy" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">DENİZ AKSOY</h4>
+                    <p class="team-role">Genel Koordinatör</p>
+                    <p class="team-role-en">(General Coordination Executive)</p>
+                    <p class="team-bio">
+                        Masada en az konuşan odur, çünkü kurduğu sistem tüm işleri yürütür. Deniz için iyi bir proje,
+                        hem doğru planlanmış hem de içinde çalışan herkesin nefes alabildiği bir projedir. Yıllar içinde
+                        farklı sektörlerde edindiği yöneticilik deneyimini şimdi ALAKA'da içerik, prodüksiyon ve
+                        operasyonu aynı ritimde tutmak için kullanıyor.
+                    </p>
+                </article>
+
+                <!-- EDA BALCI -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/eda.png" alt="Eda Balcı" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">EDA BALCI</h4>
+                    <p class="team-role">Ofis Operasyonları, Konuk İlişkileri & Makyaj Uzmanı</p>
+                    <p class="team-role-en">(Office Operations & Guest Relations Manager)</p>
+                    <p class="team-bio">
+                        Sette dengeyi tutan görünmez güç; aceleye kapılmadan işi yoluna koyar. Makyajı 'sihir' diye
+                        ciddiye alan ama işi asla kasmayan ekibimizin enerjik dokunuş ustasıdır. Setlerde fırçayla,
+                        ofiste düzenle savaşır; ikisini de şaşırtıcı bir sakinlikle kazanır. ALAKA'da her kaosun
+                        ortasında iş ortaklarına 'Hadi!' diye gülümseyen tatlı güç.
+                    </p>
+                </article>
+
+                <!-- ASLI GÖZÜTOK UZUN -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/aslı.png" alt="Aslı Gözütok Uzun" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">ASLI GÖZÜTOK UZUN</h4>
+                    <p class="team-role">Yapım Koordinatörü</p>
+                    <p class="team-role-en">(Production Coordinator)</p>
+                    <p class="team-bio">
+                        Kaosu tanır, sahneyi de bilir; bu yüzden işin en kritik anında kontrol ondadır. Setlerden büyük
+                        sahnelere uzanan Aslı; sinema, televizyon ve müzik dünyasında onlarca sanatçıyla çalışmış güçlü
+                        bir koordinasyon ustasıdır. Yirmi yılı aşan deneyimini ALAKA'da projelere sakin bir zihin, net
+                        bir yön ve çok yönlü bir üretim disipliniyle taşır.
+                    </p>
+                </article>
+
+                <!-- DEMET ÇALTEPE -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/demet.png" alt="Demet Çaltepe" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">DEMET ÇALTEPE</h4>
+                    <p class="team-role">Editör & Yayın Koordinatörü</p>
+                    <p class="team-role-en">(Publishing Coordinator & Chief Editor)</p>
+                    <p class="team-bio">
+                        Sessizdir ama keskindir; metnin söylemediğini bile görür. Demet, edebiyatla felsefeyi aynı
+                        masada buluşturup metinlere hem düzen hem ruh katan bir hikâye mimarıdır. Yayıncılıktaki uzun
+                        yolculuğunun ardından ALAKA'da içeriklerin nabzını tutuyor. Bir yandan 'Çeper'in yazarı olarak
+                        edebi anlatıların peşinde koşarken, bir yandan ALAKA'nın yeni hikayelerini dijitale açılmasını
+                        koordine ediyor.
+                    </p>
+                </article>
+
+                <!-- İBRAHİM TERBİYELİ -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/ibrahim.png" alt="İbrahim Terbiyeli" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">İBRAHİM TERBİYELİ</h4>
+                    <p class="team-role">Yönetmen & Kurgu Süpervizörü</p>
+                    <p class="team-role-en">(Director & Post-Production Supervisor)</p>
+                    <p class="team-bio">
+                        Kadrajı süslemekle ilgilenmez; hikâyenin omurgasını görüntüyle kurar.
+                    </p>
+                </article>
+
+                <!-- EMRAH DEMİRTAŞ -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/emrah.png" alt="Emrah Demirtaş" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">EMRAH DEMİRTAŞ</h4>
+                    <p class="team-role">Yönetmen & Görüntü Yönetmeni</p>
+                    <p class="team-role-en">(Director of Photography & Lead Camera Operator)</p>
+                    <p class="team-bio">
+                        Işığı teknikle değil, doğru anda yakalar; görüntüsü his bırakır.
+                    </p>
+                </article>
+
+                <!-- BAŞAK ÇALIK -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/basak.png" alt="Başak Çalık" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">BAŞAK ÇALIK</h4>
+                    <p class="team-role">Dijital Yayınlar & Sosyal Medya Uzmanı</p>
+                    <p class="team-role-en">(Digital Publishing & Social Media Specialist)</p>
+                    <p class="team-bio">
+                        Ritmi sezgisel olarak yakalar; içerik ne zaman durmalı, ne zaman hızlanmalı iyi bilir.
+                    </p>
+                </article>
+
+                <!-- SİBEL ARNA -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/sibel.png" alt="Sibel Arna" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">SİBEL ARNA</h4>
+                    <p class="team-role">Program Yapımcısı & Sunucu</p>
+                    <p class="team-role-en">(Program Producer & Host)</p>
+                </article>
+
+                <!-- SERKAN CENKER -->
+                <article class="team-member">
+                    <div class="team-portrait">
+                        <img src="images/team/serkan.png" alt="Serkan Cenker" loading="lazy" />
+                    </div>
+                    <h4 class="team-name">SERKAN CENKER</h4>
+                    <p class="team-role">Kreatif Direktör</p>
+                    <p class="team-bio">
+                        Fikir üretir, dil kurar, tonu belirler; yaratıcı sürecin tamamına hâkimdir.
+                    </p>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         BÖLÜM 5: TEMAS — İletişim
+         ========================================
+         İş birliği, başvuru, iletişim
+         No section title - just a single inviting sentence
+         Minimal form: İsim, Mail, Tek satır mesaj, Dosya yükleme
+         ========================================================================== -->
+    <section class="temas-section" id="temas">
+        <div class="temas-container">
+
+            <!-- Section Head -->
+            <h2 class="section-head section-head-light">TEMAS</h2>
+
+            <!-- Single inviting sentence -->
+            <p class="temas-intro">Birlikte düşüneceksek, yaz.</p>
+
+            <form class="contact-form" action="contact.php" method="post" enctype="multipart/form-data">
+                <div class="form-field">
+                    <input type="text" name="name" placeholder="İsim" required />
+                </div>
+
+                <div class="form-field">
+                    <input type="email" name="email" placeholder="Mail" required />
+                </div>
+
+                <div class="form-field">
+                    <input type="text" name="message" placeholder="Tek satır mesaj" />
+                </div>
+
+                <div class="file-upload">
+                    <label class="file-upload-label">
+                        <input type="file" name="attachment" />
+                        + Dosya yükle
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">Gönder</button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         Footer - Full featured with navigation, social, copyright
+         ========================================================================== -->
+    <footer class="site-footer">
+        <div class="footer-container">
+
+            <!-- Footer Navigation -->
+            <nav class="footer-nav">
+                <a href="#home">ANA SAYFA</a>
+                <a href="#bak">BAK</a>
+                <a href="#oku">OKU</a>
+                <a href="#temas">TEMAS</a>
+                <a href="#" class="footer-privacy">GİZLİLİK POLİTİKASI</a>
+            </nav>
+
+            <!-- Social Media Icons -->
+            <div class="footer-social">
+                <!-- Instagram -->
+                <a href="https://instagram.com/alaka_media" target="_blank" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                <!-- X (Twitter) -->
+                <a href="https://x.com/alaka_media" target="_blank" aria-label="X">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                </a>
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@alaka_media" target="_blank" aria-label="TikTok">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                    </svg>
+                </a>
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" aria-label="YouTube">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Copyright -->
+            <p class="footer-copyright">© 2026 ALAKA Media. Tüm hakları saklıdır.</p>
+
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         Gizlilik Politikası Modal
+         ========================================================================== -->
+    <div class="privacy-modal" id="privacyModal">
+        <div class="privacy-modal-overlay"></div>
+        <div class="privacy-modal-content">
+            <button class="privacy-modal-close" id="privacyModalClose">&times;</button>
+
+            <h2 class="privacy-title">Kişisel Verilerin Korunması</h2>
+            <h3 class="privacy-subtitle">Kişisel Verilerin Korunması ve İşlenmesi Politikası</h3>
+
+            <div class="privacy-text">
+                <p>ALAKA Media olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") ve ilgili mevzuata uygun
+                    şekilde, izleyicilerimizin, çalışanlarımızın, iş ortaklarımızın ve diğer tüm paydaşlarımızın kişisel
+                    verilerinin korunmasına büyük önem vermekteyiz. Bu kapsamda, kişisel verilerin işlenmesi, saklanması
+                    ve güvenliğinin sağlanması konularında gerekli tüm idari ve teknik tedbirleri almayı birincil
+                    önceliğimiz olarak belirledik.</p>
+
+                <h4>1. Kişisel Verilerin Toplanması ve İşlenmesi</h4>
+                <p>Kişisel veriler, faaliyetlerimizin yürütülmesi, yasal yükümlülüklerimizin yerine getirilmesi ve
+                    hizmet kalitemizin artırılması amacıyla açık rıza veya kanunda öngörülen diğer işleme şartlarına
+                    dayalı olarak toplanmaktadır. Bu veriler; sözleşmelerin ifası, hizmet süreçlerinin yürütülmesi,
+                    insan kaynakları uygulamaları ve şirket içi operasyonel faaliyetlerin düzenlenmesi için
+                    işlenmektedir.</p>
+
+                <h4>2. Kişisel Verilerin Aktarılması</h4>
+                <p>Toplanan kişisel veriler, yalnızca iş amaçlarımız doğrultusunda ve yasal çerçevede; grup
+                    şirketlerimiz, iş ortaklarımız, tedarikçilerimiz, hukuken yetkili kamu kurum ve kuruluşları ile
+                    paylaşılabilir. Verilerin üçüncü kişilere aktarımı, veri güvenliğinin sağlanması ve ilgili mevzuata
+                    uyum esas alınarak gerçekleştirilir.</p>
+
+                <h4>3. Kişisel Veri Güvenliği</h4>
+                <p>Kişisel verilerin korunması konusunda yüksek seviyede veri güvenliği standartları benimsenmiştir.
+                    Veri ihlallerini önlemek ve kişisel bilgilerin güvenliğini sağlamak amacıyla, şifreleme, erişim
+                    kontrolü, siber güvenlik tedbirleri gibi teknik önlemlerin yanı sıra, çalışanlarımızı bilinçlendiren
+                    düzenli eğitimler ve farkındalık çalışmaları yürütülmektedir.</p>
+
+                <h4>4. Haklar ve Başvuru Süreçleri</h4>
+                <p>KVKK'nın 11. maddesi uyarınca, veri sahipleri; kişisel verilerinin işlenip işlenmediğini öğrenme,
+                    işlenmişse bilgi talep etme, işleme amacını ve bu amaçlara uygun kullanılıp kullanılmadığını
+                    öğrenme, eksik veya yanlış işlenen verilerin düzeltilmesini isteme, silinmesini veya yok edilmesini
+                    talep etme haklarına sahiptir. Veri sahipleri, taleplerini yazılı olarak ya da belirlenen diğer
+                    yöntemlerle şirketimize iletebilir.</p>
+
+                <p class="privacy-closing">ALAKA Media, tüm faaliyetlerinde kişisel verilerin korunmasını yasal bir
+                    sorumluluk ve kurumsal bir ilke olarak benimsemekte, bu konuda şeffaflık ve güven esasına dayalı bir
+                    yaklaşımı sürdürmektedir. Daha fazla bilgi ve başvuru için bizimle iletişime geçebilirsiniz.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         Scripts - Minimal custom JS
+         ========================================================================== -->
+    <script src="js/be0dcb4a.js" type="text/javascript"></script>
+    <script src="js/plugins.js" type="text/javascript"></script>
+
+    <!-- Minimal custom JS for editorial interactions -->
+    <script>
+        /**
+         * ALAKA Media — Editorial Interactions
+         * =====================================
+         * Philosophy: Subtle, intentional, calm
+         * Only what's necessary, nothing more
+         */
+
+        (function () {
+            'use strict';
+
+            // =================================================================
+            // Instagram-style Carousel Slider
+            // =================================================================
+            function initCarouselSliders() {
+                const postMedias = document.querySelectorAll('.post-media');
+
+                postMedias.forEach(function (postMedia) {
+                    const slider = postMedia.querySelector('.post-slider');
+                    const images = slider.querySelectorAll('img');
+                    const prevBtn = postMedia.querySelector('.slider-arrow.prev');
+                    const nextBtn = postMedia.querySelector('.slider-arrow.next');
+                    const dots = postMedia.querySelectorAll('.slider-dot');
+
+                    // Only initialize if multiple images
+                    if (images.length <= 1) {
+                        if (prevBtn) prevBtn.style.display = 'none';
+                        if (nextBtn) nextBtn.style.display = 'none';
+                        return;
+                    }
+
+                    let currentIndex = 0;
+
+                    function goToSlide(index) {
+                        if (index < 0) index = 0;
+                        if (index >= images.length) index = images.length - 1;
+                        currentIndex = index;
+
+                        slider.scrollTo({
+                            left: slider.clientWidth * index,
+                            behavior: 'smooth'
+                        });
+
+                        // Update dots
+                        dots.forEach((dot, i) => {
+                            dot.classList.toggle('active', i === index);
+                        });
+
+                        // Update arrow visibility
+                        if (prevBtn) prevBtn.classList.toggle('hidden', index === 0);
+                        if (nextBtn) nextBtn.classList.toggle('hidden', index === images.length - 1);
+                    }
+
+                    // Arrow click handlers
+                    if (prevBtn) {
+                        prevBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            goToSlide(currentIndex - 1);
+                        });
+                    }
+
+                    if (nextBtn) {
+                        nextBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            goToSlide(currentIndex + 1);
+                        });
+                    }
+
+                    // Dot click handlers
+                    dots.forEach((dot, i) => {
+                        dot.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            goToSlide(i);
+                        });
+                    });
+
+                    // Update dots on scroll
+                    slider.addEventListener('scroll', function () {
+                        const newIndex = Math.round(slider.scrollLeft / slider.clientWidth);
+                        if (newIndex !== currentIndex) {
+                            currentIndex = newIndex;
+                            dots.forEach((dot, i) => {
+                                dot.classList.toggle('active', i === newIndex);
+                            });
+                            if (prevBtn) prevBtn.classList.toggle('hidden', newIndex === 0);
+                            if (nextBtn) nextBtn.classList.toggle('hidden', newIndex === images.length - 1);
+                        }
+                    });
+
+                    // Initial arrow state
+                    if (prevBtn) prevBtn.classList.add('hidden');
+                });
+            }
+
+            initCarouselSliders();
+
+            // =================================================================
+            // View All Button - Show/Hide Additional Posts
+            // =================================================================
+            const viewAllBtn = document.getElementById('viewAllBtn');
+            const instaGrid = document.querySelector('.insta-grid');
+            const btnText = viewAllBtn ? viewAllBtn.querySelector('.btn-text') : null;
+
+            if (viewAllBtn && instaGrid) {
+                viewAllBtn.addEventListener('click', function () {
+                    const isExpanded = instaGrid.classList.toggle('expanded');
+                    viewAllBtn.classList.toggle('expanded', isExpanded);
+
+                    if (btnText) {
+                        btnText.textContent = isExpanded ? 'Daha Az Göster' : 'Tümünü Gör';
+                    }
+
+                    // Re-init carousel sliders for newly visible posts
+                    if (isExpanded) {
+                        setTimeout(initCarouselSliders, 100);
+                    }
+                });
+            }
+
+            // =================================================================
+            // Category Tab Filtering
+            // =================================================================
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const posts = document.querySelectorAll('.insta-post');
+
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function () {
+                    // Remove active from all tabs
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    // Add active to clicked tab
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+
+                    // Filter posts
+                    posts.forEach(post => {
+                        if (category === 'all' || post.dataset.category === category) {
+                            post.classList.remove('hidden');
+                            post.style.animation = 'fadeIn 0.4s ease';
+                        } else {
+                            post.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // =================================================================
+            // Instagram-style "daha fazla" toggle
+            // =================================================================
+            document.querySelectorAll('.post-more').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const detail = this.nextElementSibling;
+                    if (detail && detail.classList.contains('post-detail')) {
+                        detail.classList.toggle('active');
+                        this.textContent = detail.classList.contains('active') ? 'daha az' : 'daha fazla';
+                    }
+                });
+            });
+
+            // =================================================================
+            // Smooth Scroll - Creates cinematic flow between sections
+            // =================================================================
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // =================================================================
+            // Header stays white - no scroll changes needed
+            // =================================================================
+            // Header is always white in this version
+
+            // =================================================================
+            // File Upload Feedback - Subtle confirmation
+            // =================================================================
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileLabel = document.querySelector('.file-upload-label');
+            const originalLabelText = fileLabel ? fileLabel.innerHTML : '';
+
+            if (fileInput && fileLabel) {
+                fileInput.addEventListener('change', function () {
+                    if (this.files.length > 0) {
+                        fileLabel.textContent = '✓ ' + this.files[0].name;
+                    } else {
+                        fileLabel.innerHTML = originalLabelText;
+                    }
+                });
+            }
+
+            // =================================================================
+            // Privacy Policy Modal
+            // =================================================================
+            const privacyModal = document.getElementById('privacyModal');
+            const privacyLink = document.querySelector('.footer-privacy');
+            const privacyClose = document.getElementById('privacyModalClose');
+            const privacyOverlay = document.querySelector('.privacy-modal-overlay');
+
+            if (privacyLink && privacyModal) {
+                privacyLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    privacyModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (privacyClose) {
+                privacyClose.addEventListener('click', function () {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            if (privacyOverlay) {
+                privacyOverlay.addEventListener('click', function () {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('active')) {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // =================================================================
+            // Team Member Bio Toggle Functionality
+            // =================================================================
+            const teamMembers = document.querySelectorAll('.team-member');
+
+            teamMembers.forEach(member => {
+                const bio = member.querySelector('.team-bio');
+                const roleNode = member.querySelector('.team-role-en') || member.querySelector('.team-role');
+
+                if (bio && roleNode) {
+                    // Create toggle button
+                    const btn = document.createElement('button');
+                    btn.className = 'team-bio-toggle';
+                    btn.textContent = 'DAHA FAZLA';
+
+                    // Add click and toggle logic
+                    btn.addEventListener('click', () => {
+                        const isActive = bio.classList.contains('active');
+
+                        // Toggle bio
+                        bio.classList.toggle('active');
+
+                        // Toggle button text
+                        btn.textContent = isActive ? 'DAHA FAZLA' : 'DAHA AZ';
+                    });
+
+                    // Insert button after role
+                    roleNode.parentNode.insertBefore(btn, roleNode.nextSibling);
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>
