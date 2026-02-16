@@ -828,7 +828,7 @@
         }
 
         .post-content {
-            padding: 1.25rem;
+            padding: 1.25rem 1.25rem 0 1.25rem;
         }
 
         .post-caption {
@@ -1179,7 +1179,6 @@
         /* Bio Toggle Styles */
         .team-bio {
             display: none;
-            /* Initially hidden */
             margin-top: 1rem;
             animation: fadeIn 0.4s ease;
         }
@@ -1189,24 +1188,34 @@
         }
 
         .team-bio-toggle {
-            display: inline-block;
-            margin-top: 0.5rem;
-            background: none;
-            border: none;
-            border-bottom: 1px solid var(--color-muted);
-            color: var(--color-dark);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.75rem;
+            background: transparent;
+            border: 1px solid var(--color-muted);
+            border-radius: 4px;
+            color: var(--color-muted);
             font-family: var(--font-primary);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            font-weight: 500;
             cursor: pointer;
-            padding: 2px 0;
+            padding: 6px 14px;
             transition: all 0.3s ease;
         }
 
         .team-bio-toggle:hover {
-            color: var(--color-muted);
-            border-color: transparent;
+            border-color: var(--color-dark);
+            color: var(--color-dark);
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .team-bio-toggle.active {
+            background: var(--color-dark);
+            color: #fff;
+            border-color: var(--color-dark);
         }
 
         /* Manifesto - editorial, cut paragraphs */
@@ -1546,6 +1555,129 @@
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
             border: 0;
+        }
+
+        /* Checkbox Styles */
+        .form-checkbox {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--color-muted);
+            user-select: none;
+        }
+
+        .checkbox-label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .custom-checkbox {
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 4px;
+            margin-right: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-label:hover input~.custom-checkbox {
+            border-color: #fff;
+        }
+
+        .checkbox-label input:checked~.custom-checkbox {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .custom-checkbox:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 5px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid var(--color-dark);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label input:checked~.custom-checkbox:after {
+            display: block;
+        }
+
+        .label-text {
+            letter-spacing: 0.05em;
+        }
+
+        .kvkk-trigger-text {
+            text-decoration: underline;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .kvkk-trigger-text:hover {
+            color: var(--color-dark);
+        }
+
+        .post-details {
+            padding: 0 1.25rem;
+            margin-top: -5px;
+        }
+
+        .post-description-toggle {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-muted);
+            border-radius: 0;
+            color: var(--color-muted);
+            cursor: pointer;
+            font-size: 0.7rem;
+            margin-top: 0;
+            text-decoration: none;
+            padding: 0 0 2px 0;
+            font-family: var(--font-primary);
+            transition: all 0.3s ease;
+            display: inline-block;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .post-description-toggle:hover {
+            color: var(--color-dark);
+            border-bottom-color: var(--color-dark);
+        }
+
+        .post-description-toggle.active {
+            color: var(--color-dark);
+            border-bottom-color: var(--color-dark);
+        }
+
+        .post-description-content {
+            display: none;
+            font-size: 0.85rem;
+            color: var(--color-text);
+            margin-top: 8px;
+            line-height: 1.5;
+            padding-bottom: 12px;
+        }
+
+        .post-description-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
         }
 
         /* Preloader override for editorial feel */
@@ -1911,73 +2043,350 @@
 
             <!-- Post 1 - Profesyoneller -->
             <!-- Post 1 - Profesyoneller -->
+            <!-- Post 1 - Profesyoneller -->
             <article class="insta-post" data-category="profesyoneller">
-                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
-                    <div class="post-media">
-                        <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
-                            style="width:100%; height:100%; object-fit:cover;" />
-                        <span class="post-category-badge">Profesyoneller</span>
+                <div class="carousel-container">
+                    <div class="carousel-counter">1/5</div>
+                    <div class="carousel-slides">
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Profesyoneller</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Profesyoneller</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Profesyoneller</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Profesyoneller</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Profesyoneller</span>
+                            </div>
+                        </a>
                     </div>
+                    <button class="carousel-btn prev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg></button>
+                    <button class="carousel-btn next"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link-caption">
                     <div class="post-content">
                         <p class="post-caption">Murat Aygen'le Profesyoneller</p>
                     </div>
                 </a>
+                <div class="post-details">
+                    <button class="post-description-toggle">Daha Fazla</button>
+                    <div class="post-description-content">
+                        <p>Profesyonellerin dünyasına yolculuk...</p>
+                    </div>
+                </div>
             </article>
 
             <!-- Post 2 - Tartıya Çıkmadan -->
+            <!-- Post 2 - Tartıya Çıkmadan -->
             <article class="insta-post" data-category="tartiya-cikmadan">
-                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
-                    <div class="post-media">
-                        <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
-                            style="width:100%; height:100%; object-fit:cover;" />
-                        <span class="post-category-badge">Tartıya Çıkmadan</span>
+                <div class="carousel-container">
+                    <div class="carousel-counter">1/5</div>
+                    <div class="carousel-slides">
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Tartıya Çıkmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Tartıya Çıkmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Tartıya Çıkmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Tartıya Çıkmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Tartıya Çıkmadan</span>
+                            </div>
+                        </a>
                     </div>
+                    <button class="carousel-btn prev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg></button>
+                    <button class="carousel-btn next"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link-caption">
                     <div class="post-content">
                         <p class="post-caption">Tartıya Çıkmadan Konuşalım</p>
                     </div>
                 </a>
+                <div class="post-details">
+                    <button class="post-description-toggle">Daha Fazla</button>
+                    <div class="post-description-content">
+                        <p>Yargılamadan, samimiyetle konuşulan bir mecra...</p>
+                    </div>
+                </div>
             </article>
 
             <!-- Post 3 - Rahat Ol -->
+            <!-- Post 3 - Rahat Ol -->
             <article class="insta-post" data-category="rahat-ol">
-                <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank" class="post-link">
-                    <div class="post-media">
-                        <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
-                            style="width:100%; height:100%; object-fit:cover;" />
-                        <span class="post-category-badge">Rahat Ol</span>
+                <div class="carousel-container">
+                    <div class="carousel-counter">1/5</div>
+                    <div class="carousel-slides">
+                        <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                            class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Rahat Ol</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                            class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Rahat Ol</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                            class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Rahat Ol</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                            class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Rahat Ol</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                            class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Rahat Ol</span>
+                            </div>
+                        </a>
                     </div>
+                    <button class="carousel-btn prev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg></button>
+                    <button class="carousel-btn next"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank"
+                    class="post-link-caption">
                     <div class="post-content">
                         <p class="post-caption">Ne Olursan Ol Rahat Ol</p>
                     </div>
                 </a>
+                <div class="post-details">
+                    <button class="post-description-toggle">Daha Fazla</button>
+                    <div class="post-description-content">
+                        <p>Rahat bir nefes, samimi bir sohbet...</p>
+                    </div>
+                </div>
             </article>
 
             <!-- Post 4 - Akademi -->
+            <!-- Post 4 - Akademi -->
             <article class="insta-post" data-category="akademi">
-                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
-                    <div class="post-media">
-                        <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
-                            style="width:100%; height:100%; object-fit:cover;" />
-                        <span class="post-category-badge">Akademi</span>
+                <div class="carousel-container">
+                    <div class="carousel-counter">1/5</div>
+                    <div class="carousel-slides">
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Akademi</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Akademi</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Akademi</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Akademi</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Akademi</span>
+                            </div>
+                        </a>
                     </div>
+                    <button class="carousel-btn prev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg></button>
+                    <button class="carousel-btn next"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link-caption">
                     <div class="post-content">
                         <p class="post-caption">Kendini Koruma Akademisi</p>
                     </div>
                 </a>
+                <div class="post-details">
+                    <button class="post-description-toggle">Daha Fazla</button>
+                    <div class="post-description-content">
+                        <p>Kendinizi korumanın ve güvende hissetmenin yolları...</p>
+                    </div>
+                </div>
             </article>
 
             <!-- Post 5 - Kırmadan -->
+            <!-- Post 5 - Kırmadan -->
             <article class="insta-post" data-category="kirmadan">
-                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
-                    <div class="post-media">
-                        <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
-                            style="width:100%; height:100%; object-fit:cover;" />
-                        <span class="post-category-badge">Kırmadan</span>
+                <div class="carousel-container">
+                    <div class="carousel-counter">1/5</div>
+                    <div class="carousel-slides">
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Kırmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Kırmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Kırmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Kırmadan</span>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
+                            <div class="post-media">
+                                <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                                    style="width:100%; height:100%; object-fit:cover;" />
+                                <span class="post-category-badge">Kırmadan</span>
+                            </div>
+                        </a>
                     </div>
+                    <button class="carousel-btn prev"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg></button>
+                    <button class="carousel-btn next"><svg viewBox="0 0 24 24" width="16" height="16" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg></button>
+                    <div class="carousel-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span
+                            class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link-caption">
                     <div class="post-content">
                         <p class="post-caption">Kırmadan Konuşalım</p>
                     </div>
                 </a>
+                <div class="post-details">
+                    <button class="post-description-toggle">Daha Fazla</button>
+                    <div class="post-description-content">
+                        <p>Kalp kırmadan, gönül alarak iletişim kurma sanatı...</p>
+                    </div>
+                </div>
             </article>
 
         </div>
@@ -1995,7 +2404,7 @@
     </section>
 
     <!-- Sessiz satır - Grid'in scroll devamı -->
-    <div class="quiet-line">
+    <div class="quiet-line" style="margin-top: 100px;">
         <p>Hikâyesi olmayan hiçbir şeyle alakamız yok.</p>
     </div>
 
@@ -2064,6 +2473,10 @@
                     <h4 class="team-name">MURAT AYGEN</h4>
                     <p class="team-role">Kurucu & CEO, Yaratıcı Yönetmen</p>
                     <p class="team-role-en">(Founder & CEO)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
+                    <p class="team-bio">
+                        Yakında...
+                    </p>
                 </article>
 
                 <!-- NİHAN AYGEN -->
@@ -2074,6 +2487,10 @@
                     <h4 class="team-name">NİHAN AYGEN</h4>
                     <p class="team-role">Kurucu Ortak & İçerik Geliştirme Direktörü</p>
                     <p class="team-role-en">(Co-Founder & Director of Content Development)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
+                    <p class="team-bio">
+                        Yakında...
+                    </p>
                 </article>
 
                 <!-- KAAN TOLGA DEĞİRMENCİ -->
@@ -2084,6 +2501,7 @@
                     <h4 class="team-name">KAAN TOLGA DEĞİRMENCİ</h4>
                     <p class="team-role">Yapımcı</p>
                     <p class="team-role-en">(Producer & Director of Digital Operations)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Üretimi yalnızca yönetmez; baştan sona tasarlar, riski daha ortaya çıkmadan çözer.
                     </p>
@@ -2097,6 +2515,7 @@
                     <h4 class="team-name">DENİZ AKSOY</h4>
                     <p class="team-role">Genel Koordinatör</p>
                     <p class="team-role-en">(General Coordination Executive)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Masada en az konuşan odur, çünkü kurduğu sistem tüm işleri yürütür. Deniz için iyi bir proje,
                         hem doğru planlanmış hem de içinde çalışan herkesin nefes alabildiği bir projedir. Yıllar içinde
@@ -2113,6 +2532,7 @@
                     <h4 class="team-name">EDA BALCI</h4>
                     <p class="team-role">Ofis Operasyonları, Konuk İlişkileri & Makyaj Uzmanı</p>
                     <p class="team-role-en">(Office Operations & Guest Relations Manager)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Sette dengeyi tutan görünmez güç; aceleye kapılmadan işi yoluna koyar. Makyajı 'sihir' diye
                         ciddiye alan ama işi asla kasmayan ekibimizin enerjik dokunuş ustasıdır. Setlerde fırçayla,
@@ -2129,6 +2549,7 @@
                     <h4 class="team-name">ASLI GÖZÜTOK UZUN</h4>
                     <p class="team-role">Yapım Koordinatörü</p>
                     <p class="team-role-en">(Production Coordinator)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Kaosu tanır, sahneyi de bilir; bu yüzden işin en kritik anında kontrol ondadır. Setlerden büyük
                         sahnelere uzanan Aslı; sinema, televizyon ve müzik dünyasında onlarca sanatçıyla çalışmış güçlü
@@ -2145,6 +2566,7 @@
                     <h4 class="team-name">DEMET ÇALTEPE</h4>
                     <p class="team-role">Editör & Yayın Koordinatörü</p>
                     <p class="team-role-en">(Publishing Coordinator & Chief Editor)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Sessizdir ama keskindir; metnin söylemediğini bile görür. Demet, edebiyatla felsefeyi aynı
                         masada buluşturup metinlere hem düzen hem ruh katan bir hikâye mimarıdır. Yayıncılıktaki uzun
@@ -2162,6 +2584,7 @@
                     <h4 class="team-name">İBRAHİM TERBİYELİ</h4>
                     <p class="team-role">Yönetmen & Kurgu Süpervizörü</p>
                     <p class="team-role-en">(Director & Post-Production Supervisor)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Kadrajı süslemekle ilgilenmez; hikâyenin omurgasını görüntüyle kurar.
                     </p>
@@ -2175,6 +2598,7 @@
                     <h4 class="team-name">EMRAH DEMİRTAŞ</h4>
                     <p class="team-role">Yönetmen & Görüntü Yönetmeni</p>
                     <p class="team-role-en">(Director of Photography & Lead Camera Operator)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Işığı teknikle değil, doğru anda yakalar; görüntüsü his bırakır.
                     </p>
@@ -2188,6 +2612,7 @@
                     <h4 class="team-name">BAŞAK ÇALIK</h4>
                     <p class="team-role">Dijital Yayınlar & Sosyal Medya Uzmanı</p>
                     <p class="team-role-en">(Digital Publishing & Social Media Specialist)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Ritmi sezgisel olarak yakalar; içerik ne zaman durmalı, ne zaman hızlanmalı iyi bilir.
                     </p>
@@ -2201,6 +2626,10 @@
                     <h4 class="team-name">SİBEL ARNA</h4>
                     <p class="team-role">Program Yapımcısı & Sunucu</p>
                     <p class="team-role-en">(Program Producer & Host)</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
+                    <p class="team-bio">
+                        Yakında...
+                    </p>
                 </article>
 
                 <!-- SERKAN CENKER -->
@@ -2210,6 +2639,7 @@
                     </div>
                     <h4 class="team-name">SERKAN CENKER</h4>
                     <p class="team-role">Kreatif Direktör</p>
+                    <button class="team-bio-toggle">DAHA FAZLA</button>
                     <p class="team-bio">
                         Fikir üretir, dil kurar, tonu belirler; yaratıcı sürecin tamamına hâkimdir.
                     </p>
@@ -2256,6 +2686,15 @@
                     </label>
                 </div>
 
+                <div class="form-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="kvkk_consent" required />
+                        <span class="custom-checkbox"></span>
+                        <span class="label-text"><span class="kvkk-trigger-text">KVKK Aydınlatma Metni</span>’ni okudum
+                            ve kabul ediyorum.</span>
+                    </label>
+                </div>
+
                 <button type="submit" class="submit-btn">Gönder</button>
             </form>
 
@@ -2274,7 +2713,8 @@
                 <a href="#bak">BAK</a>
                 <a href="#oku">OKU</a>
                 <a href="#temas">TEMAS</a>
-                <a href="#" class="footer-privacy">GİZLİLİK POLİTİKASI</a>
+                <a href="#" class="footer-privacy" id="privacyLink">GİZLİLİK POLİTİKASI</a>
+                <a href="javascript:void(0);" class="footer-privacy footer-kvkk">KVKK</a>
             </nav>
 
             <!-- Social Media Icons -->
@@ -2362,6 +2802,152 @@
                 <p class="privacy-closing">ALAKA Media, tüm faaliyetlerinde kişisel verilerin korunmasını yasal bir
                     sorumluluk ve kurumsal bir ilke olarak benimsemekte, bu konuda şeffaflık ve güven esasına dayalı bir
                     yaklaşımı sürdürmektedir. Daha fazla bilgi ve başvuru için bizimle iletişime geçebilirsiniz.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         Privacy Policy Modal
+         ========================================================================== -->
+    <div class="privacy-modal" id="privacyModal">
+        <div class="privacy-modal-overlay"></div>
+        <div class="privacy-modal-content">
+            <button class="privacy-modal-close" id="privacyModalClose">&times;</button>
+            <h2 class="privacy-title">ALAKA MEDIA</h2>
+            <h3 class="privacy-subtitle">Kişisel Verilerin Korunması ve İşlenmesi Politikası</h3>
+            <div class="privacy-text">
+                <p>Alaka Media olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) ve ilgili mevzuata uygun
+                    şekilde; iş ortaklarımızın, proje başvuru sahiplerinin, ziyaretçilerimizin, çalışanlarımızın ve tüm
+                    paydaşlarımızın kişisel verilerinin korunmasına önem veriyoruz.</p>
+                <p>Kişisel verilerin işlenmesi, saklanması ve güvenliğinin sağlanması konularında gerekli idari ve
+                    teknik tedbirleri almayı temel bir sorumluluk olarak kabul ediyoruz.</p>
+
+                <h4>1. Kişisel Verilerin Toplanması ve İşlenmesi</h4>
+                <p>Kişisel veriler; yürüttüğümüz içerik üretimi, iş birliği süreçleri, proje başvuruları, sözleşme
+                    ilişkileri ve yasal yükümlülüklerimizin yerine getirilmesi amacıyla, açık rıza veya kanunda
+                    öngörülen diğer işleme şartlarına dayanılarak toplanmaktadır.</p>
+                <p>Toplanan veriler;</p>
+                <ul>
+                    <li>Sözleşmelerin kurulması ve ifası</li>
+                    <li>İş birliği ve proje süreçlerinin yürütülmesi</li>
+                    <li>İletişim taleplerinin değerlendirilmesi</li>
+                    <li>İnsan kaynakları süreçlerinin yürütülmesi</li>
+                    <li>Şirket içi operasyonel faaliyetlerin düzenlenmesi</li>
+                </ul>
+                <p>amaçlarıyla işlenmektedir.</p>
+
+                <h4>2. Kişisel Verilerin Aktarılması</h4>
+                <p>Toplanan kişisel veriler, yalnızca faaliyetlerimizin gerektirdiği ölçüde ve yasal sınırlar
+                    içerisinde;</p>
+                <ul>
+                    <li>İş ortaklarımız</li>
+                    <li>Hizmet sağlayıcılarımız ve tedarikçilerimiz</li>
+                    <li>Hukuken yetkili kamu kurum ve kuruluşları</li>
+                </ul>
+                <p>ile paylaşılabilir.</p>
+                <p>Verilerin üçüncü kişilere aktarımında, veri güvenliği ve mevzuata uyum esas alınmaktadır.</p>
+
+                <h4>3. Kişisel Veri Güvenliği</h4>
+                <p>Alaka Media, kişisel verilerin korunması konusunda gerekli teknik ve idari güvenlik önlemlerini
+                    almaktadır.</p>
+                <p>Bu kapsamda;</p>
+                <ul>
+                    <li>Yetkisiz erişimi önleyici sistemler</li>
+                    <li>Erişim kontrol mekanizmaları</li>
+                    <li>Veri güvenliği politikaları</li>
+                    <li>Çalışanlara yönelik bilinçlendirme ve eğitim çalışmaları</li>
+                </ul>
+                <p>uygulanmaktadır.</p>
+                <p>Amaç, kişisel verilerin hukuka aykırı olarak işlenmesini ve erişilmesini önlemek, verilerin
+                    muhafazasını güvenli şekilde sağlamaktır.</p>
+
+                <h4>4. Haklar ve Başvuru Süreçleri</h4>
+                <p>KVKK’nın 11. maddesi uyarınca veri sahipleri;</p>
+                <ul>
+                    <li>Kişisel verilerinin işlenip işlenmediğini öğrenme</li>
+                    <li>İşlenmişse bilgi talep etme</li>
+                    <li>İşleme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+                    <li>Eksik veya yanlış işlenen verilerin düzeltilmesini isteme</li>
+                    <li>Silinmesini veya yok edilmesini talep etme</li>
+                    <li>İşlemenin hukuka aykırı olması halinde zararın giderilmesini talep etme</li>
+                </ul>
+                <p>haklarına sahiptir.</p>
+                <p>Bu haklara ilişkin taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak
+                    iletebilirsiniz.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         KVKK Modal
+         ========================================================================== -->
+    <div class="privacy-modal" id="kvkkModal">
+        <div class="privacy-modal-overlay"></div>
+        <div class="privacy-modal-content">
+            <button class="privacy-modal-close" id="kvkkModalClose">&times;</button>
+
+            <h2 class="privacy-title">ALAKA MEDIA</h2>
+            <h3 class="privacy-subtitle">Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni</h3>
+
+            <div class="privacy-text">
+                <h4>1. Veri Sorumlusu</h4>
+                <p>6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) uyarınca, Alaka Media (“Şirket”) olarak,
+                    kişisel verileriniz veri sorumlusu sıfatıyla aşağıda açıklanan kapsamda işlenmektedir.</p>
+
+                <h4>2. İşlenen Kişisel Veriler</h4>
+                <p>Web sitemiz üzerinden;</p>
+                <ul>
+                    <li>Ad – Soyad</li>
+                    <li>E-posta adresi</li>
+                    <li>Mesaj içeriği</li>
+                    <li>Yüklenen dosyalar</li>
+                    <li>IP adresi ve teknik erişim verileri</li>
+                </ul>
+                <p>işlenebilmektedir.</p>
+
+                <h4>3. İşleme Amaçları</h4>
+                <p>Kişisel verileriniz;</p>
+                <ul>
+                    <li>İletişim taleplerinin yanıtlanması</li>
+                    <li>İş birliği ve proje başvurularının değerlendirilmesi</li>
+                    <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+                    <li>Web sitesi güvenliğinin sağlanması</li>
+                </ul>
+                <p>amaçlarıyla işlenmektedir.</p>
+
+                <h4>4. Hukuki Sebepler</h4>
+                <p>Kişisel verileriniz;</p>
+                <ul>
+                    <li>Açık rızanızın bulunması</li>
+                    <li>Bir sözleşmenin kurulması veya ifası</li>
+                    <li>Hukuki yükümlülüklerin yerine getirilmesi</li>
+                    <li>Şirketin meşru menfaati</li>
+                </ul>
+                <p>hukuki sebeplerine dayanılarak işlenmektedir.</p>
+
+                <h4>5. Verilerin Aktarımı</h4>
+                <p>Kişisel verileriniz;</p>
+                <ul>
+                    <li>Hosting ve teknik hizmet sağlayıcılarına</li>
+                    <li>Hukuken yetkili kamu kurum ve kuruluşlarına</li>
+                </ul>
+                <p>kanuni zorunluluklar çerçevesinde aktarılabilir.</p>
+
+                <h4>6. KVKK Kapsamındaki Haklarınız</h4>
+                <p>KVKK’nın 11. maddesi kapsamında;</p>
+                <ul>
+                    <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
+                    <li>İşlenmişse bilgi talep etme</li>
+                    <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
+                    <li>Silinmesini veya yok edilmesini talep etme</li>
+                    <li>İşlemenin hukuka aykırı olması halinde zararın giderilmesini isteme</li>
+                </ul>
+                <p>haklarına sahipsiniz.</p>
+                <p>Bu kapsamda taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.
+                </p>
+
+                <h4>7. Güncelleme</h4>
+                <p>Bu metin, mevzuat değişiklikleri doğrultusunda güncellenebilir.</p>
             </div>
         </div>
     </div>
@@ -2605,6 +3191,13 @@
                 });
             }
 
+            if (kvkkOverlay) {
+                kvkkOverlay.addEventListener('click', function () {
+                    kvkkModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
             // Close modal with Escape key
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('active')) {
@@ -2613,40 +3206,514 @@
                 }
             });
 
-            // =================================================================
-            // Team Member Bio Toggle Functionality
-            // =================================================================
-            const teamMembers = document.querySelectorAll('.team-member');
-
-            teamMembers.forEach(member => {
-                const bio = member.querySelector('.team-bio');
-                const roleNode = member.querySelector('.team-role-en') || member.querySelector('.team-role');
-
-                if (bio && roleNode) {
-                    // Create toggle button
-                    const btn = document.createElement('button');
-                    btn.className = 'team-bio-toggle';
-                    btn.textContent = 'DAHA FAZLA';
-
-                    // Add click and toggle logic
-                    btn.addEventListener('click', () => {
-                        const isActive = bio.classList.contains('active');
-
-                        // Toggle bio
-                        bio.classList.toggle('active');
-
-                        // Toggle button text
-                        btn.textContent = isActive ? 'DAHA FAZLA' : 'DAHA AZ';
-                    });
-
-                    // Insert button after role
-                    roleNode.parentNode.insertBefore(btn, roleNode.nextSibling);
-                }
-            });
-
         })();
     </script>
 
+    <!-- Standalone toggle handlers - guaranteed to work independently -->
+    <script>
+        // Team Member Bio Toggle
+        document.addEventListener('click', function (e) {
+            var btn = e.target;
+            if (btn.classList.contains('team-bio-toggle')) {
+                e.preventDefault();
+                e.stopPropagation();
+                var bio = btn.nextElementSibling;
+                if (bio && bio.classList.contains('team-bio')) {
+                    var isActive = bio.classList.contains('active');
+                    if (isActive) {
+                        bio.classList.remove('active');
+                        btn.classList.remove('active');
+                        btn.textContent = 'DAHA FAZLA';
+                    } else {
+                        bio.classList.add('active');
+                        btn.classList.add('active');
+                        btn.textContent = 'DAHA AZ';
+                    }
+                }
+            }
+        });
+
+        // BAK Card Description Toggle
+        document.addEventListener('click', function (e) {
+            var btn = e.target;
+            if (btn.classList.contains('post-description-toggle')) {
+                e.preventDefault();
+                e.stopPropagation();
+                var content = btn.nextElementSibling;
+                if (content) {
+                    var isActive = content.classList.contains('active');
+                    if (isActive) {
+                        content.classList.remove('active');
+                        btn.classList.remove('active');
+                        btn.textContent = 'Daha Fazla';
+                    } else {
+                        content.classList.add('active');
+                        btn.classList.add('active');
+                        btn.textContent = 'Daha Az';
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- ==========================================================================
+         YouTube Redirect Modal
+         ========================================================================== -->
+    <div class="youtube-modal" id="youtubeModal">
+        <div class="youtube-modal-content">
+            <h3 class="youtube-modal-title">YouTube'a Yönlendiriliyorsunuz</h3>
+            <p class="youtube-modal-text">Bu bağlantı sizi YouTube'a götürecektir. Devam etmek istiyor musunuz?</p>
+            <div class="youtube-modal-actions">
+                <button class="youtube-modal-btn cancel" id="youtubeCancelBtn">İptal</button>
+                <button class="youtube-modal-btn confirm" id="youtubeConfirmBtn">Devam Et</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .youtube-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .youtube-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .youtube-modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .youtube-modal.active .youtube-modal-content {
+            transform: scale(1);
+        }
+
+        .youtube-modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .youtube-modal-text {
+            font-size: 0.95rem;
+            color: var(--color-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .youtube-modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .youtube-modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-primary);
+        }
+
+        .youtube-modal-btn.cancel {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: var(--color-muted);
+        }
+
+        .youtube-modal-btn.cancel:hover {
+            border-color: var(--color-dark);
+            color: var(--color-dark);
+        }
+
+        .youtube-modal-btn.confirm {
+            background: var(--color-dark);
+            border: 1px solid var(--color-dark);
+            color: #fff;
+        }
+
+        .youtube-modal-btn.confirm:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('youtubeModal');
+            const cancelBtn = document.getElementById('youtubeCancelBtn');
+            const confirmBtn = document.getElementById('youtubeConfirmBtn');
+            let targetUrl = '';
+
+            // Select all links inside insta-post articles (slides and captions)
+            const postLinks = document.querySelectorAll('.insta-post .post-link, .insta-post .post-link-caption');
+
+            postLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    // Get the href from the clicked link
+                    targetUrl = this.getAttribute('href');
+
+                    // Show modal
+                    modal.classList.add('active');
+                });
+            });
+
+            // Cancel button
+            cancelBtn.addEventListener('click', function () {
+                modal.classList.remove('active');
+                targetUrl = '';
+            });
+
+            // Confirm button
+            confirmBtn.addEventListener('click', function () {
+                if (targetUrl) {
+                    window.open(targetUrl, '_blank');
+                    modal.classList.remove('active');
+                    targetUrl = '';
+                }
+            });
+
+            // Close when clicking outside
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+
+            // View All Button Visibility Logic
+            const viewAllContainer = document.querySelector('.view-all-container');
+            const totalPosts = document.querySelectorAll('.insta-post').length;
+            const SHOW_MORE_THRESHOLD = 8;
+
+            if (totalPosts <= SHOW_MORE_THRESHOLD) {
+                if (viewAllContainer) {
+                    viewAllContainer.style.display = 'none';
+                }
+            } else {
+                if (viewAllContainer) {
+                    viewAllContainer.style.display = 'block';
+                }
+            }
+        });
+    </script>
+    <!-- ==========================================================================
+         Instagram-style Carousel Styles & Scripts
+         ========================================================================== -->
+    <style>
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            /* Match existing card radius if any */
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            flex: 0 0 100%;
+            /* Force 100% width */
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Caption link styling matching original look */
+        .post-link-caption {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            margin-top: 12px;
+            /* Visual separation */
+        }
+
+        .post-link-caption:hover .post-caption {
+            opacity: 0.8;
+            /* Subtle hover effect */
+        }
+
+        .carousel-counter {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            z-index: 10;
+            pointer-events: none;
+            /* Let clicks pass through if needed, though high z-index usually blocks */
+            font-family: var(--font-primary, sans-serif);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 40%;
+            /* Adjust to center vertically relative to image approx */
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            /* Hidden by default, show on hover */
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .carousel-container:hover .carousel-btn {
+            opacity: 1;
+        }
+
+        .carousel-btn:hover {
+            background: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            /* Position at bottom of image */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        /* Adjust bottom position based on content height if needed. 
+           Since structure is Image + Caption, dots usually sit on the image. 
+           The image container height in original was aspect ratio based. */
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+        }
+
+        /* Adjust caption padding/margin if inside slide */
+        /* Adjust caption padding/margin if inside slide */
+        /* .post-content rules are inherited from existing styles */
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const carousels = document.querySelectorAll('.carousel-container');
+
+            carousels.forEach(carousel => {
+                const slidesContainer = carousel.querySelector('.carousel-slides');
+                const slides = carousel.querySelectorAll('.carousel-slide');
+                const prevBtn = carousel.querySelector('.carousel-btn.prev');
+                const nextBtn = carousel.querySelector('.carousel-btn.next');
+                const counter = carousel.querySelector('.carousel-counter');
+                const dots = carousel.querySelectorAll('.dot');
+
+                let currentIndex = 0;
+                const totalSlides = slides.length;
+
+                function updateCarousel() {
+                    // Update slide position
+                    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                    // Update counter
+                    if (counter) counter.textContent = `${currentIndex + 1}/${totalSlides}`;
+
+                    // Update dots
+                    dots.forEach((dot, index) => {
+                        if (index === currentIndex) {
+                            dot.classList.add('active');
+                        } else {
+                            dot.classList.remove('active');
+                        }
+                    });
+                }
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation(); // Prevent firing card link/popup
+                        currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+                        updateCarousel();
+                    });
+                }
+
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation(); // Prevent firing card link/popup
+                        currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+                        updateCarousel();
+                    });
+                }
+
+                // Initialize
+                updateCarousel();
+            });
+
+            // Re-bind popup logic for new dynamic elements if needed, 
+            // but the previous script uses delegating or direct selection on load.
+            // Since we replaced elements, we need to make sure the popup script sees them.
+            // The previous popup script selects '.insta-post .post-link' on DOMContentLoaded.
+            // If we replace innerHTML *after* that runs, it won't bind.
+            // We should modify the popup script to use event delegation OR re-run it.
+            // Actually, since this script runs on DOMContentLoaded as well, order matters.
+            // If this runs *after* popup script, new elements exist? No, we are adding this *after*.
+            // Wait, we are editing the file to add this. The DOMContentLoaded will fire once.
+            // If we replace HTML *statically* in the file, then on page load:
+            // 1. DOM is parsed with new structure.
+            // 2. Popup script runs (selects .post-link).
+            // 3. Carousel script runs.
+            // So it should work fine because the elements are in the initial HTML.
+            // =================================================================
+            // KVKK Modal
+            // =================================================================
+            const kvkkModal = document.getElementById('kvkkModal');
+            const kvkkLink = document.querySelector('.footer-kvkk');
+            const kvkkClose = document.getElementById('kvkkModalClose');
+
+            // Re-select overlay for KVKK scope
+            const kvkkOverlay = kvkkModal ? kvkkModal.querySelector('.privacy-modal-overlay') : null;
+            const kvkkTextTrigger = document.querySelector('.kvkk-trigger-text');
+
+            if (kvkkTextTrigger && kvkkModal) {
+                kvkkTextTrigger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    kvkkModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (kvkkLink && kvkkModal) {
+                kvkkLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    kvkkModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (kvkkClose) {
+                kvkkClose.addEventListener('click', function () {
+                    kvkkModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            if (kvkkOverlay) {
+                kvkkOverlay.addEventListener('click', function () {
+                    kvkkModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            // Close KVKK with Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && kvkkModal && kvkkModal.classList.contains('active')) {
+                    kvkkModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+        });
+    </script>
+    <!-- Standalone Privacy Policy Handler - Guaranteed to work -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var privacyLink = document.getElementById('privacyLink');
+            var privacyModal = document.getElementById('privacyModal');
+            var privacyClose = document.getElementById('privacyModalClose');
+            var privacyOverlay = privacyModal ? privacyModal.querySelector('.privacy-modal-overlay') : null;
+
+            if (privacyLink && privacyModal) {
+                // Remove any existing listeners by cloning (optional but safe)
+                // Actually, just adding a new listener with stopImmediatePropagation is safer if we want to kill others,
+                // but let's just use preventDefault first.
+
+                privacyLink.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Stop bubbling to other handlers
+                    e.stopImmediatePropagation(); // Stop other listeners on this element
+
+                    privacyModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    return false;
+                });
+            }
+
+            // Close Logic
+            if (privacyClose) {
+                privacyClose.addEventListener('click', function () {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            if (privacyOverlay) {
+                privacyOverlay.addEventListener('click', function () {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && privacyModal && privacyModal.classList.contains('active')) {
+                    privacyModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
