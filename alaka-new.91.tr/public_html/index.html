@@ -67,6 +67,10 @@
             --transition-subtle: 0.3s ease;
         }
 
+        .hidden {
+            display: none !important;
+        }
+
         /* Base reset for editorial feel */
         html {
             scroll-behavior: smooth;
@@ -1823,72 +1827,71 @@
 
             <!-- Featured Card - Sol taraf, büyük -->
             <article class="showcase-card featured">
-                <img src="the-wall/1-2.jpg" alt="Award-Winning Films" loading="eager" />
+                <img src="the-wall/hero1.png" alt="Profesyöneller" loading="eager" />
                 <a href="#bak" class="showcase-play">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </a>
                 <div class="showcase-content">
-                    <span class="showcase-label">Ödüllü Yapımlar</span>
-                    <h2 class="showcase-title">AWARD-<br>WINNING<br>FILMS</h2>
-                    <p class="showcase-subtitle">Sinematik hikâyeler ve belgeseller</p>
+                    <span class="showcase-label">Murat Aygen'le</span>
+                    <h2 class="showcase-title" style="font-size: clamp(1.5rem, 3vw, 2.8rem);">PROFESYONELLER</h2>
                 </div>
             </article>
 
             <!-- Card 2 - Üst sıra -->
             <article class="showcase-card dark-card">
-                <img src="the-wall/2-2.jpg" alt="Art + Music Docs" loading="eager" />
+                <img src="the-wall/hero3.png" alt="Tartıya Çıkmadan Konuşalım" loading="eager" />
                 <a href="#bak" class="showcase-play">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </a>
                 <div class="showcase-content">
-                    <span class="showcase-label">Belgesel</span>
-                    <h2 class="showcase-title">ART + MUSIC<br>DOCS</h2>
+                    <span class="showcase-label">Sohbet</span>
+                    <h2 class="showcase-title">Tartıya<br>Çıkmadan<br>Konuşalım</h2>
                 </div>
             </article>
 
             <!-- Card 3 - Üst sıra -->
             <article class="showcase-card">
-                <img src="the-wall/3-2.jpg" alt="New + Upcoming Releases" loading="eager" />
+                <img src="the-wall/hero4.png" alt="Kırmadan Konuşalım" loading="eager" />
                 <a href="#bak" class="showcase-play">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </a>
                 <div class="showcase-content">
-                    <span class="showcase-label">Yakında</span>
-                    <h2 class="showcase-title">NEW +<br>UPCOMING<br>RELEASES</h2>
+                    <span class="showcase-label">Sohbet</span>
+                    <h2 class="showcase-title">Kırmadan<br>Konuşalım</h2>
                 </div>
             </article>
 
             <!-- Card 4 - Alt sıra -->
             <article class="showcase-card">
-                <img src="the-wall/4-2.jpg" alt="The Modern Line" loading="eager" />
+                <img src="the-wall/hero2.png" alt="Ne Olursan Ol Rahat Ol" loading="eager" />
                 <a href="#bak" class="showcase-play">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </a>
                 <div class="showcase-content">
-                    <span class="showcase-label">Özel Seri</span>
-                    <h2 class="showcase-title">THE<br>MODERN<br>LINE</h2>
+                    <span class="showcase-label">Sohbet</span>
+                    <h2 class="showcase-title">Ne Olursan<br>Ol<br>Rahat Ol</h2>
                 </div>
             </article>
 
             <!-- Card 5 - Alt sıra -->
             <article class="showcase-card">
-                <img src="the-wall/5-2.jpg" alt="Behind The Scenes" loading="eager" />
+                <img src="the-wall/hero5.png" alt="Kendini Koruma Akademisi" loading="eager" />
                 <a href="#bak" class="showcase-play">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z" />
                     </svg>
                 </a>
                 <div class="showcase-content">
-                    <span class="showcase-label">Kamera Arkası</span>
-                    <h2 class="showcase-title">BEHIND<br>THE<br>SCENES</h2>
+                    <span class="showcase-label">Akademi</span>
+                    <h2 class="showcase-title">Kendini<br>Koruma<br>Akademisi</h2>
                 </div>
             </article>
 
@@ -1924,246 +1927,85 @@
         <!-- Category Tabs -->
         <div class="category-tabs">
             <button class="category-tab active" data-category="all">Tümü</button>
-            <button class="category-tab" data-category="belgesel">Belgesel</button>
-            <button class="category-tab" data-category="produksiyon">Prodüksiyon</button>
-            <button class="category-tab" data-category="sohbet">Sohbet</button>
-            <button class="category-tab" data-category="roportaj">Röportaj</button>
+            <button class="category-tab" data-category="profesyoneller">Profesyoneller</button>
+            <button class="category-tab" data-category="tartiya-cikmadan">Tartıya Çıkmadan</button>
+            <button class="category-tab" data-category="rahat-ol">Rahat Ol</button>
+            <button class="category-tab" data-category="akademi">Akademi</button>
+            <button class="category-tab" data-category="kirmadan">Kırmadan</button>
         </div>
 
         <!-- Instagram-style 3-column grid -->
         <div class="insta-grid">
 
-            <!-- Post 1 - Röportaj (Carousel örneği) -->
-            <article class="insta-post" data-category="roportaj">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+            <!-- Post 1 - Profesyoneller -->
+            <!-- Post 1 - Profesyoneller -->
+            <article class="insta-post" data-category="profesyoneller">
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
+                    <div class="post-media">
+                        <img src="the-wall/2.png" alt="Murat Aygen'le Profesyoneller"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <span class="post-category-badge">Profesyoneller</span>
                     </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
-                        <span class="slider-dot"></span>
+                    <div class="post-content">
+                        <p class="post-caption">Murat Aygen'le Profesyoneller</p>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Röportaj</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">Murat Aygen'le Profesyoneller...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Alanlarında başarılı isimlerin kariyer yolculukları, dönüm noktaları ve yaşam dersleri. Her
-                            bölümde bir profesyonelin hikâyesi.</p>
-                    </div>
-                </div>
+                </a>
             </article>
 
-            <!-- Post 2 - Sohbet -->
-            <article class="insta-post" data-category="sohbet">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
+            <!-- Post 2 - Tartıya Çıkmadan -->
+            <article class="insta-post" data-category="tartiya-cikmadan">
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
+                    <div class="post-media">
+                        <img src="the-wall/3.png" alt="Tartıya Çıkmadan Konuşalım"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <span class="post-category-badge">Tartıya Çıkmadan</span>
                     </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
+                    <div class="post-content">
+                        <p class="post-caption">Tartıya Çıkmadan Konuşalım</p>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=_sOMGLS_IAA" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Sohbet</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">ALAKA Sohbetleri...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Gündelik hayatın içinden, samimi ve düşündüren sohbetler. Konuklarımızla birlikte yaşamın
-                            farklı yüzlerini keşfediyoruz.</p>
-                    </div>
-                </div>
+                </a>
             </article>
 
-            <!-- Post 3 - Prodüksiyon -->
-            <article class="insta-post" data-category="produksiyon">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/_6AYSfBg5Lw/maxresdefault.jpg" alt="" loading="lazy" />
+            <!-- Post 3 - Rahat Ol -->
+            <article class="insta-post" data-category="rahat-ol">
+                <a href="https://www.youtube.com/channel/UCfmcIZ4_XFSo9Hj4ByA262A" target="_blank" class="post-link">
+                    <div class="post-media">
+                        <img src="the-wall/1.png" alt="Ne Olursan Ol Rahat Ol"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <span class="post-category-badge">Rahat Ol</span>
                     </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
-                        <span class="slider-dot"></span>
+                    <div class="post-content">
+                        <p class="post-caption">Ne Olursan Ol Rahat Ol</p>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=vpISLKcltB4" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Prodüksiyon</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">Sahne Arkası...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Yapımların perde arkasına yolculuk. Ekibin emeklerinden set anılarına, görünmeyeni görünür
-                            kılıyoruz.</p>
-                    </div>
-                </div>
+                </a>
             </article>
 
-            <!-- Post 4 - Belgesel -->
-            <article class="insta-post initially-hidden" data-category="belgesel">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+            <!-- Post 4 - Akademi -->
+            <article class="insta-post" data-category="akademi">
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
+                    <div class="post-media">
+                        <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <span class="post-category-badge">Akademi</span>
                     </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
+                    <div class="post-content">
+                        <p class="post-caption">Kendini Koruma Akademisi</p>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=lvAGfxynzzM" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Belgesel</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">Hikâyeler...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Gerçek insanların gerçek hikâyeleri. İlham veren, dönüştüren, umut aşılayan yaşanmışlıklar.
-                        </p>
-                    </div>
-                </div>
+                </a>
             </article>
 
-            <!-- Post 5 - Belgesel -->
-            <article class="insta-post initially-hidden" data-category="belgesel">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/_6AYSfBg5Lw/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+            <!-- Post 5 - Kırmadan -->
+            <article class="insta-post" data-category="kirmadan">
+                <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link">
+                    <div class="post-media">
+                        <img src="the-wall/4.png" alt="Kırmadan Konuşalım"
+                            style="width:100%; height:100%; object-fit:cover;" />
+                        <span class="post-category-badge">Kırmadan</span>
                     </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
+                    <div class="post-content">
+                        <p class="post-caption">Kırmadan Konuşalım</p>
                     </div>
-                    <a href="https://www.youtube.com/watch?v=_6AYSfBg5Lw" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Belgesel</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">Belgesel...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Derinlemesine araştırılmış, titizlikle üretilmiş belgesel çalışmaları. Gerçeği arayan bir
-                            bakış açısı.</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Post 6 - Röportaj -->
-            <article class="insta-post initially-hidden" data-category="roportaj">
-                <div class="post-media">
-                    <div class="post-slider">
-                        <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
-                        <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
-                    </div>
-                    <button class="slider-arrow prev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <button class="slider-arrow next">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 6l6 6-6 6" />
-                        </svg>
-                    </button>
-                    <div class="slider-dots">
-                        <span class="slider-dot active"></span>
-                        <span class="slider-dot"></span>
-                        <span class="slider-dot"></span>
-                    </div>
-                    <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </a>
-                    <span class="post-category-badge">Röportaj</span>
-                </div>
-                <div class="post-content">
-                    <p class="post-caption">Özel Röportaj...</p>
-                    <button class="post-more">daha fazla</button>
-                    <div class="post-detail">
-                        <p>Seçkin isimlerle derinlemesine söyleşiler. Sorularımız cesur, cevaplarımız içten.</p>
-                    </div>
-                </div>
+                </a>
             </article>
 
         </div>
