@@ -959,16 +959,18 @@
         }
 
         .quiet-line p {
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 1.5rem;
             font-family: 'Playfair Display', 'Times New Roman', serif;
             font-size: clamp(1rem, 1.8vw, 1.3rem);
             font-weight: 400;
             font-style: italic;
             color: var(--color-muted);
-            margin: 0;
+            margin: 0 auto;
             letter-spacing: 0.03em;
+            max-width: 100%;
         }
 
         .quiet-line p::before,
@@ -1884,6 +1886,56 @@
                 font-size: 1.25rem;
             }
         }
+
+        @media (max-width: 768px) {
+            .oku-section {
+                padding: 3rem 1.25rem 2.5rem;
+            }
+
+            .quiet-line {
+                padding: 0.5rem 1rem;
+                margin-bottom: 1rem !important;
+                text-align: center;
+            }
+
+            .quiet-line p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .quiet-line p::before,
+            .quiet-line p::after {
+                width: 30px;
+                flex-shrink: 0;
+            }
+
+            .manifesto-content {
+                margin-bottom: 2rem !important;
+            }
+
+            .manifesto-content .section-head {
+                margin-bottom: 1.25rem;
+                letter-spacing: 0.15em;
+                font-size: clamp(1.6rem, 8vw, 2.5rem);
+            }
+
+            .section-head {
+                padding-top: 0.5rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .transition-statement-section {
+                padding: 1.5rem 1.25rem;
+            }
+
+            .bak-section {
+                padding: 1.5rem 0 0 0;
+            }
+        }
     </style>
 </head>
 
@@ -1934,16 +1986,16 @@
             <div class="center-block">
                 <ul class="menu main-menu">
                     <li class="menu-item">
-                        <a class="menu-link link-underline-menu" href="#home">ANA SAYFA</a>
+                        <a class="menu-link link-underline-menu" href="#home" data-scroll-section="home">ANA SAYFA</a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link link-underline-menu" href="#bak">BAK</a>
+                        <a class="menu-link link-underline-menu" href="#bak" data-scroll-section="bak">BAK</a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link link-underline-menu" href="#oku">OKU</a>
+                        <a class="menu-link link-underline-menu" href="#oku" data-scroll-section="oku">OKU</a>
                     </li>
                     <li class="menu-item">
-                        <a class="menu-link link-underline-menu" href="#temas">TEMAS</a>
+                        <a class="menu-link link-underline-menu" href="#temas" data-scroll-section="temas">TEMAS</a>
                     </li>
                 </ul>
             </div>
@@ -2004,7 +2056,7 @@
 
             <!-- Card 5 - Alt sıra -->
             <article class="showcase-card" style="cursor:pointer;" onclick="location.href='#post-akademi'">
-                <img src="the-wall/hero5.png" alt="Dünyanın Parmak İzi" loading="eager" />
+                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi" loading="eager" />
 
                 <div class="showcase-content">
                     <span class="showcase-label">Mini Belgesel</span>
@@ -2280,35 +2332,35 @@
                     <div class="carousel-slides">
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Akademi</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Akademi</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Akademi</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Akademi</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/5.png" alt="Kendini Koruma Akademisi"
+                                <img src="the-wall/hero5-kk.png" alt="Dünyanın Parmak İzi"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Akademi</span>
                             </div>
@@ -2554,7 +2606,7 @@
                 <!-- ASLI GÖZÜTOK UZUN -->
                 <article class="team-member">
                     <div class="team-portrait">
-                        <img src="images/team/aslı.png" alt="Aslı Gözütok Uzun" loading="lazy" />
+                        <img src="images/team/asli.png" alt="Aslı Gözütok Uzun" loading="lazy" />
                     </div>
                     <h4 class="team-name">ASLI GÖZÜTOK UZUN</h4>
                     <p class="team-role">Yapım Koordinatörü</p>
@@ -3132,6 +3184,14 @@
                     const href = this.getAttribute('href');
                     if (href !== '#') {
                         e.preventDefault();
+                        // Close mobile nav menu if open
+                        if (this.classList.contains('menu-link')) {
+                            document.body.classList.remove('menu-open');
+                            const nav = document.querySelector('.navigation');
+                            if (nav) nav.style.display = 'none';
+                            const toggleBtn = document.querySelector('.navigation-toggle');
+                            if (toggleBtn) toggleBtn.classList.remove('navigation-toggle-closer');
+                        }
                         const target = document.querySelector(href);
                         if (target) {
                             target.scrollIntoView({
