@@ -2187,28 +2187,28 @@
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/tçk1.png" alt="Tartıya Çıkmadan Konuşalım"
+                                <img src="the-wall/tck1.png" alt="Tartıya Çıkmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Tartıya Çıkmadan</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/tçk2.png" alt="Tartıya Çıkmadan Konuşalım"
+                                <img src="the-wall/tck2.png" alt="Tartıya Çıkmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Tartıya Çıkmadan</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/tçk3.png" alt="Tartıya Çıkmadan Konuşalım"
+                                <img src="the-wall/tck3.png" alt="Tartıya Çıkmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Tartıya Çıkmadan</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/tçk4.png" alt="Tartıya Çıkmadan Konuşalım"
+                                <img src="the-wall/tck4.png" alt="Tartıya Çıkmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Tartıya Çıkmadan</span>
                             </div>
@@ -2406,21 +2406,21 @@
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/kırko.png" alt="Kırmadan Konuşalım"
+                                <img src="the-wall/kirko.png" alt="Kırmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Kırmadan</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/kırko2.png" alt="Kırmadan Konuşalım"
+                                <img src="the-wall/kirko2.png" alt="Kırmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Kırmadan</span>
                             </div>
                         </a>
                         <a href="https://www.youtube.com/@ALAKA_Media" target="_blank" class="post-link carousel-slide">
                             <div class="post-media">
-                                <img src="the-wall/kırko3.png" alt="Kırmadan Konuşalım"
+                                <img src="the-wall/kirko3.png" alt="Kırmadan Konuşalım"
                                     style="width:100%; height:100%; object-fit:cover;" />
                                 <span class="post-category-badge">Kırmadan</span>
                             </div>
@@ -3623,45 +3623,96 @@
                 const counter = carousel.querySelector('.carousel-counter');
                 const dots = carousel.querySelectorAll('.dot');
 
+                if (!slidesContainer || slides.length === 0) return;
+
                 let currentIndex = 0;
                 const totalSlides = slides.length;
 
                 function updateCarousel() {
-                    // Update slide position
                     slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-
-                    // Update counter
                     if (counter) counter.textContent = `${currentIndex + 1}/${totalSlides}`;
-
-                    // Update dots
                     dots.forEach((dot, index) => {
-                        if (index === currentIndex) {
-                            dot.classList.add('active');
-                        } else {
-                            dot.classList.remove('active');
-                        }
+                        dot.classList.toggle('active', index === currentIndex);
                     });
+                }
+
+                function goNext() {
+                    currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
+                    updateCarousel();
+                }
+
+                function goPrev() {
+                    currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
+                    updateCarousel();
                 }
 
                 if (prevBtn) {
                     prevBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        e.stopPropagation(); // Prevent firing card link/popup
-                        currentIndex = (currentIndex === 0) ? totalSlides - 1 : currentIndex - 1;
-                        updateCarousel();
+                        e.stopPropagation();
+                        goPrev();
+                        resetAutoSlide();
                     });
                 }
 
                 if (nextBtn) {
                     nextBtn.addEventListener('click', (e) => {
                         e.preventDefault();
-                        e.stopPropagation(); // Prevent firing card link/popup
-                        currentIndex = (currentIndex === totalSlides - 1) ? 0 : currentIndex + 1;
-                        updateCarousel();
+                        e.stopPropagation();
+                        goNext();
+                        resetAutoSlide();
                     });
                 }
 
-                // Initialize
+                // Touch swipe desteği
+                let touchStartX = 0;
+                let touchEndX = 0;
+
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].clientX;
+                }, { passive: true });
+
+                carousel.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].clientX;
+                    const diff = touchStartX - touchEndX;
+                    if (Math.abs(diff) > 40) {
+                        if (diff > 0) goNext();
+                        else goPrev();
+                        resetAutoSlide();
+                    }
+                }, { passive: true });
+
+                // Auto-slide
+                let autoSlideTimer = null;
+                const isMobile = () => window.innerWidth <= 768;
+
+                function startAutoSlide() {
+                    if (!isMobile()) return;
+                    if (autoSlideTimer) clearInterval(autoSlideTimer);
+                    autoSlideTimer = setInterval(goNext, 2500);
+                }
+
+                function resetAutoSlide() {
+                    startAutoSlide();
+                }
+
+                // Masaüstünde hover'da durdur
+                carousel.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+                carousel.addEventListener('mouseleave', () => startAutoSlide());
+
+                // Ekrana girince başlat (sadece mobilde)
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) startAutoSlide();
+                            else clearInterval(autoSlideTimer);
+                        });
+                    }, { threshold: 0.2 });
+                    observer.observe(carousel);
+                } else {
+                    startAutoSlide();
+                }
+
                 updateCarousel();
             });
 
