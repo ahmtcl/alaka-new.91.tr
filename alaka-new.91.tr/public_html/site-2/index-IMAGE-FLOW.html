@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <title>ALAKA Media — Hikâyesi olmayan hiçbir şeyle alakamız yok.</title>
+    <meta name="description" content="Bazı hikâyeler tamamlanmaz. ALAKA Media — sinematik görsel hikâyeler ve yapımlar." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    
+    <!-- Styles - paths fixed for site-2 folder -->
+    <link href="../css/plugins.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../css/style.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../css/f13db92b_649838.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Editorial Styles -->
+    <style>
+        /* ==========================================================================
+           ALAKA Editorial Styles
+           ========================================================================== */
+        
+        :root {
+            --color-dark: #1a1a1a;
+            --color-light: #f5f5f3;
+            --color-muted: #8a8a8a;
+            --color-accent: #2c2c2c;
+            --font-primary: 'Raleway', sans-serif;
+            --spacing-xs: 1rem;
+            --spacing-sm: 2rem;
+            --spacing-md: 4rem;
+            --spacing-lg: 8rem;
+            --spacing-xl: 12rem;
+            --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-subtle: 0.3s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: var(--color-light);
+            color: var(--color-dark);
+            overflow-x: hidden;
+        }
+        
+        /* ==========================================================================
+           Fixed Hamburger Menu Button
+           ========================================================================== */
+        .fixed-menu-btn {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 200;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .fixed-menu-btn .navigation-toggle-bars {
+            background: #1a1a1a;
+        }
+        
+        /* ==========================================================================
+           Center Logo & Nav (Hero Area) - In the middle white space
+           ========================================================================== */
+        .home-page {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .home-page .center-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+            text-align: center;
+            pointer-events: auto;
+        }
+        
+        .home-page .center-block {
+            background: transparent;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .center-logo {
+            max-width: 120px;
+            height: auto;
+            filter: brightness(0);
+        }
+        
+        .center-nav {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .center-nav a {
+            color: var(--color-dark);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: opacity var(--transition-subtle);
+        }
+        
+        .center-nav a:hover {
+            opacity: 0.6;
+        }
+        
+        @media (max-width: 768px) {
+            .center-block {
+                padding: 1.5rem;
+            }
+            .center-logo {
+                max-width: 100px;
+            }
+            .center-nav {
+                gap: 1.5rem;
+            }
+            .center-nav a {
+                font-size: 0.65rem;
+            }
+        }
+        
+        /* ==========================================================================
+           Section Heads
+           ========================================================================== */
+        .section-head {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-dark);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            padding-top: var(--spacing-md);
+        }
+        
+        .section-head-light {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* ==========================================================================
+           BAK Section - Instagram Grid
+           ========================================================================== */
+        .bak-section {
+            padding: var(--spacing-md) 0 0 0;
+            background: var(--color-light);
+        }
+        
+        .insta-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #dbdbdb;
+        }
+        
+        @media (min-width: 600px) {
+            .insta-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 900px) {
+            .insta-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .insta-post {
+            background: #fff;
+        }
+        
+        .post-media {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+        }
+        
+        .post-slider {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .post-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .post-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .post-media:hover .post-play {
+            opacity: 1;
+        }
+        
+        .post-play svg {
+            width: 28px;
+            height: 28px;
+            color: #fff;
+            margin-left: 4px;
+        }
+        
+        .post-play:hover {
+            background: rgba(0,0,0,0.8);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .post-content {
+            padding: 1rem;
+        }
+        
+        .post-caption {
+            font-size: 0.9rem;
+            color: var(--color-dark);
+            line-height: 1.5;
+            margin: 0;
+        }
+        
+        .post-more {
+            background: none;
+            border: none;
+            color: var(--color-muted);
+            font-size: 0.85rem;
+            padding: 0;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            font-family: var(--font-primary);
+        }
+        
+        .post-more:hover {
+            color: var(--color-dark);
+        }
+        
+        .post-detail {
+            display: none;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .post-detail.active {
+            display: block;
+        }
+        
+        .post-detail p {
+            font-size: 0.85rem;
+            color: var(--color-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* Quiet line */
+        .quiet-line {
+            padding: var(--spacing-md) var(--spacing-sm);
+            background: var(--color-light);
+        }
+        
+        .quiet-line p {
+            font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--color-muted);
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0.7;
+        }
+        
+        /* ==========================================================================
+           Manifesto Section
+           ========================================================================== */
+        .manifesto-section {
+            padding: var(--spacing-xl) var(--spacing-sm);
+            background: var(--color-light);
+        }
+        
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .manifesto-lead {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--color-dark);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .manifesto-text {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            font-weight: 300;
+            line-height: 1.9;
+            color: var(--color-muted);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .manifesto-closing {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--color-dark);
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        /* ==========================================================================
+           Transition Statement
+           ========================================================================== */
+        .transition-statement-section {
+            padding: var(--spacing-xl) var(--spacing-sm);
+            background: var(--color-light);
+            text-align: center;
+        }
+        
+        .transition-statement {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            font-style: normal;
+            text-transform: uppercase;
+            color: var(--color-dark);
+            max-width: 1000px;
+            margin: 0 auto;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        
+        /* ==========================================================================
+           Upcoming Section
+           ========================================================================== */
+        .upcoming-section {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-dark);
+            overflow: hidden;
+        }
+        
+        .upcoming-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+        }
+        
+        .upcoming-visual img,
+        .upcoming-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .upcoming-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: var(--spacing-md);
+        }
+        
+        /* ==========================================================================
+           OKU Section - Team Carousel
+           ========================================================================== */
+        .oku-section {
+            padding: var(--spacing-xl) 0;
+            background: #fff;
+        }
+        
+        .oku-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .oku-section .section-head {
+            padding-left: var(--spacing-sm);
+            padding-right: var(--spacing-sm);
+        }
+        
+        .team-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 2rem;
+            padding-bottom: 3rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .team-carousel::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .team-carousel::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 3px;
+        }
+        
+        .team-carousel::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+        
+        .team-carousel::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
+        }
+        
+        .team-card {
+            flex: 0 0 280px;
+            scroll-snap-align: start;
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-card:first-child {
+            margin-left: calc((100vw - 1200px) / 2);
+        }
+        
+        @media (max-width: 1200px) {
+            .team-card:first-child {
+                margin-left: 1rem;
+            }
+        }
+        
+        .team-card:last-child {
+            margin-right: 2rem;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .team-card-image {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+        }
+        
+        .team-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-card:hover .team-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+            color: #fff;
+        }
+        
+        .team-card-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 0 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .team-card-role {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+        }
+        
+        .team-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 1rem 1.25rem;
+            background: #fff;
+        }
+        
+        .team-tag {
+            font-size: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            background: #f0f0f0;
+            border-radius: 20px;
+            color: var(--color-dark);
+        }
+        
+        /* Carousel navigation dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .carousel-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: #3b82f6;
+        }
+        
+        /* ==========================================================================
+           TEMAS Section - Contact
+           ========================================================================== */
+        .temas-section {
+            padding: var(--spacing-xl) var(--spacing-sm);
+            background: var(--color-dark);
+            color: #fff;
+        }
+        
+        .temas-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .temas-intro {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-lg);
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+        
+        .form-field input,
+        .form-field textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 1rem 0;
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            color: #fff;
+            transition: border-color var(--transition-subtle);
+        }
+        
+        .form-field input::placeholder,
+        .form-field textarea::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .form-field input:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.6);
+        }
+        
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .file-upload-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: color var(--transition-subtle);
+        }
+        
+        .file-upload-label:hover {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .submit-btn {
+            margin-top: var(--spacing-sm);
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.7);
+            font-family: var(--font-primary);
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all var(--transition-subtle);
+            align-self: flex-start;
+        }
+        
+        .submit-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.5);
+            color: #fff;
+        }
+        
+        /* ==========================================================================
+           Footer
+           ========================================================================== */
+        .site-footer {
+            padding: var(--spacing-lg) var(--spacing-sm);
+            background: var(--color-dark);
+            text-align: center;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .footer-social a {
+            color: #fff;
+            opacity: 0.7;
+            transition: opacity var(--transition-subtle);
+        }
+        
+        .footer-social a:hover {
+            opacity: 1;
+        }
+        
+        /* Preloader override */
+        #preloader {
+            background: var(--color-light);
+        }
+    </style>
+</head>
+
+<body id="home">
+    
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="preloader-status">
+            <div class="preloader-position loader">
+                <span></span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hamburger Menu Button (top right) -->
+    <button class="navigation-toggle fixed-menu-btn" data-navigation-toggle="toggle">
+        <span class="navigation-toggle-icon">
+            <span class="navigation-toggle-bars"></span>
+            <span class="navigation-toggle-bars"></span>
+            <span class="navigation-toggle-bars"></span>
+        </span>
+    </button>
+    
+    <!-- Navigation overlay -->
+    <div class="navigation-overlay"></div>
+    <nav class="navigation">
+        <div class="center-container">
+            <div class="center-block">
+                <ul class="menu main-menu">
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="../index.html">Versiyon 1</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="../index-2-alternatif.html">Versiyon 2</a>
+                    </li>
+                    <li class="menu-item">
+                        <a class="menu-link link-underline-menu" href="index-IMAGE-FLOW.html">Image Flow</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ==========================================================================
+         HERO - IMAGE FLOW SLIDER (Preserved from original)
+         ========================================================================== -->
+    <div class="home-page dark-logo" id="hero">
+        <div class="hero-fullscreen">
+            <!-- imgFlow start -->
+            <div class="flow-container1">
+                <div class="flow-container">
+                    <ul class="flow-images">
+                        <li><img alt="Flow IMG" src="../the-wall/1.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/2.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/3.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/4.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/1.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/2.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/3.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/4.jpg"/></li>
+                    </ul>
+                    <ul class="flow-images">
+                        <li><img alt="Flow IMG" src="../the-wall/5.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/6.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/7.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/8.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/5.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/6.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/7.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/8.jpg"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flow-container2">
+                <div class="flow-container">
+                    <ul class="flow-images">
+                        <li><img alt="Flow IMG" src="../the-wall/9.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/10.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/11.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/12.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/9.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/10.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/11.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/12.jpg"/></li>
+                    </ul>
+                    <ul class="flow-images">
+                        <li><img alt="Flow IMG" src="../the-wall/13.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/14.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/15.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/16.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/13.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/14.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/15.jpg"/></li>
+                        <li><img alt="Flow IMG" src="../the-wall/16.jpg"/></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- imgFlow end -->
+        </div>
+        <div class="home-page-overlay-gradient light"></div>
+        
+        <!-- Center Logo & Nav -->
+        <div class="center-container">
+            <div class="center-block">
+                <img src="../images/logo.svg" alt="ALAKA" class="center-logo" />
+                <nav class="center-nav">
+                    <a href="#bak">BAK</a>
+                    <a href="#oku">OKU</a>
+                    <a href="#temas">TEMAS</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ==========================================================================
+         CONTENT SECTIONS (From main index.html)
+         ========================================================================== -->
+    <div class="page-wrapper">
+        
+        <!-- Transition Statement -->
+        <section class="transition-statement-section">
+            <p class="transition-statement">BAZI HİKÂYELER TAMAMLANMAZ.</p>
+        </section>
+        
+        <!-- BAK Section -->
+        <section class="bak-section" id="bak">
+            <h2 class="section-head">BAK</h2>
+            
+            <div class="insta-grid">
+                
+                <!-- Post 1 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">Murat Aygen'le Profesyoneller...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Alanlarında başarılı isimlerin kariyer yolculukları, dönüm noktaları ve yaşam dersleri. Her bölümde bir profesyonelin hikâyesi.</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Post 2 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/_sOMGLS_IAA/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=_sOMGLS_IAA" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">ALAKA Sohbetleri...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Gündelik hayatın içinden, samimi ve düşündüren sohbetler. Konuklarımızla birlikte yaşamın farklı yüzlerini keşfediyoruz.</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Post 3 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/vpISLKcltB4/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=vpISLKcltB4" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">Sahne Arkası...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Yapımların perde arkasına yolculuk. Ekibin emeklerinden set anılarına, görünmeyeni görünür kılıyoruz.</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Post 4 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/lvAGfxynzzM/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=lvAGfxynzzM" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">Hikâyeler...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Gerçek insanların gerçek hikâyeleri. İlham veren, dönüştüren, umut aşılayan yaşanmışlıklar.</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Post 5 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/_6AYSfBg5Lw/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=_6AYSfBg5Lw" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">Belgesel...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Derinlemesine araştırılmış, titizlikle üretilmiş belgesel çalışmaları. Gerçeği arayan bir bakış açısı.</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Post 6 -->
+                <article class="insta-post">
+                    <div class="post-media">
+                        <div class="post-slider">
+                            <img src="https://img.youtube.com/vi/y0R4wvy-HSk/maxresdefault.jpg" alt="" loading="lazy" />
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=y0R4wvy-HSk" target="_blank" class="post-play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </a>
+                    </div>
+                    <div class="post-content">
+                        <p class="post-caption">Özel Röportaj...</p>
+                        <button class="post-more">daha fazla</button>
+                        <div class="post-detail">
+                            <p>Seçkin isimlerle derinlemesine söyleşiler. Sorularımız cesur, cevaplarımız içten.</p>
+                        </div>
+                    </div>
+                </article>
+                
+            </div>
+        </section>
+        
+        <!-- Quiet Line -->
+        <div class="quiet-line">
+            <p>Hikâyesi olmayan hiçbir şeyle alakamız yok.</p>
+        </div>
+        
+        <!-- Manifesto Section -->
+        <section class="manifesto-section">
+            <div class="manifesto-content">
+                <h2 class="section-head">ALAKA MEDIA</h2>
+                <p class="manifesto-lead">Görüntülerin, seslerin ve sözcüklerin hızla tükendiği bir çağda biz, insanın kendisiyle, doğayla ve birbirleriyle yeniden bağ kurabileceği hikâyeler üretiriz.</p>
+                
+                <p class="manifesto-text">Her ALAKA projesi tesadüfe değil, düşünce, vicdan ve sezgiyle doğar.</p>
+                
+                <p class="manifesto-text">Bu yüzden ALAKA bir marka değil, üretmenin ve anlamı çoğaltmanın yolculuğudur. Bir markadan çok; bir ekosistem, bir okul, bir hatırlama alanı...</p>
+                
+                <p class="manifesto-text">Bizim için her üretim bir iz bırakma sorumluluğudur. Samimiyet, estetik dürüstlük, insan merkezlilik ve çeşitlilik her işimizin özüdür.</p>
+                
+                <p class="manifesto-closing">Her ALAKA projesi bir cevaptan çok bir sorudur — çünkü değişim sorularla başlar.</p>
+            </div>
+        </section>
+        
+        <!-- Upcoming Section -->
+        <section class="upcoming-section">
+            <div class="upcoming-visual">
+                <video autoplay muted loop playsinline>
+                    <source src="../videos/1.mp4" type="video/mp4" />
+                </video>
+            </div>
+            <div class="upcoming-content">
+                <h2 class="section-head section-head-light">UPCOMING PROJECT</h2>
+            </div>
+        </section>
+        
+        <!-- OKU Section - Team Carousel -->
+        <section class="oku-section" id="oku">
+            <div class="oku-container">
+                <h2 class="section-head">OKU</h2>
+                
+                <div class="team-carousel">
+                    
+                    <!-- MURAT AYGEN -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../images/team/murat-aygen.webp" alt="Murat Aygen" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Murat A.</h4>
+                                <p class="team-card-role">Kurucu & CEO</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Yaratıcı Yönetmen</span>
+                            <span class="team-tag">Yapımcı</span>
+                        </div>
+                    </article>
+                    
+                    <!-- NİHAN AYGEN -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../images/team/nihan-aygen.webp" alt="Nihan Aygen" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Nihan A.</h4>
+                                <p class="team-card-role">Kurucu Ortak</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">İçerik Geliştirme</span>
+                            <span class="team-tag">Strateji</span>
+                        </div>
+                    </article>
+                    
+                    <!-- KAAN TOLGA DEĞİRMENCİ -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../images/team/kaan-tolga-degirmenci.webp" alt="Kaan Tolga Değirmenci" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Kaan T.</h4>
+                                <p class="team-card-role">Yapımcı</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Dijital Operasyonlar</span>
+                            <span class="team-tag">Prodüksiyon</span>
+                        </div>
+                    </article>
+                    
+                    <!-- DENİZ AKSOY -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/14.jpg" alt="Deniz Aksoy" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Deniz A.</h4>
+                                <p class="team-card-role">Genel Koordinatör</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Koordinasyon</span>
+                            <span class="team-tag">Yönetim</span>
+                        </div>
+                    </article>
+                    
+                    <!-- EDA BALCI -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/15.jpg" alt="Eda Balcı" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Eda B.</h4>
+                                <p class="team-card-role">Ofis Operasyonları</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Konuk İlişkileri</span>
+                            <span class="team-tag">Makyaj</span>
+                        </div>
+                    </article>
+                    
+                    <!-- ASLI GÖZÜTOK UZUN -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/16.jpg" alt="Aslı Gözütok Uzun" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Aslı G.</h4>
+                                <p class="team-card-role">Yapım Koordinatörü</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Prodüksiyon</span>
+                            <span class="team-tag">Planlama</span>
+                        </div>
+                    </article>
+                    
+                    <!-- DEMET ÇALTEPE -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/17.jpg" alt="Demet Çaltepe" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Demet Ç.</h4>
+                                <p class="team-card-role">Editör</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Yayın Koordinasyonu</span>
+                            <span class="team-tag">İçerik</span>
+                        </div>
+                    </article>
+                    
+                    <!-- İBRAHİM TERBİYELİ -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/18.jpg" alt="İbrahim Terbiyeli" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">İbrahim T.</h4>
+                                <p class="team-card-role">Yönetmen</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Kurgu</span>
+                            <span class="team-tag">Post-Prodüksiyon</span>
+                        </div>
+                    </article>
+                    
+                    <!-- EMRAH DEMİRTAŞ -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/19.jpg" alt="Emrah Demirtaş" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Emrah D.</h4>
+                                <p class="team-card-role">Görüntü Yönetmeni</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Sinematografi</span>
+                            <span class="team-tag">Kamera</span>
+                        </div>
+                    </article>
+                    
+                    <!-- BAŞAK ÇALIK -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/20.jpg" alt="Başak Çalık" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Başak Ç.</h4>
+                                <p class="team-card-role">Sosyal Medya</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Dijital Yayınlar</span>
+                            <span class="team-tag">İçerik</span>
+                        </div>
+                    </article>
+                    
+                    <!-- SİBEL ARNA -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../the-wall/21.jpg" alt="Sibel Arna" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Sibel A.</h4>
+                                <p class="team-card-role">Program Yapımcısı</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Sunucu</span>
+                            <span class="team-tag">Yapım</span>
+                        </div>
+                    </article>
+                    
+                    <!-- SERKAN CENKER -->
+                    <article class="team-card">
+                        <div class="team-card-image">
+                            <img src="../images/team/serkan-cenker.webp" alt="Serkan Cenker" loading="lazy" />
+                            <div class="team-card-info">
+                                <h4 class="team-card-name">Serkan C.</h4>
+                                <p class="team-card-role">Kreatif Direktör</p>
+                            </div>
+                        </div>
+                        <div class="team-card-tags">
+                            <span class="team-tag">Yaratıcı Sürecı</span>
+                            <span class="team-tag">Strateji</span>
+                        </div>
+                    </article>
+                    
+                </div>
+                
+            </div>
+        </section>
+        
+        <!-- TEMAS Section - Contact -->
+        <section class="temas-section" id="temas">
+            <div class="temas-container">
+                <h2 class="section-head section-head-light">TEMAS</h2>
+                <p class="temas-intro">Birlikte düşüneceksek, yaz.</p>
+                
+                <form class="contact-form" action="contact.php" method="post" enctype="multipart/form-data">
+                    <div class="form-field">
+                        <input type="text" name="name" placeholder="İsim" required />
+                    </div>
+                    
+                    <div class="form-field">
+                        <input type="email" name="email" placeholder="Mail" required />
+                    </div>
+                    
+                    <div class="form-field">
+                        <input type="text" name="message" placeholder="Tek satır mesaj" />
+                    </div>
+                    
+                    <div class="file-upload">
+                        <label class="file-upload-label">
+                            <input type="file" name="attachment" />
+                            + Dosya yükle
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Gönder</button>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="footer-social">
+                <a href="https://instagram.com/alakamedia" target="_blank" aria-label="Instagram">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://youtube.com/@alakamedia" target="_blank" aria-label="YouTube">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                    </svg>
+                </a>
+            </div>
+        </footer>
+        
+    </div><!-- page wrapper end -->
+    
+    <!-- Scripts - paths fixed -->
+    <script src="../js/be0dcb4a.js" type="text/javascript"></script>
+    <script src="../js/plugins.js" type="text/javascript"></script>
+    <script src="../js/rebel.js" type="text/javascript"></script>
+    
+    <!-- Custom JS for editorial interactions -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Instagram-style "daha fazla" toggle
+            document.querySelectorAll('.post-more').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const detail = this.nextElementSibling;
+                    if (detail && detail.classList.contains('post-detail')) {
+                        detail.classList.toggle('active');
+                        this.textContent = detail.classList.contains('active') ? 'daha az' : 'daha fazla';
+                    }
+                });
+            });
+            
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href !== '#') {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+            
+            // Header Context Awareness
+            const header = document.querySelector('.site-header');
+            
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > window.innerHeight * 0.8) {
+                    header.style.background = 'rgba(26, 26, 26, 0.95)';
+                } else {
+                    header.style.background = 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 100%)';
+                }
+            }, { passive: true });
+            
+            // File Upload Feedback
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileLabel = document.querySelector('.file-upload-label');
+            const originalLabelText = fileLabel ? fileLabel.innerHTML : '';
+            
+            if (fileInput && fileLabel) {
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length > 0) {
+                        fileLabel.textContent = '✓ ' + this.files[0].name;
+                    } else {
+                        fileLabel.innerHTML = originalLabelText;
+                    }
+                });
+            }
+            
+        })();
+    </script>
+    
+</body>
+</html>
