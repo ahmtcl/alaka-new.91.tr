@@ -111,11 +111,11 @@ export async function getTeamMembers(): Promise<FirestoreTeamMember[]> {
 }
 
 export async function addTeamMember(data: Omit<FirestoreTeamMember, "id">) {
-  return addDoc(teamCol(), data);
+  return addDoc(teamCol(), stripUndefined(data));
 }
 
 export async function updateTeamMember(id: string, data: Partial<FirestoreTeamMember>) {
-  return updateDoc(doc(getDbInstance(), "team", id), data);
+  return updateDoc(doc(getDbInstance(), "team", id), stripUndefined(data));
 }
 
 export async function deleteTeamMember(id: string) {
@@ -142,11 +142,11 @@ export async function getHeroItems(): Promise<FirestoreHeroItem[]> {
 }
 
 export async function addHeroItem(data: Omit<FirestoreHeroItem, "id">) {
-  return addDoc(heroCol(), data);
+  return addDoc(heroCol(), stripUndefined(data));
 }
 
 export async function updateHeroItem(id: string, data: Partial<FirestoreHeroItem>) {
-  return updateDoc(doc(getDbInstance(), "hero", id), data);
+  return updateDoc(doc(getDbInstance(), "hero", id), stripUndefined(data));
 }
 
 export async function deleteHeroItem(id: string) {
@@ -171,12 +171,12 @@ export async function getUpcomingItems(): Promise<FirestoreUpcoming[]> {
 }
 
 export async function addUpcomingItem(data: Omit<FirestoreUpcoming, "id">) {
-  return addDoc(upcomingCol(), { ...data, createdAt: serverTimestamp() });
+  return addDoc(upcomingCol(), { ...stripUndefined(data), createdAt: serverTimestamp() });
 }
 
 export async function updateUpcomingItem(id: string, data: Partial<FirestoreUpcoming>) {
   const { id: _id, ...rest } = data;
-  return updateDoc(doc(getDbInstance(), "upcoming", id), rest);
+  return updateDoc(doc(getDbInstance(), "upcoming", id), stripUndefined(rest));
 }
 
 export async function deleteUpcomingItem(id: string) {
