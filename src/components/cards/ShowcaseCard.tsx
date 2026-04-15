@@ -33,12 +33,12 @@ export function ShowcaseCard({ item, featured }: ShowcaseCardProps) {
 
       {/* Gradient overlay */}
       <div
-        className="transition-all duration-400 group-hover:from-black/80 group-hover:via-black/30 group-hover:to-black/20"
         style={{
           position: 'absolute',
           inset: 0,
           background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%)',
           zIndex: 1,
+          transition: 'background 0.4s ease',
         }}
       />
 
@@ -49,26 +49,24 @@ export function ShowcaseCard({ item, featured }: ShowcaseCardProps) {
           bottom: 0,
           left: 0,
           right: 0,
-          padding: featured ? undefined : '30px',
           zIndex: 2,
           color: '#fff',
         }}
-        className={featured ? "p-[30px] md:p-10" : undefined}
+        className={featured ? "p-[30px] md:p-10" : "p-[30px]"}
       >
-        <span style={{
-          fontSize: '0.7rem',
-          fontWeight: 500,
-          letterSpacing: '0.15em',
-          textTransform: 'uppercase' as const,
-          opacity: 0.8,
-          marginBottom: '10px',
-          display: 'block',
-        }}>
-          {item.category}
-        </span>
-        {item.title.map((line, i) => (
+        <div style={{ maxWidth: featured ? '80%' : '70%' }}>
+          <span style={{
+            fontSize: '0.7rem',
+            fontWeight: 500,
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase' as const,
+            opacity: 0.8,
+            marginBottom: '10px',
+            display: 'block',
+          }}>
+            {item.category}
+          </span>
           <h2
-            key={i}
             style={{
               fontWeight: 700,
               lineHeight: 1.1,
@@ -78,29 +76,34 @@ export function ShowcaseCard({ item, featured }: ShowcaseCardProps) {
             }}
             className={
               featured
-                ? "text-[clamp(1.5rem,3vw,2.8rem)] md:text-[clamp(2rem,5vw,3.5rem)]"
+                ? "text-[clamp(1.5rem,3vw,2.8rem)]"
                 : "text-[clamp(1.5rem,4vw,2.5rem)]"
             }
           >
-            {line}
+            {item.title.map((line, i) => (
+              <span key={i}>
+                {i > 0 && <br />}
+                {line}
+              </span>
+            ))}
           </h2>
-        ))}
-        {item.badge && (
-          <span style={{
-            display: 'inline-block',
-            marginTop: '8px',
-            fontSize: '0.75rem',
-            fontWeight: 700,
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase' as const,
-            color: '#e50914',
-            background: 'rgba(0,0,0,0.5)',
-            padding: '3px 10px',
-            borderRadius: '2px',
-          }}>
-            {item.badge}
-          </span>
-        )}
+          {item.badge && (
+            <span style={{
+              display: 'inline-block',
+              marginTop: '8px',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase' as const,
+              color: '#e50914',
+              background: 'rgba(0,0,0,0.5)',
+              padding: '3px 10px',
+              borderRadius: '3px',
+            }}>
+              {item.badge}
+            </span>
+          )}
+        </div>
       </div>
     </a>
   );
