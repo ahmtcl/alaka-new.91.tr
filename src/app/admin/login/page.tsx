@@ -33,8 +33,9 @@ export default function AdminLoginPage() {
     try {
       await login(email, password);
       router.replace("/admin");
-    } catch {
-      setError("Giriş başarısız. E-posta veya şifre hatalı.");
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setError(msg);
     } finally {
       setSubmitting(false);
     }
