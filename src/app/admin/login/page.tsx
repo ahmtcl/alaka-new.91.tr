@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useRouter } from "next/navigation";
 
@@ -12,17 +12,18 @@ export default function AdminLoginPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading && isAdmin) {
+      router.replace("/admin");
+    }
+  }, [loading, isAdmin, router]);
+
+  if (loading || isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
         <div className="text-white/50 text-sm">Yükleniyor...</div>
       </div>
     );
-  }
-
-  if (isAdmin) {
-    router.replace("/admin");
-    return null;
   }
 
   const handleSubmit = async (e: FormEvent) => {
