@@ -9,6 +9,8 @@ const navItems = [
   { label: "Hero Yönetimi", href: "/admin/hero" },
   { label: "Program Yönetimi", href: "/admin/programs" },
   { label: "Ekip Yönetimi", href: "/admin/team" },
+  { label: "Upcoming Yönetimi", href: "/admin/upcoming" },
+  { label: "Site İçerikleri", href: "/admin/content" },
 ];
 
 function Sidebar() {
@@ -92,7 +94,17 @@ function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-[#0a0a0a]">
       <Sidebar />
-      <main className="flex-1 p-8 overflow-y-auto">{children}</main>
+      <main className="flex-1 p-8 overflow-y-auto">
+        {pathname !== "/admin" && (
+          <Link
+            href="/admin"
+            className="inline-flex items-center gap-1.5 text-white/40 text-sm hover:text-white transition-colors mb-6"
+          >
+            <span>←</span> Geri
+          </Link>
+        )}
+        {children}
+      </main>
     </div>
   );
 }

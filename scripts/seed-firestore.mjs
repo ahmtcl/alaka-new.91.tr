@@ -2,7 +2,7 @@
 // Çalıştır: node scripts/seed-firestore.mjs
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
@@ -213,6 +213,25 @@ async function seed() {
       await addDoc(collection(db, "team"), { ...item, createdAt: serverTimestamp() });
     }
     console.log(`✅ Team: ${teamMembers.length} kayıt eklendi.`);
+  }
+
+  // Site Content
+  const siteContentSnap = await getDocs(collection(db, "siteContent"));
+  if (siteContentSnap.size > 0) {
+    console.log(`⏭️  Site Content: ${siteContentSnap.size} kayıt zaten mevcut, atlandı.`);
+  } else {
+    const siteContentItems = [
+      { key: "statement_divider", value: "Bazı Hikâyeler Tamamlanmaz." },
+      { key: "quiet_line", value: "Hikâyesi olmayan hiçbir şeyle alakamız yok." },
+      { key: "manifesto_title", value: "ALAKA MEDIA" },
+      { key: "manifesto_body", value: "Görüntülerin, seslerin ve sözcüklerin hızla tükendiği bir çağda biz, insanın kendisiyle, doğayla ve birbirleriyle yeniden bağ kurabileceği hikâyeler üretiriz.\n\nHer ALAKA projesi tesadüfe değil, düşünce, vicdan ve sezgiyle doğar.\n\nBu yüzden ALAKA bir marka değil, üretmenin ve anlamı çoğaltmanın yolculuğudur. Bir markadan çok; bir ekosistem, bir okul, bir hatırlama alanı...\n\nBizim için her üretim bir iz bırakma sorumluluğudur. Samimiyet, estetik dürüstlük, insan merkezlilik ve çeşitlilik her işimizin özüdür." },
+      { key: "manifesto_footer", value: "Her ALAKA projesi bir cevaptan çok bir sorudur — çünkü değişim sorularla başlar." },
+      { key: "contact_subtitle", value: "Birlikte düşüneceksek, yaz." },
+    ];
+    for (const item of siteContentItems) {
+      await setDoc(doc(db, "siteContent", item.key), { key: item.key, value: item.value, updatedAt: serverTimestamp() });
+    }
+    console.log(`✅ Site Content: ${siteContentItems.length} kayıt eklendi.`);
   }
 
   console.log("\n🎉 Seed tamamlandı!");

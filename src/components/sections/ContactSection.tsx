@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { useSiteContent } from "@/lib/hooks";
 
 export function ContactSection() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
+  const { content } = useSiteContent();
+
+  const subtitle = content.contact_subtitle || "Birlikte düşüneceksek, yaz.";
 
   return (
     <section className="py-32 px-8 bg-dark text-white" id="temas">
@@ -13,7 +17,7 @@ export function ContactSection() {
         <SectionHead light>TEMAS</SectionHead>
 
         <p className="text-[clamp(1rem,2vw,1.3rem)] font-light italic leading-relaxed text-white/70 mb-32 pt-8 border-t border-white/10 text-center">
-          Birlikte düşüneceksek, yaz.
+          {subtitle}
         </p>
 
         <form

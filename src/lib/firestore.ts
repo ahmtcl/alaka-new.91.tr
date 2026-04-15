@@ -75,13 +75,17 @@ export async function getProgram(id: string): Promise<FirestoreProgram | null> {
   return { id: snap.id, ...snap.data() } as FirestoreProgram;
 }
 
+function stripUndefined<T extends Record<string, unknown>>(obj: T): T {
+  return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined)) as T;
+}
+
 export async function addProgram(data: Omit<FirestoreProgram, "id" | "createdAt">) {
-  return addDoc(programsCol(), { ...data, createdAt: serverTimestamp() });
+  return addDoc(programsCol(), { ...stripUndefined(data), createdAt: serverTimestamp() });
 }
 
 export async function updateProgram(id: string, data: Partial<FirestoreProgram>) {
   const { id: _id, createdAt: _ts, ...rest } = data;
-  return updateDoc(doc(getDbInstance(), "programs", id), rest);
+  return updateDoc(doc(getDbInstance(), "programs", id), stripUndefined(rest));
 }
 
 export async function deleteProgram(id: string) {
@@ -147,4 +151,56 @@ export async function updateHeroItem(id: string, data: Partial<FirestoreHeroItem
 
 export async function deleteHeroItem(id: string) {
   return deleteDoc(doc(getDbInstance(), "hero", id));
+}
+
+// ─── Upcoming ───
+export interface FirestoreUpcoming {
+  id?: string;
+  title: string;
+  videoUrl: string;
+  active: boolean;
+  order: number;
+}
+
+const upcomingCol = () => collection(getDbInstance(), "upcoming");
+
+export async function getUpcomingItems(): Promise<FirestoreUpcoming[]> {
+  const q = query(upcomingCol(), orderBy("order", "asc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreUpcoming));
+}
+
+export async function addUpcomingItem(data: Omit<FirestoreUpcoming, "id">) {
+  return addDoc(upcomingCol(), { ...data, createdAt: serverTimestamp() });
+}
+
+export async function updateUpcomingItem(id: string, data: Partial<FirestoreUpcoming>) {
+  const { id: _id, ...rest } = data;
+  return updateDoc(doc(getDbInstance(), "upcoming", id), rest);
+}
+
+export async function deleteUpcomingItem(id: string) {
+  return deleteDoc(doc(getDbInstance(), "upcoming", id));
+}
+
+// ─── Site Content (Texts) ───
+export interface FirestoreSiteContent {
+  id?: string;
+  key: string;
+  value: string;
+}
+
+const siteContentCol = () => collection(getDbInstance(), "siteContent");
+
+export async function getSiteContent(): Promise<FirestoreSiteContent[]> {
+  const snap = await getDocs(siteContentCol());
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreSiteContent));
+}
+
+export async function updateSiteContent(id: string, value: string) {
+  return updateDoc(doc(getDbInstance(), "siteContent", id), { value });
+}
+
+export async function addSiteContent(data: { key: string; value: string }) {
+  return addDoc(siteContentCol(), data);
 }

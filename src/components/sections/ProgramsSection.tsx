@@ -38,7 +38,7 @@ export function ProgramsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto px-4 mt-[50px]">
           {programs.map((program) => (
-            <div key={program.id} className={program.featured ? "sm:col-span-2 lg:col-span-2" : ""}>
+            <div key={program.id} className={`h-full ${program.featured ? "sm:col-span-2 lg:col-span-2" : ""}`}>
               <ProgramCard
                 program={program}
                 onYoutubeClick={(url) => setYoutubeModal(url)}

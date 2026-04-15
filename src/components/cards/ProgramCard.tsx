@@ -15,7 +15,7 @@ export function ProgramCard({ program, onYoutubeClick }: ProgramCardProps) {
   return (
     <article
       id={`post-${program.id}`}
-      className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col"
+      className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col h-full"
     >
       {/* Carousel */}
       <Carousel
