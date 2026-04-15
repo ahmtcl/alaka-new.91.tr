@@ -1,12 +1,33 @@
 "use client";
 
 import { useState } from "react";
-import { programs } from "@/data/programs";
+import { programs as staticPrograms } from "@/data/programs";
+import { usePrograms } from "@/lib/hooks";
 import { ProgramCard } from "@/components/cards/ProgramCard";
 import { SectionHead } from "@/components/ui/SectionHead";
+import type { Program } from "@/types";
 
 export function ProgramsSection() {
   const [youtubeModal, setYoutubeModal] = useState<string | null>(null);
+  const { programs: firestorePrograms } = usePrograms();
+
+  // Map Firestore programs to the Program type, fall back to static
+  const programs: Program[] = firestorePrograms.length > 0
+    ? firestorePrograms.map((p) => ({
+        id: p.id!,
+        title: p.title,
+        category: p.category,
+        taglines: p.taglines,
+        images: p.images,
+        youtubeUrl: p.youtubeUrl,
+        details: {
+          description: p.description,
+          presenter: p.presenter,
+          duration: p.duration,
+          format: p.format,
+        },
+      }))
+    : staticPrograms;
 
   return (
     <>

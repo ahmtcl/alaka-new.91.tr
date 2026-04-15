@@ -1,10 +1,13 @@
 "use client";
 
-import { team } from "@/data/team";
+import { team as staticTeam } from "@/data/team";
+import { useTeamMembers } from "@/lib/hooks";
 import { TeamCard } from "@/components/cards/TeamCard";
 import { SectionHead } from "@/components/ui/SectionHead";
 
 export function TeamSection() {
+  const { members } = useTeamMembers();
+  const team = members.length > 0 ? members : staticTeam;
   return (
     <section className="py-32 px-8 bg-light" id="oku">
       <div className="max-w-[1300px] mx-auto">
