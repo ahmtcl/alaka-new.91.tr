@@ -5,6 +5,7 @@ export interface Program {
   taglines: string[];
   images: string[];
   youtubeUrl: string;
+  featured?: boolean;
   details: {
     description: string[];
     presenter: string;

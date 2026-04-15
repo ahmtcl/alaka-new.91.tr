@@ -12,14 +12,16 @@ export function ProgramsSection() {
   const { programs: firestorePrograms } = usePrograms();
 
   // Map Firestore programs to the Program type, fall back to static
-  const programs: Program[] = firestorePrograms.length > 0
-    ? firestorePrograms.map((p) => ({
+  const activeFirestore = firestorePrograms.filter((p) => p.active !== false);
+  const programs: Program[] = activeFirestore.length > 0
+    ? activeFirestore.map((p) => ({
         id: p.id!,
         title: p.title,
         category: p.category,
         taglines: p.taglines,
         images: p.images,
         youtubeUrl: p.youtubeUrl,
+        featured: p.featured ?? false,
         details: {
           description: p.description,
           presenter: p.presenter,
@@ -36,11 +38,12 @@ export function ProgramsSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto px-4 mt-[50px]">
           {programs.map((program) => (
-            <ProgramCard
-              key={program.id}
-              program={program}
-              onYoutubeClick={(url) => setYoutubeModal(url)}
-            />
+            <div key={program.id} className={program.featured ? "sm:col-span-2 lg:col-span-2" : ""}>
+              <ProgramCard
+                program={program}
+                onYoutubeClick={(url) => setYoutubeModal(url)}
+              />
+            </div>
           ))}
         </div>
       </section>

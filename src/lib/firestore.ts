@@ -8,6 +8,9 @@ import {
   deleteDoc,
   query,
   orderBy,
+  where,
+  serverTimestamp,
+  type Timestamp,
 } from "firebase/firestore";
 import {
   ref,
@@ -37,6 +40,7 @@ export async function deleteFile(url: string) {
 export interface FirestoreProgram {
   id?: string;
   title: string;
+  slug: string;
   category: string;
   taglines: string[];
   images: string[];
@@ -45,7 +49,10 @@ export interface FirestoreProgram {
   presenter: string;
   duration: string;
   format?: string;
-  order?: number;
+  featured: boolean;
+  active: boolean;
+  order: number;
+  createdAt?: Timestamp;
 }
 
 const programsCol = () => collection(getDbInstance(), "programs");
@@ -56,18 +63,25 @@ export async function getPrograms(): Promise<FirestoreProgram[]> {
   return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreProgram));
 }
 
+export async function getActivePrograms(): Promise<FirestoreProgram[]> {
+  const q = query(programsCol(), where("active", "==", true), orderBy("order", "asc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreProgram));
+}
+
 export async function getProgram(id: string): Promise<FirestoreProgram | null> {
   const snap = await getDoc(doc(getDbInstance(), "programs", id));
   if (!snap.exists()) return null;
   return { id: snap.id, ...snap.data() } as FirestoreProgram;
 }
 
-export async function addProgram(data: Omit<FirestoreProgram, "id">) {
-  return addDoc(programsCol(), data);
+export async function addProgram(data: Omit<FirestoreProgram, "id" | "createdAt">) {
+  return addDoc(programsCol(), { ...data, createdAt: serverTimestamp() });
 }
 
 export async function updateProgram(id: string, data: Partial<FirestoreProgram>) {
-  return updateDoc(doc(getDbInstance(), "programs", id), data);
+  const { id: _id, createdAt: _ts, ...rest } = data;
+  return updateDoc(doc(getDbInstance(), "programs", id), rest);
 }
 
 export async function deleteProgram(id: string) {
