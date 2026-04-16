@@ -91,18 +91,40 @@ export default function SiteContentAdmin() {
                   />
                 )}
 
-                {changed && (
-                  <button
-                    onClick={() => handleSave(item)}
-                    disabled={saving === item.id}
-                    className="mt-3 bg-white text-black px-5 py-2 rounded text-sm font-medium hover:bg-white/90 transition-colors disabled:opacity-50"
-                  >
-                    {saving === item.id ? "Kaydediliyor..." : "Kaydet"}
-                  </button>
-                )}
+                <button
+                  onClick={() => handleSave(item)}
+                  disabled={!changed || saving === item.id}
+                  className="mt-3 bg-white text-black px-5 py-2 rounded text-sm font-medium hover:bg-white/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  {saving === item.id ? "Kaydediliyor..." : "Kaydet"}
+                </button>
               </div>
             );
           })}
+
+          {/* Tümünü Kaydet */}
+          <button
+            onClick={async () => {
+              const changedItems = items.filter((i) => editValues[i.id!] !== i.value);
+              if (changedItems.length === 0) return;
+              setSaving("all");
+              try {
+                for (const item of changedItems) {
+                  await updateSiteContent(item.id!, editValues[item.id!]);
+                }
+                await load();
+              } catch (err) {
+                console.error(err);
+                alert("Kaydetme hatası.");
+              } finally {
+                setSaving(null);
+              }
+            }}
+            disabled={saving !== null || !items.some((i) => editValues[i.id!] !== i.value)}
+            className="mt-4 bg-white text-black px-8 py-3 rounded text-sm font-semibold tracking-wider uppercase hover:bg-white/90 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            {saving === "all" ? "Kaydediliyor..." : "Tümünü Kaydet"}
+          </button>
         </div>
       )}
     </div>
