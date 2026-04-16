@@ -52,6 +52,138 @@ body {
   }
 }
 
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 20px 40px;
+  background: var(--color-light);
+  box-sizing: border-box;
+}
+
+/* Showcase Grid */
+.showcase-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: calc(100vh - 140px);
+}
+
+@media (min-width: 768px) {
+  .showcase-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* Showcase Card */
+.showcase-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 250px;
+}
+
+.showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.showcase-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Card Overlay */
+.showcase-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.showcase-card:hover::before {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+/* Card Content */
+.showcase-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  z-index: 2;
+  color: #fff;
+}
+
+.showcase-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.showcase-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.showcase-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e50914;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+/* Featured Card */
+.showcase-card.featured {
+  grid-row: span 2;
+}
+
+@media (min-width: 768px) {
+  .showcase-card.featured .showcase-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .showcase-card.featured .showcase-content {
+    padding: 40px;
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.4s ease forwards;
 }
