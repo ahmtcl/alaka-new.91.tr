@@ -15,7 +15,7 @@ export function ProgramsSection() {
   const activeFirestore = firestorePrograms.filter((p) => p.active !== false);
   const programs: Program[] = activeFirestore.length > 0
     ? activeFirestore.map((p) => ({
-        id: p.id!,
+        id: p.slug || p.id!,
         title: p.title,
         category: p.category,
         taglines: p.taglines,
