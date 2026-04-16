@@ -9,7 +9,14 @@ export function ShowcaseCard({ item, featured }: ShowcaseCardProps) {
   const cardClass = `showcase-card${featured ? " featured" : ""}`;
 
   return (
-    <article className={cardClass} onClick={() => { location.href = item.href; }}>
+    <article className={cardClass} onClick={() => {
+      const el = document.querySelector(item.href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        location.href = item.href;
+      }
+    }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={item.image} alt={item.title.join(" ")} loading="eager" />
 
