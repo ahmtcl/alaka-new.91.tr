@@ -204,3 +204,7 @@ export async function updateSiteContent(id: string, value: string) {
 export async function addSiteContent(data: { key: string; value: string }) {
   return addDoc(siteContentCol(), data);
 }
+
+export async function deleteSiteContent(id: string) {
+  return deleteDoc(doc(getDbInstance(), "siteContent", id));
+}

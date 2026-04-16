@@ -9,6 +9,7 @@ import {
   uploadFile,
   type FirestoreTeamMember,
 } from "@/lib/firestore";
+import { Toast } from "@/components/ui/Toast";
 
 function TeamForm({
   initial,
@@ -16,7 +17,7 @@ function TeamForm({
   onCancel,
 }: {
   initial?: FirestoreTeamMember;
-  onSave: () => void;
+  onSave: (msg: string) => void;
   onCancel: () => void;
 }) {
   const [name, setName] = useState(initial?.name ?? "");
@@ -49,10 +50,11 @@ function TeamForm({
 
       if (initial?.id) {
         await updateTeamMember(initial.id, data);
+        onSave("Ekip üyesi güncellendi!");
       } else {
         await addTeamMember(data);
+        onSave("Ekip üyesi eklendi!");
       }
-      onSave();
     } catch (err) {
       console.error(err);
       alert("Hata oluştu.");
@@ -149,6 +151,7 @@ export default function TeamAdmin() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<FirestoreTeamMember | null>(null);
   const [adding, setAdding] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -164,6 +167,7 @@ export default function TeamAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Bu üyeyi silmek istediğinize emin misiniz?")) return;
     await deleteTeamMember(id);
+    setToast({ message: "Ekip üyesi silindi.", type: "success" });
     load();
   };
 
@@ -172,7 +176,7 @@ export default function TeamAdmin() {
       <div>
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Yeni Ekip Üyesi Ekle</h1>
         <TeamForm
-          onSave={() => { setAdding(false); load(); }}
+          onSave={(msg) => { setAdding(false); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setAdding(false)}
         />
       </div>
@@ -185,7 +189,7 @@ export default function TeamAdmin() {
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Ekip Üyesi Düzenle</h1>
         <TeamForm
           initial={editing}
-          onSave={() => { setEditing(null); load(); }}
+          onSave={(msg) => { setEditing(null); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setEditing(null)}
         />
       </div>
@@ -242,6 +246,8 @@ export default function TeamAdmin() {
           ))}
         </div>
       )}
+
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

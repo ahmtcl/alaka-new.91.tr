@@ -9,6 +9,7 @@ import {
   uploadFile,
   type FirestoreHeroItem,
 } from "@/lib/firestore";
+import { Toast } from "@/components/ui/Toast";
 
 function HeroForm({
   initial,
@@ -16,7 +17,7 @@ function HeroForm({
   onCancel,
 }: {
   initial?: FirestoreHeroItem;
-  onSave: () => void;
+  onSave: (msg: string) => void;
   onCancel: () => void;
 }) {
   const [titleLines, setTitleLines] = useState(initial?.title?.join("\n") ?? "");
@@ -51,10 +52,11 @@ function HeroForm({
 
       if (initial?.id) {
         await updateHeroItem(initial.id, data);
+        onSave("Hero kartı güncellendi!");
       } else {
         await addHeroItem(data);
+        onSave("Hero kartı eklendi!");
       }
-      onSave();
     } catch (err) {
       console.error(err);
       alert("Hata oluştu.");
@@ -167,6 +169,7 @@ export default function HeroAdmin() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<FirestoreHeroItem | null>(null);
   const [adding, setAdding] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -182,6 +185,7 @@ export default function HeroAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Bu hero kartını silmek istediğinize emin misiniz?")) return;
     await deleteHeroItem(id);
+    setToast({ message: "Hero kartı silindi.", type: "success" });
     load();
   };
 
@@ -190,7 +194,7 @@ export default function HeroAdmin() {
       <div>
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Yeni Hero Kartı Ekle</h1>
         <HeroForm
-          onSave={() => { setAdding(false); load(); }}
+          onSave={(msg) => { setAdding(false); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setAdding(false)}
         />
       </div>
@@ -203,7 +207,7 @@ export default function HeroAdmin() {
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Hero Kartı Düzenle</h1>
         <HeroForm
           initial={editing}
-          onSave={() => { setEditing(null); load(); }}
+          onSave={(msg) => { setEditing(null); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setEditing(null)}
         />
       </div>
@@ -263,6 +267,8 @@ export default function HeroAdmin() {
           ))}
         </div>
       )}
+
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

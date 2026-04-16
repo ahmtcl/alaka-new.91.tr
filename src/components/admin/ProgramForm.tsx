@@ -19,7 +19,7 @@ function slugify(text: string) {
 
 interface ProgramFormProps {
   initial?: FirestoreProgram;
-  onSave: () => void;
+  onSave: (msg: string) => void;
   onCancel: () => void;
 }
 
@@ -77,10 +77,11 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
 
       if (initial?.id) {
         await updateProgram(initial.id, data);
+        onSave("Program güncellendi!");
       } else {
         await addProgram(data);
+        onSave("Program eklendi!");
       }
-      onSave();
     } catch (err) {
       console.error(err);
       setError("Kaydetme sırasında hata oluştu.");

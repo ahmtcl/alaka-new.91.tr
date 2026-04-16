@@ -9,6 +9,7 @@ import {
   uploadFile,
   type FirestoreUpcoming,
 } from "@/lib/firestore";
+import { Toast } from "@/components/ui/Toast";
 
 function UpcomingForm({
   initial,
@@ -16,7 +17,7 @@ function UpcomingForm({
   onCancel,
 }: {
   initial?: FirestoreUpcoming;
-  onSave: () => void;
+  onSave: (msg: string) => void;
   onCancel: () => void;
 }) {
   const [title, setTitle] = useState(initial?.title ?? "");
@@ -55,10 +56,11 @@ function UpcomingForm({
 
       if (initial?.id) {
         await updateUpcomingItem(initial.id, data);
+        onSave("Video güncellendi!");
       } else {
         await addUpcomingItem(data);
+        onSave("Video eklendi!");
       }
-      onSave();
     } catch (err) {
       console.error(err);
       setError("Kaydetme sırasında hata oluştu.");
@@ -157,6 +159,7 @@ export default function UpcomingAdmin() {
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<FirestoreUpcoming | null>(null);
   const [adding, setAdding] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -177,6 +180,7 @@ export default function UpcomingAdmin() {
   const handleDelete = async (id: string) => {
     if (!confirm("Bu videoyu silmek istediğinize emin misiniz?")) return;
     await deleteUpcomingItem(id);
+    setToast({ message: "Video silindi.", type: "success" });
     load();
   };
 
@@ -185,7 +189,7 @@ export default function UpcomingAdmin() {
       <div>
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Yeni Upcoming Video Ekle</h1>
         <UpcomingForm
-          onSave={() => { setAdding(false); load(); }}
+          onSave={(msg) => { setAdding(false); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setAdding(false)}
         />
       </div>
@@ -198,7 +202,7 @@ export default function UpcomingAdmin() {
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Upcoming Video Düzenle</h1>
         <UpcomingForm
           initial={editing}
-          onSave={() => { setEditing(null); load(); }}
+          onSave={(msg) => { setEditing(null); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setEditing(null)}
         />
       </div>
@@ -259,6 +263,8 @@ export default function UpcomingAdmin() {
           ))}
         </div>
       )}
+
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }

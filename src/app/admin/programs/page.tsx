@@ -8,12 +8,14 @@ import {
 } from "@/lib/firestore";
 import { ProgramForm } from "@/components/admin/ProgramForm";
 import { ProgramList } from "@/components/admin/ProgramList";
+import { Toast } from "@/components/ui/Toast";
 
 export default function ProgramsAdmin() {
   const [programs, setPrograms] = useState<FirestoreProgram[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<FirestoreProgram | null>(null);
   const [adding, setAdding] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -32,7 +34,9 @@ export default function ProgramsAdmin() {
   }, []);
 
   const handleDelete = async (id: string) => {
+    if (!confirm("Bu programı silmek istediğinize emin misiniz?")) return;
     await deleteProgram(id);
+    setToast({ message: "Program silindi.", type: "success" });
     load();
   };
 
@@ -41,7 +45,7 @@ export default function ProgramsAdmin() {
       <div>
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Yeni Program Ekle</h1>
         <ProgramForm
-          onSave={() => { setAdding(false); load(); }}
+          onSave={(msg) => { setAdding(false); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setAdding(false)}
         />
       </div>
@@ -54,7 +58,7 @@ export default function ProgramsAdmin() {
         <h1 className="text-white text-2xl font-light tracking-wider mb-8">Program Düzenle</h1>
         <ProgramForm
           initial={editing}
-          onSave={() => { setEditing(null); load(); }}
+          onSave={(msg) => { setEditing(null); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setEditing(null)}
         />
       </div>
@@ -79,6 +83,8 @@ export default function ProgramsAdmin() {
         onEdit={setEditing}
         onDelete={handleDelete}
       />
+
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   );
 }
