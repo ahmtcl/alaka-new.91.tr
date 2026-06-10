@@ -4,6 +4,7 @@ import {
   getDocs,
   getDoc,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   query,
@@ -207,4 +208,41 @@ export async function addSiteContent(data: { key: string; value: string }) {
 
 export async function deleteSiteContent(id: string) {
   return deleteDoc(doc(getDbInstance(), "siteContent", id));
+}
+
+// ─── Section Visibility ───
+export interface SectionVisibility {
+  hero: boolean;
+  programs: boolean;
+  manifesto: boolean;
+  upcoming: boolean;
+  team: boolean;
+  contact: boolean;
+}
+
+const DEFAULT_VISIBILITY: SectionVisibility = {
+  hero: true,
+  programs: true,
+  manifesto: true,
+  upcoming: true,
+  team: true,
+  contact: true,
+};
+
+const visibilityDocRef = () => doc(getDbInstance(), "settings", "sectionVisibility");
+
+export async function getSectionVisibility(): Promise<SectionVisibility> {
+  const snap = await getDoc(visibilityDocRef());
+  if (!snap.exists()) return { ...DEFAULT_VISIBILITY };
+  return { ...DEFAULT_VISIBILITY, ...snap.data() } as SectionVisibility;
+}
+
+export async function updateSectionVisibility(data: Partial<SectionVisibility>) {
+  const ref = visibilityDocRef();
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    return updateDoc(ref, data as Record<string, unknown>);
+  } else {
+    return setDoc(ref, { ...DEFAULT_VISIBILITY, ...data });
+  }
 }

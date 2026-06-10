@@ -5,17 +5,20 @@ import { ManifestoSection } from "@/components/sections/ManifestoSection";
 import { UpcomingSection } from "@/components/sections/UpcomingSection";
 import { TeamSection } from "@/components/sections/TeamSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { getSectionVisibility } from "@/lib/firestore";
 
-export default function Home() {
+export default async function Home() {
+  const vis = await getSectionVisibility();
+
   return (
     <>
-      <HeroSection />
+      {vis.hero && <HeroSection />}
       <StatementDivider />
-      <ProgramsSection />
-      <ManifestoSection />
-      <UpcomingSection />
-      <TeamSection />
-      <ContactSection />
+      {vis.programs && <ProgramsSection />}
+      {vis.manifesto && <ManifestoSection />}
+      {vis.upcoming && <UpcomingSection />}
+      {vis.team && <TeamSection />}
+      {vis.contact && <ContactSection />}
     </>
   );
 }
