@@ -7,6 +7,8 @@ import { TeamSection } from "@/components/sections/TeamSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { getSectionVisibility } from "@/lib/firestore";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const vis = await getSectionVisibility();
 
