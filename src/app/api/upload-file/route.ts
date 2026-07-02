@@ -20,13 +20,16 @@ export async function POST(request: NextRequest) {
       metadata: { contentType: file.type },
     });
 
-    await fileRef.makePublic();
-
-    const url = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+    // Signed URL (10 yıl geçerli)
+    const [url] = await fileRef.getSignedUrl({
+      action: "read",
+      expires: Date.now() + 10 * 365 * 24 * 60 * 60 * 1000,
+    });
 
     return NextResponse.json({ url, name: file.name });
   } catch (error) {
-    console.error("Dosya yükleme hatası:", error);
-    return NextResponse.json({ error: "Dosya yüklenemedi" }, { status: 500 });
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("Dosya yükleme hatası:", message);
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
