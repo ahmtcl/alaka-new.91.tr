@@ -5,12 +5,13 @@ let _adminStorage: any = null;
 export function getAdminStorage() {
   if (_adminStorage) return _adminStorage;
 
-  const admin = require("firebase-admin");
+  const { initializeApp, getApps, cert } = require("firebase-admin/app");
+  const { getStorage } = require("firebase-admin/storage");
 
-  if (!admin.apps.length) {
+  if (!getApps().length) {
     const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, "\n");
-    admin.initializeApp({
-      credential: admin.credential.cert({
+    initializeApp({
+      credential: cert({
         projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
         clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
         privateKey,
@@ -19,6 +20,6 @@ export function getAdminStorage() {
     });
   }
 
-  _adminStorage = admin.storage();
+  _adminStorage = getStorage();
   return _adminStorage;
 }
