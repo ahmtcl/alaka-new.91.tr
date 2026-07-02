@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminStorage } from "@/lib/firebase-admin";
+import { getAdminStorage } from "@/lib/firebase-admin";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const fileName = `contact-attachments/${Date.now()}_${file.name}`;
+    const adminStorage = getAdminStorage();
     const bucket = adminStorage.bucket();
     const fileRef = bucket.file(fileName);
 
