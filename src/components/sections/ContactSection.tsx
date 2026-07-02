@@ -47,6 +47,9 @@ export function ContactSection() {
             const data = await res.json();
             attachmentUrl = data.url;
             attachmentName = data.name;
+          } else {
+            const err = await res.json().catch(() => ({}));
+            console.error("Dosya yükleme başarısız:", err);
           }
         } catch (uploadError) {
           console.error('Dosya yükleme hatası:', uploadError);
