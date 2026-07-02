@@ -3,13 +3,67 @@
 import { useState } from "react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { useSiteContent } from "@/lib/hooks";
+import { addContactForm, uploadFile } from "@/lib/firestore";
 
 export function ContactSection() {
   const [fileName, setFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   const { content } = useSiteContent();
 
   const subtitle = content.contact_subtitle || "Birlikte düşüneceksek, yaz.";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!kvkkAccepted) {
+      alert("Lütfen KVKK Aydınlatma Metni'ni kabul edin.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const message = formData.get('message') as string;
+
+      let attachmentUrl: string | undefined;
+      let attachmentName: string | undefined;
+
+      // Upload file if exists
+      if (selectedFile) {
+        const path = `contact-attachments/${Date.now()}_${selectedFile.name}`;
+        attachmentUrl = await uploadFile(selectedFile, path);
+        attachmentName = selectedFile.name;
+      }
+
+      // Save to Firestore
+      await addContactForm({
+        name,
+        email,
+        message: message || undefined,
+        attachmentUrl,
+        attachmentName,
+        kvkkConsent: true,
+      });
+
+      setSubmitStatus('success');
+      e.currentTarget.reset();
+      setFileName(null);
+      setSelectedFile(null);
+      setKvkkAccepted(false);
+    } catch (error) {
+      console.error('Form gönderme hatası:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="py-32 px-8 bg-dark text-white" id="temas">
@@ -22,15 +76,7 @@ export function ContactSection() {
 
         <form
           className="flex flex-col gap-8"
-          action="/api/contact"
-          method="post"
-          encType="multipart/form-data"
-          onSubmit={(e) => {
-            if (!kvkkAccepted) {
-              e.preventDefault();
-              alert("Lütfen KVKK Aydınlatma Metni'ni kabul edin.");
-            }
-          }}
+          onSubmit={handleSubmit}
         >
           <div className="relative">
             <input
@@ -76,7 +122,13 @@ export function ContactSection() {
                 className="hidden"
                 onChange={(e) => {
                   const file = e.target.files?.[0];
-                  setFileName(file ? `✓ ${file.name}` : null);
+                  if (file) {
+                    setSelectedFile(file);
+                    setFileName(`✓ ${file.name}`);
+                  } else {
+                    setSelectedFile(null);
+                    setFileName(null);
+                  }
                 }}
               />
               {fileName || "+ Dosya yükle"}
@@ -113,10 +165,23 @@ export function ContactSection() {
 
           <button
             type="submit"
-            className="mt-8 py-4 px-8 bg-transparent border border-white/30 text-white/70 text-[0.75rem] tracking-[0.2em] uppercase cursor-pointer transition-all hover:bg-white/10 hover:border-white/50 hover:text-white self-start"
+            disabled={isSubmitting}
+            className="mt-8 py-4 px-8 bg-transparent border border-white/30 text-white/70 text-[0.75rem] tracking-[0.2em] uppercase cursor-pointer transition-all hover:bg-white/10 hover:border-white/50 hover:text-white self-start disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Gönder
+            {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
           </button>
+
+          {submitStatus === 'success' && (
+            <p className="text-green-400 text-sm animate-fade-in">
+              ✓ Mesajınız başarıyla gönderildi!
+            </p>
+          )}
+
+          {submitStatus === 'error' && (
+            <p className="text-red-400 text-sm animate-fade-in">
+              ✗ Bir hata oluştu. Lütfen tekrar deneyin.
+            </p>
+          )}
         </form>
       </div>
     </section>

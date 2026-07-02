@@ -14,6 +14,7 @@ const sections = [
   { title: "Ekip Yönetimi", desc: "Ekip üyelerini yönet", href: "/admin/team" },
   { title: "Upcoming Yönetimi", desc: "Upcoming videoları yönet", href: "/admin/upcoming" },
   { title: "Site İçerikleri", desc: "Metin ve başlıkları düzenle", href: "/admin/content" },
+  { title: "İletişim Mesajları", desc: "Formdan gelen mesajları görüntüle", href: "/admin/messages" },
 ];
 
 const visibilityItems: { key: keyof SectionVisibility; label: string }[] = [

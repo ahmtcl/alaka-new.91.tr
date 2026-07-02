@@ -246,3 +246,40 @@ export async function updateSectionVisibility(data: Partial<SectionVisibility>) 
     return setDoc(ref, { ...DEFAULT_VISIBILITY, ...data });
   }
 }
+
+// ─── Contact Forms ───
+export interface FirestoreContactForm {
+  id?: string;
+  name: string;
+  email: string;
+  message?: string;
+  attachmentUrl?: string;
+  attachmentName?: string;
+  kvkkConsent: boolean;
+  read: boolean;
+  createdAt?: Timestamp;
+}
+
+const contactFormsCol = () => collection(getDbInstance(), "contact_forms");
+
+export async function getContactForms(): Promise<FirestoreContactForm[]> {
+  const q = query(contactFormsCol(), orderBy("createdAt", "desc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => ({ id: d.id, ...d.data() } as FirestoreContactForm));
+}
+
+export async function addContactForm(data: Omit<FirestoreContactForm, "id" | "createdAt" | "read">) {
+  return addDoc(contactFormsCol(), { 
+    ...stripUndefined(data), 
+    read: false,
+    createdAt: serverTimestamp() 
+  });
+}
+
+export async function markContactFormAsRead(id: string) {
+  return updateDoc(doc(getDbInstance(), "contact_forms", id), { read: true });
+}
+
+export async function deleteContactForm(id: string) {
+  return deleteDoc(doc(getDbInstance(), "contact_forms", id));
+}
