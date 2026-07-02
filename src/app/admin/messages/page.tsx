@@ -62,7 +62,7 @@ export default function MessagesPage() {
     <div className="p-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-light mb-2">İletişim Mesajları</h1>
+          <h1 className="text-3xl font-light mb-2 text-white">İletişim Mesajları</h1>
           {unreadCount > 0 && (
             <p className="text-sm text-gray-400">
               {unreadCount} okunmamış mesaj

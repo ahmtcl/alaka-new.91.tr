@@ -11,6 +11,7 @@ const navItems = [
   { label: "Ekip Yönetimi", href: "/admin/team" },
   { label: "Upcoming Yönetimi", href: "/admin/upcoming" },
   { label: "Site İçerikleri", href: "/admin/content" },
+  { label: "İletişim Mesajları", href: "/admin/messages" },
 ];
 
 function Sidebar() {
