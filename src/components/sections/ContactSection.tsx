@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { useSiteContent } from "@/lib/hooks";
-import { addContactForm, uploadFile } from "@/lib/firestore";
+import { addContactForm } from "@/lib/firestore";
 
 export function ContactSection() {
   const [fileName, setFileName] = useState<string | null>(null);
@@ -34,28 +34,26 @@ export function ContactSection() {
       const email = formData.get('email') as string;
       const message = formData.get('message') as string;
 
-      console.log('Form verileri:', { name, email, message, hasFile: !!selectedFile });
-
       let attachmentUrl: string | undefined;
       let attachmentName: string | undefined;
 
-      // Upload file if exists
+      // Upload file via API route (server-side, bypasses Storage rules)
       if (selectedFile) {
         try {
-          console.log('Dosya yükleniyor...', selectedFile.name);
-          const path = `contact-attachments/${Date.now()}_${selectedFile.name}`;
-          attachmentUrl = await uploadFile(selectedFile, path);
-          attachmentName = selectedFile.name;
-          console.log('Dosya yüklendi:', attachmentUrl);
+          const uploadData = new FormData();
+          uploadData.append("file", selectedFile);
+          const res = await fetch("/api/upload-file", { method: "POST", body: uploadData });
+          if (res.ok) {
+            const data = await res.json();
+            attachmentUrl = data.url;
+            attachmentName = data.name;
+          }
         } catch (uploadError) {
           console.error('Dosya yükleme hatası:', uploadError);
-          alert('Dosya yüklenemedi. Storage izinlerini kontrol edin. Mesaj dosya olmadan gönderilecek.');
-          // Dosya olmadan devam et
         }
       }
 
       // Save to Firestore
-      console.log('Firestore\'a kaydediliyor...');
       await addContactForm({
         name,
         email,
@@ -65,7 +63,6 @@ export function ContactSection() {
         kvkkConsent: true,
       });
 
-      console.log('Form başarıyla gönderildi!');
       setSubmitStatus('success');
       formEl.reset();
       setFileName(null);
@@ -73,10 +70,6 @@ export function ContactSection() {
       setKvkkAccepted(false);
     } catch (error) {
       console.error('Form gönderme hatası:', error);
-      console.error('Hata detayı:', JSON.stringify(error, null, 2));
-      if (error instanceof Error) {
-        alert(`Hata: ${error.message}`);
-      }
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
