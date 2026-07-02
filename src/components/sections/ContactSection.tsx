@@ -26,23 +26,36 @@ export function ContactSection() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
+    const formEl = e.currentTarget;
+
     try {
-      const formData = new FormData(e.currentTarget);
+      const formData = new FormData(formEl);
       const name = formData.get('name') as string;
       const email = formData.get('email') as string;
       const message = formData.get('message') as string;
+
+      console.log('Form verileri:', { name, email, message, hasFile: !!selectedFile });
 
       let attachmentUrl: string | undefined;
       let attachmentName: string | undefined;
 
       // Upload file if exists
       if (selectedFile) {
-        const path = `contact-attachments/${Date.now()}_${selectedFile.name}`;
-        attachmentUrl = await uploadFile(selectedFile, path);
-        attachmentName = selectedFile.name;
+        try {
+          console.log('Dosya yükleniyor...', selectedFile.name);
+          const path = `contact-attachments/${Date.now()}_${selectedFile.name}`;
+          attachmentUrl = await uploadFile(selectedFile, path);
+          attachmentName = selectedFile.name;
+          console.log('Dosya yüklendi:', attachmentUrl);
+        } catch (uploadError) {
+          console.error('Dosya yükleme hatası:', uploadError);
+          alert('Dosya yüklenemedi. Storage izinlerini kontrol edin. Mesaj dosya olmadan gönderilecek.');
+          // Dosya olmadan devam et
+        }
       }
 
       // Save to Firestore
+      console.log('Firestore\'a kaydediliyor...');
       await addContactForm({
         name,
         email,
@@ -52,13 +65,18 @@ export function ContactSection() {
         kvkkConsent: true,
       });
 
+      console.log('Form başarıyla gönderildi!');
       setSubmitStatus('success');
-      e.currentTarget.reset();
+      formEl.reset();
       setFileName(null);
       setSelectedFile(null);
       setKvkkAccepted(false);
     } catch (error) {
       console.error('Form gönderme hatası:', error);
+      console.error('Hata detayı:', JSON.stringify(error, null, 2));
+      if (error instanceof Error) {
+        alert(`Hata: ${error.message}`);
+      }
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
