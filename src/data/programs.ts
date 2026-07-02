@@ -78,11 +78,11 @@ export const programs: Program[] = [
     category: "Mini Belgesel",
     taglines: ["Her iz bir hikâye taşır."],
     images: [
-      "/programs/hero5-kk.png",
-      "/programs/hero5-kk.png",
-      "/programs/hero5-kk.png",
-      "/programs/hero5-kk.png",
-      "/programs/hero5-kk.png",
+      "/programs/dp1.jpeg",
+      "/programs/dp2.jpeg",
+      "/programs/dp3.jpeg",
+      "/programs/dp4.jpeg",
+      "/programs/dp5.jpeg",
     ],
     youtubeUrl: "https://www.youtube.com/@ALAKA_Media",
     details: {
