@@ -30,19 +30,6 @@ export function Carousel({ images, alt, aspectRatio = "aspect-[4/5]", objectPosi
     onSelect();
   }, [emblaApi, onSelect]);
 
-  // Auto-slide on mobile
-  useEffect(() => {
-    if (!emblaApi) return;
-    const isMobile = window.innerWidth <= 768;
-    if (!isMobile) return;
-
-    const interval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, [emblaApi]);
-
   return (
     <div className="relative group rounded-lg overflow-hidden">
       <div ref={emblaRef} className="overflow-hidden">
