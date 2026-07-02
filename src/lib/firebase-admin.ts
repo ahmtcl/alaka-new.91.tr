@@ -9,7 +9,13 @@ export function getAdminStorage() {
   const { getStorage } = require("firebase-admin/storage");
 
   if (!getApps().length) {
-    const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, "\n");
+    // Vercel'de env var bazen tırnakla veya farklı escape ile saklanabilir
+    let privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY || '';
+    // Başındaki/sonundaki tırnakları kaldır
+    privateKey = privateKey.replace(/^"([\s\S]*)"$/, '$1');
+    // Escaped newline'ları gerçek newline'a çevir
+    privateKey = privateKey.replace(/\\n/g, '\n');
+
     initializeApp({
       credential: cert({
         projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
