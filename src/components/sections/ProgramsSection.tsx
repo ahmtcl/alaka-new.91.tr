@@ -33,7 +33,7 @@ export function ProgramsSection() {
 
   return (
     <>
-      <section className="pt-16 bg-light" id="bak">
+      <section className="pt-8 md:pt-16 bg-light" id="bak">
         <SectionHead>BAK</SectionHead>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto px-4 mt-[50px]">
