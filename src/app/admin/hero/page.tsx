@@ -247,6 +247,7 @@ export default function HeroAdmin() {
                     {item.category} · {item.href}
                     {item.badge && ` · ${item.badge}`}
                   </p>
+                </div>
               </div>
               <div className="flex gap-2 sm:flex-shrink-0">
                 <button
