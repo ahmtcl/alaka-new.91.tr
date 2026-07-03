@@ -112,11 +112,11 @@ export default function SiteContentAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-white text-2xl font-light tracking-wider">Site İçerikleri</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+        <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider">Site İçerikleri</h1>
         <button
           onClick={() => setAddingNew(true)}
-          className="bg-white text-black px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors"
+          className="bg-white text-black px-4 sm:px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors whitespace-nowrap"
         >
           + Yeni İçerik
         </button>
@@ -124,7 +124,7 @@ export default function SiteContentAdmin() {
 
       {/* Yeni içerik ekleme formu */}
       {addingNew && (
-        <div className="bg-white/5 border border-white/10 rounded-lg p-5 mb-6 max-w-3xl">
+        <div className="bg-white/5 border border-white/10 rounded-lg p-4 sm:p-5 mb-6 max-w-3xl">
           <h3 className="text-white text-sm font-medium mb-4">Yeni İçerik Ekle</h3>
           <div className="space-y-3">
             <div>
@@ -145,7 +145,7 @@ export default function SiteContentAdmin() {
                 className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors resize-y"
               />
             </div>
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleAdd}
                 disabled={saving === "new" || !newKey.trim() || !newValue.trim()}

@@ -46,15 +46,15 @@ export default function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="text-white text-2xl font-light tracking-wider mb-8">Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider mb-6 sm:mb-8">Dashboard</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {sections.map((s) => (
           <Link
             key={s.href}
             href={s.href}
-            className="bg-white/5 border border-white/10 rounded-lg p-6 hover:bg-white/10 transition-colors group"
+            className="bg-white/5 border border-white/10 rounded-lg p-5 sm:p-6 hover:bg-white/10 transition-colors group"
           >
-            <h2 className="text-white text-lg font-medium mb-2 group-hover:text-white/90">
+            <h2 className="text-white text-base sm:text-lg font-medium mb-2 group-hover:text-white/90">
               {s.title}
             </h2>
             <p className="text-white/40 text-sm">{s.desc}</p>
@@ -63,12 +63,12 @@ export default function AdminDashboard() {
       </div>
 
       {/* Bölüm Görünürlüğü */}
-      <div className="mt-12">
-        <h2 className="text-white text-lg font-light tracking-wider mb-1">Bölüm Görünürlüğü</h2>
-        <p className="text-white/30 text-sm mb-6">
+      <div className="mt-10 sm:mt-12">
+        <h2 className="text-white text-base sm:text-lg font-light tracking-wider mb-1">Bölüm Görünürlüğü</h2>
+        <p className="text-white/30 text-xs sm:text-sm mb-4 sm:mb-6">
           Sitedeki bölümleri gizle veya göster. Değişiklikler anında yayına girer.
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {visibilityItems.map(({ key, label }) => {
             const visible = visibility ? visibility[key] : true;
             const isSaving = saving === key;

@@ -98,17 +98,17 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
       {error && <p className="text-red-400 text-sm">{error}</p>}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="Başlık" value={title} onChange={handleTitleChange} required />
         <Field label="Slug" value={slug} onChange={setSlug} required />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="Kategori" value={category} onChange={setCategory} required />
         <Field label="Sıra" value={String(order)} onChange={(v) => setOrder(Number(v))} type="number" />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Field label="Sunucu" value={presenter} onChange={setPresenter} />
         <Field label="Süre" value={duration} onChange={setDuration} />
       </div>
@@ -120,7 +120,7 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
       <FieldTextarea label="Açıklama (paragrafları boş satırla ayırın)" value={description} onChange={setDescription} rows={6} />
 
       {/* Toggles */}
-      <div className="flex gap-8">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
         <Toggle label="Öne Çıkan (Featured)" checked={featured} onChange={setFeatured} />
         <Toggle label="Aktif" checked={active} onChange={setActive} />
       </div>
@@ -158,7 +158,7 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
         />
       </div>
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex flex-col sm:flex-row gap-3 pt-2">
         <button
           type="submit"
           disabled={saving}

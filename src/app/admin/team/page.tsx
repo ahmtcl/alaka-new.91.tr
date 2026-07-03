@@ -65,7 +65,7 @@ function TeamForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">İsim</label>
           <input
@@ -92,7 +92,7 @@ function TeamForm({
           type="number"
           value={order}
           onChange={(e) => setOrder(Number(e.target.value))}
-          className="w-32 bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+          className="w-full sm:w-32 bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
         />
       </div>
 
@@ -126,7 +126,7 @@ function TeamForm({
         />
       </div>
 
-      <div className="flex gap-3 pt-2">
+      <div className="flex flex-col sm:flex-row gap-3 pt-2">
         <button
           type="submit"
           disabled={saving}
@@ -174,7 +174,7 @@ export default function TeamAdmin() {
   if (adding) {
     return (
       <div>
-        <h1 className="text-white text-2xl font-light tracking-wider mb-8">Yeni Ekip Üyesi Ekle</h1>
+        <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider mb-6 sm:mb-8">Yeni Ekip Üyesi Ekle</h1>
         <TeamForm
           onSave={(msg) => { setAdding(false); load(); setToast({ message: msg, type: "success" }); }}
           onCancel={() => setAdding(false)}
@@ -186,7 +186,7 @@ export default function TeamAdmin() {
   if (editing) {
     return (
       <div>
-        <h1 className="text-white text-2xl font-light tracking-wider mb-8">Ekip Üyesi Düzenle</h1>
+        <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider mb-6 sm:mb-8">Ekip Üyesi Düzenle</h1>
         <TeamForm
           initial={editing}
           onSave={(msg) => { setEditing(null); load(); setToast({ message: msg, type: "success" }); }}
@@ -198,11 +198,11 @@ export default function TeamAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-white text-2xl font-light tracking-wider">Ekip Yönetimi</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+        <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider">Ekip Yönetimi</h1>
         <button
           onClick={() => setAdding(true)}
-          className="bg-white text-black px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors"
+          className="bg-white text-black px-4 sm:px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors whitespace-nowrap"
         >
           + Yeni Üye
         </button>
@@ -217,27 +217,27 @@ export default function TeamAdmin() {
           {members.map((m) => (
             <div
               key={m.id}
-              className="bg-white/5 border border-white/10 rounded-lg p-5 flex items-center justify-between"
+              className="bg-white/5 border border-white/10 rounded-lg p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                 {m.image && (
-                  <img src={m.image} alt="" className="w-12 h-12 object-cover rounded-full" />
+                  <img src={m.image} alt="" className="w-12 h-12 object-cover rounded-full flex-shrink-0" />
                 )}
-                <div>
-                  <h3 className="text-white font-medium">{m.name}</h3>
-                  <p className="text-white/40 text-sm mt-0.5">{m.role}</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-white font-medium text-sm sm:text-base">{m.name}</h3>
+                  <p className="text-white/40 text-xs sm:text-sm mt-0.5">{m.role}</p>
                 </div>
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-2 sm:flex-shrink-0">
                 <button
                   onClick={() => setEditing(m)}
-                  className="px-4 py-2 text-sm bg-white/10 text-white rounded hover:bg-white/20 transition-colors"
+                  className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 text-xs sm:text-sm bg-white/10 text-white rounded hover:bg-white/20 transition-colors"
                 >
                   Düzenle
                 </button>
                 <button
                   onClick={() => handleDelete(m.id!)}
-                  className="px-4 py-2 text-sm bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 transition-colors"
+                  className="flex-1 sm:flex-initial px-3 sm:px-4 py-2 text-xs sm:text-sm bg-red-500/20 text-red-400 rounded hover:bg-red-500/30 transition-colors"
                 >
                   Sil
                 </button>

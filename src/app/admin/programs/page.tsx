@@ -67,11 +67,11 @@ export default function ProgramsAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-white text-2xl font-light tracking-wider">Program Yönetimi</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+        <h1 className="text-white text-xl sm:text-2xl font-light tracking-wider">Program Yönetimi</h1>
         <button
           onClick={() => setAdding(true)}
-          className="bg-white text-black px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors"
+          className="bg-white text-black px-4 sm:px-5 py-2.5 rounded text-sm font-medium hover:bg-white/90 transition-colors whitespace-nowrap"
         >
           + Yeni Program
         </button>

@@ -59,12 +59,12 @@ export default function MessagesPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-3xl font-light mb-2 text-white">İletişim Mesajları</h1>
+          <h1 className="text-xl sm:text-3xl font-light mb-1 sm:mb-2 text-white">İletişim Mesajları</h1>
           {unreadCount > 0 && (
-            <p className="text-sm text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-400">
               {unreadCount} okunmamış mesaj
             </p>
           )}
@@ -76,11 +76,11 @@ export default function MessagesPage() {
           <p className="text-gray-500">Henüz mesaj yok</p>
         </div>
       ) : (
-        <div className="grid gap-4">
+        <div className="grid gap-3 sm:gap-4">
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`bg-white rounded-lg shadow p-6 cursor-pointer transition-all hover:shadow-md ${
+              className={`bg-white rounded-lg shadow p-4 sm:p-6 cursor-pointer transition-all hover:shadow-md ${
                 !message.read ? "border-l-4 border-blue-500" : ""
               }`}
               onClick={() => {
@@ -90,26 +90,26 @@ export default function MessagesPage() {
                 }
               }}
             >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-semibold text-lg">{message.name}</h3>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
+                    <h3 className="font-semibold text-base sm:text-lg">{message.name}</h3>
                     {!message.read && (
-                      <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                      <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded flex-shrink-0">
                         YENİ
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-2">{message.email}</p>
+                  <p className="text-xs sm:text-sm text-gray-600 mb-2 truncate">{message.email}</p>
                   {message.message && (
-                    <p className="text-gray-700 line-clamp-2">{message.message}</p>
+                    <p className="text-sm sm:text-base text-gray-700 line-clamp-2">{message.message}</p>
                   )}
                   {message.attachmentName && (
-                    <p className="text-sm text-blue-600 mt-2">
+                    <p className="text-xs sm:text-sm text-blue-600 mt-2">
                       📎 {message.attachmentName}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400 mt-3">
+                  <p className="text-xs text-gray-400 mt-2 sm:mt-3">
                     {message.createdAt ? new Date((message.createdAt as any).seconds * 1000).toLocaleString('tr-TR') : 'Tarih yok'}
                   </p>
                 </div>
@@ -118,7 +118,7 @@ export default function MessagesPage() {
                     e.stopPropagation();
                     if (message.id) handleDelete(message.id);
                   }}
-                  className="ml-4 text-red-500 hover:text-red-700 text-sm"
+                  className="ml-2 text-red-500 hover:text-red-700 text-xs sm:text-sm flex-shrink-0"
                 >
                   Sil
                 </button>
@@ -135,15 +135,15 @@ export default function MessagesPage() {
           onClick={() => setSelectedMessage(null)}
         >
           <div
-            className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8"
+            className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-start justify-between mb-6">
-              <div>
-                <h2 className="text-2xl font-semibold mb-2">{selectedMessage.name}</h2>
+            <div className="flex items-start justify-between mb-4 sm:mb-6 gap-3">
+              <div className="min-w-0 flex-1">
+                <h2 className="text-xl sm:text-2xl font-semibold mb-2">{selectedMessage.name}</h2>
                 <a 
                   href={`mailto:${selectedMessage.email}`}
-                  className="text-blue-600 hover:underline"
+                  className="text-blue-600 hover:underline text-sm sm:text-base break-all"
                 >
                   {selectedMessage.email}
                 </a>
@@ -182,18 +182,18 @@ export default function MessagesPage() {
             )}
 
             <div className="pt-4 border-t">
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500">
                 Gönderilme: {selectedMessage.createdAt ? new Date((selectedMessage.createdAt as any).seconds * 1000).toLocaleString('tr-TR') : 'Tarih yok'}
               </p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs sm:text-sm text-gray-500 mt-1">
                 KVKK Onayı: {selectedMessage.kvkkConsent ? '✓ Verildi' : '✗ Verilmedi'}
               </p>
             </div>
 
-            <div className="flex gap-4 mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
               <a
                 href={`mailto:${selectedMessage.email}`}
-                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors text-center"
+                className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors text-center text-sm sm:text-base"
               >
                 Yanıtla
               </a>
@@ -204,7 +204,7 @@ export default function MessagesPage() {
                     setSelectedMessage(null);
                   }
                 }}
-                className="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition-colors"
+                className="px-6 py-3 border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition-colors text-sm sm:text-base"
               >
                 Sil
               </button>
