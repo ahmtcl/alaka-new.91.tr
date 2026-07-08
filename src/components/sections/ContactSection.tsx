@@ -22,7 +22,7 @@ export function ContactSection() {
     // Dosya kontrolü
     if (!selectedFile) {
       setFileWarning(true);
-      setTimeout(() => setFileWarning(false), 3000);
+      setTimeout(() => setFileWarning(false), 5000);
       return;
     }
     
