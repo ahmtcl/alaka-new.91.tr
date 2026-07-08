@@ -11,12 +11,20 @@ export function ContactSection() {
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [fileWarning, setFileWarning] = useState(false);
   const { content } = useSiteContent();
 
   const subtitle = content.contact_subtitle || "Birlikte düşüneceksek, yaz.";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Dosya kontrolü
+    if (!selectedFile) {
+      setFileWarning(true);
+      setTimeout(() => setFileWarning(false), 3000);
+      return;
+    }
     
     if (!kvkkAccepted) {
       alert("Lütfen KVKK Aydınlatma Metni'ni kabul edin.");
@@ -139,6 +147,7 @@ export function ContactSection() {
                   if (file) {
                     setSelectedFile(file);
                     setFileName(`✓ ${file.name}`);
+                    setFileWarning(false);
                   } else {
                     setSelectedFile(null);
                     setFileName(null);
@@ -148,6 +157,13 @@ export function ContactSection() {
               {fileName || "+ Dosya yükle"}
             </label>
           </div>
+
+          {/* File Warning */}
+          {fileWarning && (
+            <p className="text-red-400 text-sm animate-fade-in -mt-4">
+              ⚠ Lütfen devam etmek için bir dosya yükleyin.
+            </p>
+          )}
 
           {/* KVKK Checkbox */}
           <div className="mb-8 text-left">
@@ -179,7 +195,7 @@ export function ContactSection() {
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !selectedFile}
             className="mt-8 py-4 px-8 bg-transparent border border-white/30 text-white/70 text-[0.75rem] tracking-[0.2em] uppercase cursor-pointer transition-all hover:bg-white/10 hover:border-white/50 hover:text-white self-start disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
