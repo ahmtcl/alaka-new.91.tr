@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   addProgram,
   updateProgram,
@@ -40,6 +40,8 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
   const [order, setOrder] = useState(initial?.order ?? 0);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const dragIndex = useRef<number | null>(null);
+  const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
 
   const handleTitleChange = (val: string) => {
     setTitle(val);
@@ -94,6 +96,37 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
     setExistingImages((prev) => prev.filter((_, i) => i !== idx));
   };
 
+  const handleDragStart = (idx: number) => {
+    dragIndex.current = idx;
+  };
+
+  const handleDragOver = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    setDragOverIndex(idx);
+  };
+
+  const handleDrop = (idx: number) => {
+    const from = dragIndex.current;
+    if (from === null || from === idx) {
+      dragIndex.current = null;
+      setDragOverIndex(null);
+      return;
+    }
+    setExistingImages((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(from, 1);
+      next.splice(idx, 0, moved);
+      return next;
+    });
+    dragIndex.current = null;
+    setDragOverIndex(null);
+  };
+
+  const handleDragEnd = () => {
+    dragIndex.current = null;
+    setDragOverIndex(null);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
       {error && <p className="text-red-400 text-sm">{error}</p>}
@@ -128,15 +161,42 @@ export function ProgramForm({ initial, onSave, onCancel }: ProgramFormProps) {
       {/* Existing images */}
       {existingImages.length > 0 && (
         <div>
-          <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Mevcut Görseller</label>
+          <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">
+            Mevcut Görseller
+            <span className="ml-2 text-white/20 normal-case tracking-normal font-normal">(sürükleyerek sıralayabilirsiniz)</span>
+          </label>
           <div className="flex gap-2 flex-wrap">
             {existingImages.map((url, i) => (
-              <div key={i} className="relative group">
-                <img src={url} alt="" className="w-20 h-20 object-cover rounded" />
+              <div
+                key={url}
+                draggable
+                onDragStart={() => handleDragStart(i)}
+                onDragOver={(e) => handleDragOver(e, i)}
+                onDrop={() => handleDrop(i)}
+                onDragEnd={handleDragEnd}
+                className={`relative group cursor-grab active:cursor-grabbing transition-all duration-150 ${
+                  dragOverIndex === i
+                    ? "ring-2 ring-white/60 scale-105 opacity-80"
+                    : "opacity-100"
+                }`}
+              >
+                {/* Sıra numarası */}
+                <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[10px] px-1 rounded z-10">
+                  {i + 1}
+                </span>
+                {/* Drag handle */}
+                <span className="absolute top-1 left-1 text-white/60 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <circle cx="9" cy="5" r="1.5"/><circle cx="15" cy="5" r="1.5"/>
+                    <circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/>
+                    <circle cx="9" cy="19" r="1.5"/><circle cx="15" cy="19" r="1.5"/>
+                  </svg>
+                </span>
+                <img src={url} alt="" className="w-20 h-20 object-cover rounded select-none" draggable={false} />
                 <button
                   type="button"
                   onClick={() => removeExistingImage(i)}
-                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-10"
                 >
                   ×
                 </button>
