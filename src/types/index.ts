@@ -33,3 +33,11 @@ export interface ShowcaseItem {
   href: string;
   badge?: string;
 }
+
+export interface FooterData {
+  copyright: string;
+  privacyTitle: string;
+  privacyContent: string;
+  kvkkTitle: string;
+  kvkkContent: string;
+}

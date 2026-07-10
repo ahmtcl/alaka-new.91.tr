@@ -283,3 +283,78 @@ export async function markContactFormAsRead(id: string) {
 export async function deleteContactForm(id: string) {
   return deleteDoc(doc(getDbInstance(), "contact_forms", id));
 }
+
+// ─── Footer ───
+export interface FirestoreNavLink {
+  label: string;
+  href: string;
+}
+
+export interface FirestoreSocialLink {
+  label: string;
+  href: string;
+  icon: "instagram" | "x" | "tiktok" | "youtube";
+}
+
+export interface FirestoreFooter {
+  copyright: string;
+  privacyTitle: string;
+  privacyContent: string;
+  kvkkTitle: string;
+  kvkkContent: string;
+  navLinks: FirestoreNavLink[];
+  socialLinks: FirestoreSocialLink[];
+}
+
+const DEFAULT_FOOTER: FirestoreFooter = {
+  copyright: "© 2026 ALAKA Media. Tüm hakları saklıdır.",
+  privacyTitle: "ALAKA MEDIA - Kişisel Verilerin Korunması ve İşlenmesi Politikası",
+  privacyContent: `<p>Alaka Media olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") ve ilgili mevzuata uygun şekilde; iş ortaklarımızın, proje başvuru sahiplerinin, ziyaretçilerimizin, çalışanlarımızın ve tüm paydaşlarımızın kişisel verilerinin korunmasına önem veriyoruz.</p>
+<h4>1. Kişisel Verilerin Toplanması ve İşlenmesi</h4>
+<p>Kişisel veriler; yürüttüğümüz içerik üretimi, iş birliği süreçleri, proje başvuruları, sözleşme ilişkileri ve yasal yükümlülüklerimizin yerine getirilmesi amacıyla toplanmaktadır.</p>
+<h4>2. Kişisel Verilerin Aktarılması</h4>
+<p>Toplanan kişisel veriler, yalnızca faaliyetlerimizin gerektirdiği ölçüde ve yasal sınırlar içerisinde paylaşılabilir.</p>
+<h4>3. Kişisel Veri Güvenliği</h4>
+<p>Alaka Media, kişisel verilerin korunması konusunda gerekli teknik ve idari güvenlik önlemlerini almaktadır.</p>
+<h4>4. Haklar ve Başvuru Süreçleri</h4>
+<p>Bu haklara ilişkin taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.</p>`,
+  kvkkTitle: "ALAKA MEDIA - Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni",
+  kvkkContent: `<h4>1. Veri Sorumlusu</h4>
+<p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, Alaka Media ("Şirket") olarak, kişisel verileriniz veri sorumlusu sıfatıyla işlenmektedir.</p>
+<h4>2. İşlenen Kişisel Veriler</h4>
+<p>Web sitemiz üzerinden ad-soyad, e-posta adresi, mesaj içeriği, yüklenen dosyalar, IP adresi ve teknik erişim verileri işlenebilmektedir.</p>
+<h4>3. İşleme Amaçları</h4>
+<p>İletişim taleplerinin yanıtlanması, iş birliği ve proje başvurularının değerlendirilmesi, yasal yükümlülüklerin yerine getirilmesi ve web sitesi güvenliğinin sağlanması amaçlarıyla işlenmektedir.</p>
+<h4>4. KVKK Kapsamındaki Haklarınız</h4>
+<p>Bu kapsamda taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.</p>`,
+  navLinks: [
+    { label: "ANA SAYFA", href: "#home" },
+    { label: "BAK", href: "#bak" },
+    { label: "OKU", href: "#oku" },
+    { label: "TEMAS", href: "#temas" },
+  ],
+  socialLinks: [
+    { label: "Instagram", href: "https://instagram.com/alaka_media", icon: "instagram" },
+    { label: "X", href: "https://x.com/alaka_media", icon: "x" },
+    { label: "TikTok", href: "https://tiktok.com/@alaka_media", icon: "tiktok" },
+    { label: "YouTube", href: "https://www.youtube.com/@ALAKA_Media", icon: "youtube" },
+  ],
+};
+
+const footerDocRef = () => doc(getDbInstance(), "settings", "footer");
+
+export async function getFooter(): Promise<FirestoreFooter> {
+  const snap = await getDoc(footerDocRef());
+  if (!snap.exists()) return { ...DEFAULT_FOOTER };
+  return { ...DEFAULT_FOOTER, ...snap.data() } as FirestoreFooter;
+}
+
+export async function updateFooter(data: Partial<FirestoreFooter>) {
+  const ref = footerDocRef();
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    return updateDoc(ref, data as Record<string, unknown>);
+  } else {
+    return setDoc(ref, { ...DEFAULT_FOOTER, ...data });
+  }
+}

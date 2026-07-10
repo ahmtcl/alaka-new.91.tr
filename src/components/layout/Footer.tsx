@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { navLinks, socialLinks } from "@/data/navigation";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { Modal } from "@/components/ui/Modal";
+import { getFooter, type FirestoreFooter } from "@/lib/firestore";
 
 export function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [kvkkOpen, setKvkkOpen] = useState(false);
+  const [footerData, setFooterData] = useState<FirestoreFooter | null>(null);
+
+  useEffect(() => {
+    getFooter().then(setFooterData);
+  }, []);
 
   function handleNavClick(e: React.MouseEvent, href: string) {
     e.preventDefault();
@@ -66,7 +72,7 @@ export function Footer() {
 
           {/* Copyright */}
           <p className="text-[0.75rem] text-dark opacity-50 tracking-wide">
-            © 2026 ALAKA Media. Tüm hakları saklıdır.
+            {footerData?.copyright || "© 2026 ALAKA Media. Tüm hakları saklıdır."}
           </p>
         </div>
       </footer>
@@ -75,60 +81,20 @@ export function Footer() {
       <Modal
         isOpen={privacyOpen}
         onClose={() => setPrivacyOpen(false)}
-        title="ALAKA MEDIA"
-        subtitle="Kişisel Verilerin Korunması ve İşlenmesi Politikası"
+        title={footerData?.privacyTitle.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.privacyTitle.split(" - ")[1] || "Kişisel Verilerin Korunması ve İşlenmesi Politikası"}
       >
-        <p>
-          Alaka Media olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu
-          (&ldquo;KVKK&rdquo;) ve ilgili mevzuata uygun şekilde; iş ortaklarımızın,
-          proje başvuru sahiplerinin, ziyaretçilerimizin, çalışanlarımızın ve tüm
-          paydaşlarımızın kişisel verilerinin korunmasına önem veriyoruz.
-        </p>
-        <h4>1. Kişisel Verilerin Toplanması ve İşlenmesi</h4>
-        <p>
-          Kişisel veriler; yürüttüğümüz içerik üretimi, iş birliği süreçleri,
-          proje başvuruları, sözleşme ilişkileri ve yasal yükümlülüklerimizin
-          yerine getirilmesi amacıyla toplanmaktadır.
-        </p>
-        <h4>2. Kişisel Verilerin Aktarılması</h4>
-        <p>
-          Toplanan kişisel veriler, yalnızca faaliyetlerimizin gerektirdiği ölçüde
-          ve yasal sınırlar içerisinde paylaşılabilir.
-        </p>
-        <h4>3. Kişisel Veri Güvenliği</h4>
-        <p>
-          Alaka Media, kişisel verilerin korunması konusunda gerekli teknik ve
-          idari güvenlik önlemlerini almaktadır.
-        </p>
-        <h4>4. Haklar ve Başvuru Süreçleri</h4>
-        <p>
-          Bu haklara ilişkin taleplerinizi: <strong>info@alaka.pro</strong>{" "}
-          adresine yazılı olarak iletebilirsiniz.
-        </p>
+        <div dangerouslySetInnerHTML={{ __html: footerData?.privacyContent || "" }} />
       </Modal>
 
       {/* KVKK Modal */}
       <Modal
         isOpen={kvkkOpen}
         onClose={() => setKvkkOpen(false)}
-        title="ALAKA MEDIA"
-        subtitle="Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni"
+        title={footerData?.kvkkTitle.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.kvkkTitle.split(" - ")[1] || "Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni"}
       >
-        <h4>1. Veri Sorumlusu</h4>
-        <p>
-          6698 sayılı Kişisel Verilerin Korunması Kanunu (&ldquo;KVKK&rdquo;)
-          uyarınca, Alaka Media (&ldquo;Şirket&rdquo;) olarak, kişisel
-          verileriniz veri sorumlusu sıfatıyla işlenmektedir.
-        </p>
-        <h4>2. İşlenen Kişisel Veriler</h4>
-        <p>Web sitemiz üzerinden ad-soyad, e-posta adresi, mesaj içeriği, yüklenen dosyalar, IP adresi ve teknik erişim verileri işlenebilmektedir.</p>
-        <h4>3. İşleme Amaçları</h4>
-        <p>İletişim taleplerinin yanıtlanması, iş birliği ve proje başvurularının değerlendirilmesi, yasal yükümlülüklerin yerine getirilmesi ve web sitesi güvenliğinin sağlanması amaçlarıyla işlenmektedir.</p>
-        <h4>4. KVKK Kapsamındaki Haklarınız</h4>
-        <p>
-          Bu kapsamda taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı
-          olarak iletebilirsiniz.
-        </p>
+        <div dangerouslySetInnerHTML={{ __html: footerData?.kvkkContent || "" }} />
       </Modal>
     </>
   );
