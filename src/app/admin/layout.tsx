@@ -12,6 +12,7 @@ const navItems = [
   { label: "Upcoming Yönetimi", href: "/admin/upcoming" },
   { label: "Site İçerikleri", href: "/admin/content" },
   { label: "İletişim Mesajları", href: "/admin/messages" },
+  { label: "Footer Yönetimi", href: "/admin/footer" },
 ];
 
 function Sidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {

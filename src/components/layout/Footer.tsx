@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { navLinks, socialLinks } from "@/data/navigation";
 import { SocialIcon } from "@/components/ui/SocialIcon";
 import { Modal } from "@/components/ui/Modal";
 import { getFooter, type FirestoreFooter } from "@/lib/firestore";
@@ -23,6 +22,9 @@ export function Footer() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
+
+  const navLinks = footerData?.navLinks ?? [];
+  const socialLinks = footerData?.socialLinks ?? [];
 
   return (
     <>
