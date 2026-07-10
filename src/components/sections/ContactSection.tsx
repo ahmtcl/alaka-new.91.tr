@@ -12,7 +12,30 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   const [fileWarning, setFileWarning] = useState(false);
+  const [fileError, setFileError] = useState<string | null>(null);
   const { content } = useSiteContent();
+
+  // Dosya boyutu limiti: 30 MB
+  const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB in bytes
+  
+  // İzin verilen dosya formatları
+  const ALLOWED_FORMATS = [
+    '.doc', '.docx',           // Word
+    '.pdf',                     // PDF
+    '.jpg', '.jpeg',           // JPEG
+    '.xls', '.xlsx',           // Excel
+    '.png'                      // PNG
+  ];
+  
+  const ALLOWED_MIME_TYPES = [
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/pdf',
+    'image/jpeg',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'image/png'
+  ];
 
   const subtitle = content.contact_subtitle || "Birlikte düşüneceksek, yaz.";
 
@@ -23,6 +46,12 @@ export function ContactSection() {
     if (!selectedFile) {
       setFileWarning(true);
       setTimeout(() => setFileWarning(false), 5000);
+      return;
+    }
+    
+    // Dosya boyutu kontrolü (ekstra güvenlik)
+    if (selectedFile.size > MAX_FILE_SIZE) {
+      setFileError(`Dosya boyutu 30 MB'dan büyük olamaz. (${(selectedFile.size / 1024 / 1024).toFixed(2)} MB)`);
       return;
     }
     
@@ -56,11 +85,16 @@ export function ContactSection() {
             attachmentUrl = data.url;
             attachmentName = data.name;
           } else {
-            const err = await res.json().catch(() => ({}));
-            console.error("Dosya yükleme başarısız:", err);
+            const err = await res.json().catch(() => ({ error: 'Dosya yükleme başarısız' }));
+            setFileError(err.error || 'Dosya yükleme başarısız');
+            setIsSubmitting(false);
+            return;
           }
         } catch (uploadError) {
           console.error('Dosya yükleme hatası:', uploadError);
+          setFileError('Dosya yüklenirken bir hata oluştu');
+          setIsSubmitting(false);
+          return;
         }
       }
 
@@ -79,6 +113,7 @@ export function ContactSection() {
       setFileName(null);
       setSelectedFile(null);
       setKvkkAccepted(false);
+      setFileError(null);
     } catch (error) {
       console.error('Form gönderme hatası:', error);
       setSubmitStatus('error');
@@ -133,29 +168,72 @@ export function ContactSection() {
           </div>
 
           {/* File Upload */}
-          <div
-            className="flex items-center gap-4 py-4"
-            style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
-          >
-            <label className="text-[0.85rem] text-white/50 cursor-pointer hover:text-white/80 transition-colors">
-              <input
-                type="file"
-                name="attachment"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    setSelectedFile(file);
-                    setFileName(`✓ ${file.name}`);
-                    setFileWarning(false);
-                  } else {
-                    setSelectedFile(null);
-                    setFileName(null);
-                  }
-                }}
-              />
-              {fileName || "+ Dosya yükle"}
-            </label>
+          <div className="flex flex-col gap-2">
+            <div
+              className="flex items-center gap-4 py-4"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+            >
+              <label className="text-[0.85rem] text-white/50 cursor-pointer hover:text-white/80 transition-colors">
+                <input
+                  type="file"
+                  name="attachment"
+                  className="hidden"
+                  accept={ALLOWED_FORMATS.join(',')}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      // Dosya boyutu kontrolü
+                      if (file.size > MAX_FILE_SIZE) {
+                        setFileError(`Dosya boyutu 30 MB'dan büyük olamaz. (${(file.size / 1024 / 1024).toFixed(2)} MB)`);
+                        setSelectedFile(null);
+                        setFileName(null);
+                        e.target.value = '';
+                        return;
+                      }
+                      
+                      // Dosya formatı kontrolü
+                      const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
+                      const isValidFormat = ALLOWED_FORMATS.includes(fileExtension) || 
+                                          ALLOWED_MIME_TYPES.includes(file.type);
+                      
+                      if (!isValidFormat) {
+                        setFileError('Sadece Word, PDF, JPEG, Excel ve PNG dosyaları yüklenebilir.');
+                        setSelectedFile(null);
+                        setFileName(null);
+                        e.target.value = '';
+                        return;
+                      }
+                      
+                      // Dosya geçerli
+                      setSelectedFile(file);
+                      setFileName(`✓ ${file.name}`);
+                      setFileWarning(false);
+                      setFileError(null);
+                    } else {
+                      setSelectedFile(null);
+                      setFileName(null);
+                      setFileError(null);
+                    }
+                  }}
+                />
+                {fileName || "+ Dosya yükle"}
+              </label>
+            </div>
+            
+            {/* Dosya yükleme bilgi notu */}
+            <p className="text-[0.7rem] text-white/40 leading-relaxed">
+              Maksimum 30 MB | Word, PDF, JPEG, Excel, PNG formatları kabul edilir
+            </p>
+            
+            {/* Dosya hatası */}
+            {fileError && (
+              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 text-red-400 text-xs animate-fade-in">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">⚠</span>
+                  <span>{fileError}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* KVKK Checkbox */}
