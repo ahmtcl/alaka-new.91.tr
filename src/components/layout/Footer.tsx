@@ -32,16 +32,18 @@ export function Footer() {
       <footer className="bg-white py-16 px-8 text-center border-t border-gray-100">
         <div className="max-w-[1200px] mx-auto">
           {/* Navigation */}
-          <nav className="flex justify-center flex-wrap gap-6 mb-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase no-underline opacity-70 hover:opacity-100 transition-opacity"
-              >
-                {link.label}
-              </a>
+          <nav className="flex justify-center flex-wrap items-center gap-6 mb-4">
+            {navLinks.map((link, index) => (
+              <span key={link.href} className="flex items-center gap-6">
+                {index > 0 && <span className="w-px h-3 bg-black/20" />}
+                <a
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase no-underline opacity-70 hover:opacity-100 transition-opacity"
+                >
+                  {link.label}
+                </a>
+              </span>
             ))}
           </nav>
 
