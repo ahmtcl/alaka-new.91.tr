@@ -46,8 +46,10 @@ const ICON_SVG: Record<SocialIconType, React.ReactNode> = {
 export default function FooterAdmin() {
   const [footer, setFooter] = useState<FirestoreFooter | null>(null);
   const [copyright, setCopyright] = useState("");
+  const [privacyButtonLabel, setPrivacyButtonLabel] = useState("");
   const [privacyTitle, setPrivacyTitle] = useState("");
   const [privacyContent, setPrivacyContent] = useState("");
+  const [kvkkButtonLabel, setKvkkButtonLabel] = useState("");
   const [kvkkTitle, setKvkkTitle] = useState("");
   const [kvkkContent, setKvkkContent] = useState("");
   const [navLinks, setNavLinks] = useState<FirestoreNavLink[]>([]);
@@ -63,8 +65,10 @@ export default function FooterAdmin() {
     const data = await getFooter();
     setFooter(data);
     setCopyright(data.copyright);
+    setPrivacyButtonLabel(data.privacyButtonLabel);
     setPrivacyTitle(data.privacyTitle);
     setPrivacyContent(data.privacyContent);
+    setKvkkButtonLabel(data.kvkkButtonLabel);
     setKvkkTitle(data.kvkkTitle);
     setKvkkContent(data.kvkkContent);
     setNavLinks(data.navLinks || []);
@@ -77,8 +81,10 @@ export default function FooterAdmin() {
     try {
       await updateFooter({
         copyright,
+        privacyButtonLabel,
         privacyTitle,
         privacyContent,
+        kvkkButtonLabel,
         kvkkTitle,
         kvkkContent,
         navLinks,
@@ -328,6 +334,20 @@ export default function FooterAdmin() {
           <h3 className="text-white text-lg font-light tracking-wider mb-4">Gizlilik Politikası</h3>
           <div className="space-y-4">
             <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Footer Buton Başlığı</label>
+              <input
+                type="text"
+                value={privacyButtonLabel}
+                onChange={(e) => setPrivacyButtonLabel(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="GİZLİLİK POLİTİKASI"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Footer&apos;da görünecek buton metni (örn: GİZLİLİK POLİTİKASI)
+              </p>
+            </div>
+            <div>
               <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
               <input
                 type="text"
@@ -359,8 +379,22 @@ export default function FooterAdmin() {
 
         {/* ─── KVKK ─── */}
         <div className="border-t border-white/10 pt-8">
-          <h3 className="text-white text-lg font-light tracking-wider mb-4">KVKK Aydınlatma Metni</h3>
+          <h3 className="text-white text-lg font-light tracking-wider mb-4">Web Sitesi Aydınlatma Metni</h3>
           <div className="space-y-4">
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Footer Buton Başlığı</label>
+              <input
+                type="text"
+                value={kvkkButtonLabel}
+                onChange={(e) => setKvkkButtonLabel(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="WEB SİTESİ AYDINLATMA METNİ"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Footer&apos;da görünecek buton metni (örn: WEB SİTESİ AYDINLATMA METNİ)
+              </p>
+            </div>
             <div>
               <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
               <input

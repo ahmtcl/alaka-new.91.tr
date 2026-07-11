@@ -298,8 +298,10 @@ export interface FirestoreSocialLink {
 
 export interface FirestoreFooter {
   copyright: string;
+  privacyButtonLabel: string;
   privacyTitle: string;
   privacyContent: string;
+  kvkkButtonLabel: string;
   kvkkTitle: string;
   kvkkContent: string;
   navLinks: FirestoreNavLink[];
@@ -308,6 +310,7 @@ export interface FirestoreFooter {
 
 const DEFAULT_FOOTER: FirestoreFooter = {
   copyright: "© 2026 ALAKA Media. Tüm hakları saklıdır.",
+  privacyButtonLabel: "GİZLİLİK POLİTİKASI",
   privacyTitle: "ALAKA MEDIA - Kişisel Verilerin Korunması ve İşlenmesi Politikası",
   privacyContent: `<p>Alaka Media olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") ve ilgili mevzuata uygun şekilde; iş ortaklarımızın, proje başvuru sahiplerinin, ziyaretçilerimizin, çalışanlarımızın ve tüm paydaşlarımızın kişisel verilerinin korunmasına önem veriyoruz.</p>
 <h4>1. Kişisel Verilerin Toplanması ve İşlenmesi</h4>
@@ -318,6 +321,7 @@ const DEFAULT_FOOTER: FirestoreFooter = {
 <p>Alaka Media, kişisel verilerin korunması konusunda gerekli teknik ve idari güvenlik önlemlerini almaktadır.</p>
 <h4>4. Haklar ve Başvuru Süreçleri</h4>
 <p>Bu haklara ilişkin taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.</p>`,
+  kvkkButtonLabel: "WEB SİTESİ AYDINLATMA METNİ",
   kvkkTitle: "ALAKA MEDIA - Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni",
   kvkkContent: `<h4>1. Veri Sorumlusu</h4>
 <p>6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, Alaka Media ("Şirket") olarak, kişisel verileriniz veri sorumlusu sıfatıyla işlenmektedir.</p>
