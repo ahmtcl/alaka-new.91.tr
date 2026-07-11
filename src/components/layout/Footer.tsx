@@ -52,7 +52,7 @@ export function Footer() {
               onClick={() => setKvkkOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity border-l border-black/20 pl-6 cursor-pointer bg-transparent border-t-0 border-b-0 border-r-0"
             >
-              KVKK
+              WEB SİTESİ AYDINLATMA METNİ
             </button>
           </nav>
 
