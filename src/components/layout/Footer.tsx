@@ -46,19 +46,21 @@ export function Footer() {
           </nav>
 
           {/* Legal Links */}
-          <div className="flex justify-center flex-wrap gap-6 mb-8">
+          <div className="flex justify-center flex-wrap items-center gap-6 mb-8">
             <button
               onClick={() => setPrivacyOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.privacyButtonLabel || "GİZLİLİK POLİTİKASI"}
             </button>
+            <span className="w-px h-3 bg-black/20" />
             <button
               onClick={() => setKvkkOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.kvkkButtonLabel || "WEB SİTESİ AYDINLATMA METNİ"}
             </button>
+            <span className="w-px h-3 bg-black/20" />
             <button
               onClick={() => setDataSubjectOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
