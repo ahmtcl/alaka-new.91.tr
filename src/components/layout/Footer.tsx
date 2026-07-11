@@ -32,7 +32,7 @@ export function Footer() {
       <footer className="bg-white py-16 px-8 text-center border-t border-gray-100">
         <div className="max-w-[1200px] mx-auto">
           {/* Navigation */}
-          <nav className="flex justify-center flex-wrap gap-6 mb-8">
+          <nav className="flex justify-center flex-wrap gap-6 mb-4">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -43,25 +43,29 @@ export function Footer() {
                 {link.label}
               </a>
             ))}
+          </nav>
+
+          {/* Legal Links */}
+          <div className="flex justify-center flex-wrap gap-6 mb-8">
             <button
               onClick={() => setPrivacyOpen(true)}
-              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity border-l border-black/20 pl-6 cursor-pointer bg-transparent border-t-0 border-b-0 border-r-0"
+              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.privacyButtonLabel || "GİZLİLİK POLİTİKASI"}
             </button>
             <button
               onClick={() => setKvkkOpen(true)}
-              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity border-l border-black/20 pl-6 cursor-pointer bg-transparent border-t-0 border-b-0 border-r-0"
+              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.kvkkButtonLabel || "WEB SİTESİ AYDINLATMA METNİ"}
             </button>
             <button
               onClick={() => setDataSubjectOpen(true)}
-              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity border-l border-black/20 pl-6 cursor-pointer bg-transparent border-t-0 border-b-0 border-r-0"
+              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.dataSubjectButtonLabel || "VERİ SAHİBİ BAŞVURU FORMU"}
             </button>
-          </nav>
+          </div>
 
           {/* Social Icons */}
           <div className="flex justify-center gap-6 mb-8">
