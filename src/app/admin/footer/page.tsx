@@ -55,6 +55,10 @@ export default function FooterAdmin() {
   const [dataSubjectButtonLabel, setDataSubjectButtonLabel] = useState("");
   const [dataSubjectTitle, setDataSubjectTitle] = useState("");
   const [dataSubjectContent, setDataSubjectContent] = useState("");
+  const [contactFormDisclosureTitle, setContactFormDisclosureTitle] = useState("");
+  const [contactFormDisclosureContent, setContactFormDisclosureContent] = useState("");
+  const [projectTermsTitle, setProjectTermsTitle] = useState("");
+  const [projectTermsContent, setProjectTermsContent] = useState("");
   const [navLinks, setNavLinks] = useState<FirestoreNavLink[]>([]);
   const [socialLinks, setSocialLinks] = useState<FirestoreSocialLink[]>([]);
   const [saving, setSaving] = useState(false);
@@ -77,6 +81,10 @@ export default function FooterAdmin() {
     setDataSubjectButtonLabel(data.dataSubjectButtonLabel);
     setDataSubjectTitle(data.dataSubjectTitle);
     setDataSubjectContent(data.dataSubjectContent);
+    setContactFormDisclosureTitle(data.contactFormDisclosureTitle || "");
+    setContactFormDisclosureContent(data.contactFormDisclosureContent || "");
+    setProjectTermsTitle(data.projectTermsTitle || "");
+    setProjectTermsContent(data.projectTermsContent || "");
     setNavLinks(data.navLinks || []);
     setSocialLinks(data.socialLinks || []);
   };
@@ -96,6 +104,10 @@ export default function FooterAdmin() {
         dataSubjectButtonLabel,
         dataSubjectTitle,
         dataSubjectContent,
+        contactFormDisclosureTitle,
+        contactFormDisclosureContent,
+        projectTermsTitle,
+        projectTermsContent,
         navLinks,
         socialLinks,
       });
@@ -473,6 +485,74 @@ export default function FooterAdmin() {
                 rows={12}
                 className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
                 placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
+              />
+              <p className="text-white/30 text-xs mt-1">
+                HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Temas Formu Aydınlatma Metni ─── */}
+        <div className="border-t border-white/10 pt-8">
+          <h3 className="text-white text-lg font-light tracking-wider mb-4">Temas Formu Aydınlatma Metni</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
+              <input
+                type="text"
+                value={contactFormDisclosureTitle}
+                onChange={(e) => setContactFormDisclosureTitle(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="ALAKA MEDIA - Temas Formu Aydınlatma Metni"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">
+                İçerik (HTML destekler: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;)
+              </label>
+              <textarea
+                value={contactFormDisclosureContent}
+                onChange={(e) => setContactFormDisclosureContent(e.target.value)}
+                rows={12}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
+                placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Proje Fikri ve Senaryo Gönderim Şartları ─── */}
+        <div className="border-t border-white/10 pt-8">
+          <h3 className="text-white text-lg font-light tracking-wider mb-4">Proje Fikri ve Senaryo Gönderim Şartları</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
+              <input
+                type="text"
+                value={projectTermsTitle}
+                onChange={(e) => setProjectTermsTitle(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="ALAKA MEDIA - Proje Fikri ve Senaryo Gönderim Şartları"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">
+                İçerik (HTML destekler: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;)
+              </label>
+              <textarea
+                value={projectTermsContent}
+                onChange={(e) => setProjectTermsContent(e.target.value)}
+                rows={12}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
+                placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
+                required
               />
               <p className="text-white/30 text-xs mt-1">
                 HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;

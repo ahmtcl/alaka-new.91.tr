@@ -1,19 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { useSiteContent } from "@/lib/hooks";
-import { addContactForm } from "@/lib/firestore";
+import { addContactForm, getFooter, type FirestoreFooter } from "@/lib/firestore";
+import { Modal } from "@/components/ui/Modal";
 
 export function ContactSection() {
   const [fileName, setFileName] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [kvkkAccepted, setKvkkAccepted] = useState(false);
+  const [disclosureAccepted, setDisclosureAccepted] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [disclosureOpen, setDisclosureOpen] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+  const [footerData, setFooterData] = useState<FirestoreFooter | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   const [fileWarning, setFileWarning] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
   const { content } = useSiteContent();
+
+  useEffect(() => {
+    getFooter().then(setFooterData);
+  }, []);
 
   // Dosya boyutu limiti: 30 MB
   const MAX_FILE_SIZE = 30 * 1024 * 1024; // 30 MB in bytes
@@ -55,8 +64,8 @@ export function ContactSection() {
       return;
     }
     
-    if (!kvkkAccepted) {
-      alert("Lütfen KVKK Aydınlatma Metni'ni kabul edin.");
+    if (!disclosureAccepted || !termsAccepted) {
+      alert("Lütfen tüm onay kutularını kabul edin.");
       return;
     }
 
@@ -112,7 +121,8 @@ export function ContactSection() {
       formEl.reset();
       setFileName(null);
       setSelectedFile(null);
-      setKvkkAccepted(false);
+      setDisclosureAccepted(false);
+      setTermsAccepted(false);
       setFileError(null);
     } catch (error) {
       console.error('Form gönderme hatası:', error);
@@ -236,37 +246,79 @@ export function ContactSection() {
             )}
           </div>
 
-          {/* KVKK Checkbox */}
-          <div className="mb-8 text-left">
-            <label className="flex items-center cursor-pointer text-[0.8rem] text-muted select-none">
+          {/* KVKK & Terms Checkboxes */}
+          <div className="space-y-4 mb-8 text-left">
+            {/* Checkbox 1: Disclosure */}
+            <label className="flex items-start cursor-pointer text-[0.8rem] text-muted select-none">
               <input
                 type="checkbox"
-                name="kvkk_consent"
-                checked={kvkkAccepted}
-                onChange={(e) => setKvkkAccepted(e.target.checked)}
+                name="disclosure_consent"
+                checked={disclosureAccepted}
+                onChange={(e) => setDisclosureAccepted(e.target.checked)}
                 className="sr-only"
                 required
               />
               <span
-                className={`h-5 w-5 border-2 rounded mr-3 relative transition-all flex-shrink-0 ${
-                  kvkkAccepted
+                className={`h-5 w-5 border-2 rounded mr-3 relative transition-all flex-shrink-0 mt-0.5 ${
+                  disclosureAccepted
                     ? "bg-white border-white"
                     : "bg-transparent border-white/60 hover:border-white"
                 }`}
               >
-                {kvkkAccepted && (
+                {disclosureAccepted && (
                   <span className="absolute left-[5px] top-[2px] w-[6px] h-3 border-dark border-r-2 border-b-2 rotate-45" />
                 )}
               </span>
               <span className="tracking-wide">
-                KVKK Aydınlatma Metni&apos;ni okudum ve kabul ediyorum.
+                <button
+                  type="button"
+                  onClick={() => setDisclosureOpen(true)}
+                  className="underline bg-transparent border-0 p-0 text-white cursor-pointer inline font-inherit text-inherit hover:text-white/80 transition-colors"
+                >
+                  Temas Formu Aydınlatma Metni
+                </button>
+                &apos;ni okudum, anladım.
+              </span>
+            </label>
+
+            {/* Checkbox 2: Project Terms */}
+            <label className="flex items-start cursor-pointer text-[0.8rem] text-muted select-none">
+              <input
+                type="checkbox"
+                name="terms_consent"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+                className="sr-only"
+                required
+              />
+              <span
+                className={`h-5 w-5 border-2 rounded mr-3 relative transition-all flex-shrink-0 mt-0.5 ${
+                  termsAccepted
+                    ? "bg-white border-white"
+                    : "bg-transparent border-white/60 hover:border-white"
+                }`}
+              >
+                {termsAccepted && (
+                  <span className="absolute left-[5px] top-[2px] w-[6px] h-3 border-dark border-r-2 border-b-2 rotate-45" />
+                )}
+              </span>
+              <span className="tracking-wide leading-relaxed">
+                Gönüllü olarak ilettiğim proje fikirleri, senaryo veya konseptlerin{" "}
+                <button
+                  type="button"
+                  onClick={() => setTermsOpen(true)}
+                  className="underline bg-transparent border-0 p-0 text-white cursor-pointer inline font-inherit text-inherit hover:text-white/80 transition-colors"
+                >
+                  Proje Fikri ve Senaryo Gönderim Şartları
+                </button>
+                &apos;na tabi olduğunu okudum ve bu şartları gayrikabil-i rücu olarak kabul ediyorum.
               </span>
             </label>
           </div>
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !disclosureAccepted || !termsAccepted}
             className="mt-8 py-4 px-8 bg-transparent border border-white/30 text-white/70 text-[0.75rem] tracking-[0.2em] uppercase cursor-pointer transition-all hover:bg-white/10 hover:border-white/50 hover:text-white self-start disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
@@ -295,6 +347,26 @@ export function ContactSection() {
           )}
         </form>
       </div>
+
+      {/* Contact Form Disclosure Modal */}
+      <Modal
+        isOpen={disclosureOpen}
+        onClose={() => setDisclosureOpen(false)}
+        title={footerData?.contactFormDisclosureTitle.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.contactFormDisclosureTitle.split(" - ")[1] || "Temas Formu Aydınlatma Metni"}
+      >
+        <div dangerouslySetInnerHTML={{ __html: footerData?.contactFormDisclosureContent || "" }} />
+      </Modal>
+
+      {/* Project Idea and Script Submission Terms Modal */}
+      <Modal
+        isOpen={termsOpen}
+        onClose={() => setTermsOpen(false)}
+        title={footerData?.projectTermsTitle.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.projectTermsTitle.split(" - ")[1] || "Proje Fikri ve Senaryo Gönderim Şartları"}
+      >
+        <div dangerouslySetInnerHTML={{ __html: footerData?.projectTermsContent || "" }} />
+      </Modal>
     </section>
   );
 }
