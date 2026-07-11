@@ -61,12 +61,24 @@ export function Footer() {
               {footerData?.kvkkButtonLabel || "WEB SİTESİ AYDINLATMA METNİ"}
             </button>
             <span className="w-px h-3 bg-black/20" />
-            <button
-              onClick={() => setDataSubjectOpen(true)}
-              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
-            >
-              {footerData?.dataSubjectButtonLabel || "VERİ SAHİBİ BAŞVURU FORMU"}
-            </button>
+            {footerData?.dataSubjectFileUrl ? (
+              <a
+                href={footerData.dataSubjectFileUrl}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0 no-underline"
+              >
+                {footerData?.dataSubjectButtonLabel || "VERİ SAHİBİ BAŞVURU FORMU"}
+              </a>
+            ) : (
+              <button
+                onClick={() => setDataSubjectOpen(true)}
+                className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
+              >
+                {footerData?.dataSubjectButtonLabel || "VERİ SAHİBİ BAŞVURU FORMU"}
+              </button>
+            )}
           </div>
 
           {/* Social Icons */}

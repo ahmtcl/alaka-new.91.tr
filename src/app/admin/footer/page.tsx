@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   getFooter,
   updateFooter,
+  uploadFile,
   type FirestoreFooter,
   type FirestoreNavLink,
   type FirestoreSocialLink,
@@ -55,6 +56,8 @@ export default function FooterAdmin() {
   const [dataSubjectButtonLabel, setDataSubjectButtonLabel] = useState("");
   const [dataSubjectTitle, setDataSubjectTitle] = useState("");
   const [dataSubjectContent, setDataSubjectContent] = useState("");
+  const [dataSubjectFileUrl, setDataSubjectFileUrl] = useState("");
+  const [newDocFile, setNewDocFile] = useState<File | null>(null);
   const [contactFormDisclosureTitle, setContactFormDisclosureTitle] = useState("");
   const [contactFormDisclosureContent, setContactFormDisclosureContent] = useState("");
   const [projectTermsTitle, setProjectTermsTitle] = useState("");
@@ -81,6 +84,7 @@ export default function FooterAdmin() {
     setDataSubjectButtonLabel(data.dataSubjectButtonLabel);
     setDataSubjectTitle(data.dataSubjectTitle);
     setDataSubjectContent(data.dataSubjectContent);
+    setDataSubjectFileUrl(data.dataSubjectFileUrl || "");
     setContactFormDisclosureTitle(data.contactFormDisclosureTitle || "");
     setContactFormDisclosureContent(data.contactFormDisclosureContent || "");
     setProjectTermsTitle(data.projectTermsTitle || "");
@@ -93,6 +97,13 @@ export default function FooterAdmin() {
     e.preventDefault();
     setSaving(true);
     try {
+      let finalFileUrl = dataSubjectFileUrl;
+
+      if (newDocFile) {
+        const path = `footer/${Date.now()}-${newDocFile.name}`;
+        finalFileUrl = await uploadFile(newDocFile, path);
+      }
+
       await updateFooter({
         copyright,
         privacyButtonLabel,
@@ -104,6 +115,7 @@ export default function FooterAdmin() {
         dataSubjectButtonLabel,
         dataSubjectTitle,
         dataSubjectContent,
+        dataSubjectFileUrl: finalFileUrl,
         contactFormDisclosureTitle,
         contactFormDisclosureContent,
         projectTermsTitle,
@@ -111,6 +123,7 @@ export default function FooterAdmin() {
         navLinks,
         socialLinks,
       });
+      setNewDocFile(null);
       setToast({ message: "Footer başarıyla güncellendi!", type: "success" });
       loadFooter();
     } catch (error) {
@@ -474,6 +487,42 @@ export default function FooterAdmin() {
                 placeholder="ALAKA MEDIA - Veri Sahibi Başvuru Formu"
                 required
               />
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başvuru Formu Belgesi (Yüklendiğinde metin yerine doğrudan dosya iner)</label>
+              {dataSubjectFileUrl && (
+                <div className="mb-3 text-sm text-white/60 flex items-center gap-2 bg-white/5 border border-white/10 rounded px-4 py-2.5">
+                  <span>Mevcut Dosya:</span>
+                  <a
+                    href={dataSubjectFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-white hover:text-white/80 transition-colors font-medium"
+                  >
+                    Dosyayı Gör / İndir
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirm("Mevcut dosyayı kaldırmak istediğinize emin misiniz? Form yeniden metin moduna dönecektir.")) {
+                        setDataSubjectFileUrl("");
+                      }
+                    }}
+                    className="text-red-400 hover:text-red-300 transition-colors ml-auto text-xs"
+                  >
+                    Dosyayı Kaldır
+                  </button>
+                </div>
+              )}
+              <input
+                type="file"
+                accept=".doc,.docx,.pdf"
+                onChange={(e) => setNewDocFile(e.target.files?.[0] ?? null)}
+                className="text-white/60 text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-white/10 file:text-white/70 hover:file:bg-white/20"
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Word (.doc, .docx) veya PDF dosyası yükleyebilirsiniz. Dosya yüklendiğinde, footer&apos;daki &quot;Veri Sahibi Başvuru Formu&quot; linki bu dosyayı doğrudan indirecektir. Dosya yüklenmez/kaldırılırsa, link tıklanınca aşağıdaki metin modaldan açılacaktır.
+              </p>
             </div>
             <div>
               <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">

@@ -307,6 +307,7 @@ export interface FirestoreFooter {
   dataSubjectButtonLabel: string;
   dataSubjectTitle: string;
   dataSubjectContent: string;
+  dataSubjectFileUrl: string;
   contactFormDisclosureTitle: string;
   contactFormDisclosureContent: string;
   projectTermsTitle: string;
@@ -341,6 +342,7 @@ const DEFAULT_FOOTER: FirestoreFooter = {
   dataSubjectButtonLabel: "VERİ SAHİBİ BAŞVURU FORMU",
   dataSubjectTitle: "ALAKA MEDIA - Veri Sahibi Başvuru Formu",
   dataSubjectContent: "",
+  dataSubjectFileUrl: "",
   contactFormDisclosureTitle: "ALAKA MEDIA - Temas Formu Aydınlatma Metni",
   contactFormDisclosureContent: `<h4>Temas Formu Aydınlatma Metni</h4><p>Kişisel verileriniz temas formunun işlenmesi amacıyla kaydedilmektedir.</p>`,
   projectTermsTitle: "ALAKA MEDIA - Proje Fikri ve Senaryo Gönderim Şartları",
