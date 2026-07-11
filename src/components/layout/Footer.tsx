@@ -8,6 +8,7 @@ import { getFooter, type FirestoreFooter } from "@/lib/firestore";
 export function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [kvkkOpen, setKvkkOpen] = useState(false);
+  const [dataSubjectOpen, setDataSubjectOpen] = useState(false);
   const [footerData, setFooterData] = useState<FirestoreFooter | null>(null);
 
   useEffect(() => {
@@ -54,6 +55,12 @@ export function Footer() {
             >
               {footerData?.kvkkButtonLabel || "WEB SİTESİ AYDINLATMA METNİ"}
             </button>
+            <button
+              onClick={() => setDataSubjectOpen(true)}
+              className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity border-l border-black/20 pl-6 cursor-pointer bg-transparent border-t-0 border-b-0 border-r-0"
+            >
+              {footerData?.dataSubjectButtonLabel || "VERİ SAHİBİ BAŞVURU FORMU"}
+            </button>
           </nav>
 
           {/* Social Icons */}
@@ -97,6 +104,16 @@ export function Footer() {
         subtitle={footerData?.kvkkTitle.split(" - ")[1] || "Kişisel Verilerin Korunması ve İşlenmesi Aydınlatma Metni"}
       >
         <div dangerouslySetInnerHTML={{ __html: footerData?.kvkkContent || "" }} />
+      </Modal>
+
+      {/* Data Subject Application Modal */}
+      <Modal
+        isOpen={dataSubjectOpen}
+        onClose={() => setDataSubjectOpen(false)}
+        title={footerData?.dataSubjectTitle.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.dataSubjectTitle.split(" - ")[1] || "Veri Sahibi Başvuru Formu"}
+      >
+        <div dangerouslySetInnerHTML={{ __html: footerData?.dataSubjectContent || "" }} />
       </Modal>
     </>
   );

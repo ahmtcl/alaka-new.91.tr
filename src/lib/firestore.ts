@@ -304,6 +304,9 @@ export interface FirestoreFooter {
   kvkkButtonLabel: string;
   kvkkTitle: string;
   kvkkContent: string;
+  dataSubjectButtonLabel: string;
+  dataSubjectTitle: string;
+  dataSubjectContent: string;
   navLinks: FirestoreNavLink[];
   socialLinks: FirestoreSocialLink[];
 }
@@ -331,6 +334,9 @@ const DEFAULT_FOOTER: FirestoreFooter = {
 <p>İletişim taleplerinin yanıtlanması, iş birliği ve proje başvurularının değerlendirilmesi, yasal yükümlülüklerin yerine getirilmesi ve web sitesi güvenliğinin sağlanması amaçlarıyla işlenmektedir.</p>
 <h4>4. KVKK Kapsamındaki Haklarınız</h4>
 <p>Bu kapsamda taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.</p>`,
+  dataSubjectButtonLabel: "VERİ SAHİBİ BAŞVURU FORMU",
+  dataSubjectTitle: "ALAKA MEDIA - Veri Sahibi Başvuru Formu",
+  dataSubjectContent: "",
   navLinks: [
     { label: "ANA SAYFA", href: "#home" },
     { label: "BAK", href: "#bak" },

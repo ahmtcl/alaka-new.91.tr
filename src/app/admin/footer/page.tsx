@@ -52,6 +52,9 @@ export default function FooterAdmin() {
   const [kvkkButtonLabel, setKvkkButtonLabel] = useState("");
   const [kvkkTitle, setKvkkTitle] = useState("");
   const [kvkkContent, setKvkkContent] = useState("");
+  const [dataSubjectButtonLabel, setDataSubjectButtonLabel] = useState("");
+  const [dataSubjectTitle, setDataSubjectTitle] = useState("");
+  const [dataSubjectContent, setDataSubjectContent] = useState("");
   const [navLinks, setNavLinks] = useState<FirestoreNavLink[]>([]);
   const [socialLinks, setSocialLinks] = useState<FirestoreSocialLink[]>([]);
   const [saving, setSaving] = useState(false);
@@ -71,6 +74,9 @@ export default function FooterAdmin() {
     setKvkkButtonLabel(data.kvkkButtonLabel);
     setKvkkTitle(data.kvkkTitle);
     setKvkkContent(data.kvkkContent);
+    setDataSubjectButtonLabel(data.dataSubjectButtonLabel);
+    setDataSubjectTitle(data.dataSubjectTitle);
+    setDataSubjectContent(data.dataSubjectContent);
     setNavLinks(data.navLinks || []);
     setSocialLinks(data.socialLinks || []);
   };
@@ -87,6 +93,9 @@ export default function FooterAdmin() {
         kvkkButtonLabel,
         kvkkTitle,
         kvkkContent,
+        dataSubjectButtonLabel,
+        dataSubjectTitle,
+        dataSubjectContent,
         navLinks,
         socialLinks,
       });
@@ -417,6 +426,53 @@ export default function FooterAdmin() {
                 className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
                 placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
                 required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Veri Sahibi Başvuru Formu ─── */}
+        <div className="border-t border-white/10 pt-8">
+          <h3 className="text-white text-lg font-light tracking-wider mb-4">Veri Sahibi Başvuru Formu</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Footer Buton Başlığı</label>
+              <input
+                type="text"
+                value={dataSubjectButtonLabel}
+                onChange={(e) => setDataSubjectButtonLabel(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="VERİ SAHİBİ BAŞVURU FORMU"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Footer&apos;da görünecek buton metni (örn: VERİ SAHİBİ BAŞVURU FORMU)
+              </p>
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
+              <input
+                type="text"
+                value={dataSubjectTitle}
+                onChange={(e) => setDataSubjectTitle(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="ALAKA MEDIA - Veri Sahibi Başvuru Formu"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">
+                İçerik (HTML destekler: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;)
+              </label>
+              <textarea
+                value={dataSubjectContent}
+                onChange={(e) => setDataSubjectContent(e.target.value)}
+                rows={12}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
+                placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
               />
               <p className="text-white/30 text-xs mt-1">
                 HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;
