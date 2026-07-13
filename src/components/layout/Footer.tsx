@@ -8,6 +8,7 @@ import { getFooter, type FirestoreFooter } from "@/lib/firestore";
 export function Footer() {
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [kvkkOpen, setKvkkOpen] = useState(false);
+  const [cookieOpen, setCookieOpen] = useState(false);
   const [dataSubjectOpen, setDataSubjectOpen] = useState(false);
   const [footerData, setFooterData] = useState<FirestoreFooter | null>(null);
 
@@ -32,10 +33,10 @@ export function Footer() {
       <footer className="bg-white py-16 px-8 text-center border-t border-gray-100">
         <div className="max-w-[1200px] mx-auto">
           {/* Navigation */}
-          <nav className="flex justify-center flex-wrap items-center gap-6 mb-4">
+          <nav className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mb-6">
             {navLinks.map((link, index) => (
-              <span key={link.href} className="flex items-center gap-6">
-                {index > 0 && <span className="w-px h-3 bg-black/20" />}
+              <span key={link.href} className="flex items-center gap-4 sm:gap-6">
+                {index > 0 && <span className="hidden sm:inline-block w-px h-3 bg-black/20" />}
                 <a
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
@@ -48,21 +49,40 @@ export function Footer() {
           </nav>
 
           {/* Legal Links */}
-          <div className="flex justify-center flex-wrap items-center gap-6 mb-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 mb-8">
             <button
               onClick={() => setPrivacyOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.privacyButtonLabel || "GİZLİLİK POLİTİKASI"}
             </button>
-            <span className="w-px h-3 bg-black/20" />
+            <span className="hidden md:inline-block w-px h-3 bg-black/20" />
             <button
               onClick={() => setKvkkOpen(true)}
               className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
             >
               {footerData?.kvkkButtonLabel || "WEB SİTESİ AYDINLATMA METNİ"}
             </button>
-            <span className="w-px h-3 bg-black/20" />
+            <span className="hidden md:inline-block w-px h-3 bg-black/20" />
+            {footerData?.cookieFileUrl ? (
+              <a
+                href={footerData.cookieFileUrl}
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0 no-underline"
+              >
+                {footerData?.cookieButtonLabel || "ÇEREZ AYDINLATMA METNİ"}
+              </a>
+            ) : (
+              <button
+                onClick={() => setCookieOpen(true)}
+                className="text-dark text-[0.8rem] font-medium tracking-[0.15em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer bg-transparent border-0 p-0"
+              >
+                {footerData?.cookieButtonLabel || "ÇEREZ AYDINLATMA METNİ"}
+              </button>
+            )}
+            <span className="hidden md:inline-block w-px h-3 bg-black/20" />
             {footerData?.dataSubjectFileUrl ? (
               <a
                 href={footerData.dataSubjectFileUrl}
@@ -134,6 +154,16 @@ export function Footer() {
         subtitle={footerData?.dataSubjectTitle.split(" - ")[1] || "Veri Sahibi Başvuru Formu"}
       >
         <div dangerouslySetInnerHTML={{ __html: footerData?.dataSubjectContent || "" }} />
+      </Modal>
+
+      {/* Cookie Modal */}
+      <Modal
+        isOpen={cookieOpen}
+        onClose={() => setCookieOpen(false)}
+        title={footerData?.cookieTitle?.split(" - ")[0] || "ALAKA MEDIA"}
+        subtitle={footerData?.cookieTitle?.split(" - ")[1] || "Çerez Aydınlatma Metni"}
+      >
+        <div dangerouslySetInnerHTML={{ __html: footerData?.cookieContent || "" }} />
       </Modal>
     </>
   );

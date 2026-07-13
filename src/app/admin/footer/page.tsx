@@ -53,6 +53,11 @@ export default function FooterAdmin() {
   const [kvkkButtonLabel, setKvkkButtonLabel] = useState("");
   const [kvkkTitle, setKvkkTitle] = useState("");
   const [kvkkContent, setKvkkContent] = useState("");
+  const [cookieButtonLabel, setCookieButtonLabel] = useState("");
+  const [cookieTitle, setCookieTitle] = useState("");
+  const [cookieContent, setCookieContent] = useState("");
+  const [cookieFileUrl, setCookieFileUrl] = useState("");
+  const [newCookieFile, setNewCookieFile] = useState<File | null>(null);
   const [dataSubjectButtonLabel, setDataSubjectButtonLabel] = useState("");
   const [dataSubjectTitle, setDataSubjectTitle] = useState("");
   const [dataSubjectContent, setDataSubjectContent] = useState("");
@@ -81,6 +86,10 @@ export default function FooterAdmin() {
     setKvkkButtonLabel(data.kvkkButtonLabel);
     setKvkkTitle(data.kvkkTitle);
     setKvkkContent(data.kvkkContent);
+    setCookieButtonLabel(data.cookieButtonLabel || "");
+    setCookieTitle(data.cookieTitle || "");
+    setCookieContent(data.cookieContent || "");
+    setCookieFileUrl(data.cookieFileUrl || "");
     setDataSubjectButtonLabel(data.dataSubjectButtonLabel);
     setDataSubjectTitle(data.dataSubjectTitle);
     setDataSubjectContent(data.dataSubjectContent);
@@ -104,6 +113,13 @@ export default function FooterAdmin() {
         finalFileUrl = await uploadFile(newDocFile, path);
       }
 
+      let finalCookieFileUrl = cookieFileUrl;
+
+      if (newCookieFile) {
+        const path = `footer/${Date.now()}-${newCookieFile.name}`;
+        finalCookieFileUrl = await uploadFile(newCookieFile, path);
+      }
+
       await updateFooter({
         copyright,
         privacyButtonLabel,
@@ -112,6 +128,10 @@ export default function FooterAdmin() {
         kvkkButtonLabel,
         kvkkTitle,
         kvkkContent,
+        cookieButtonLabel,
+        cookieTitle,
+        cookieContent,
+        cookieFileUrl: finalCookieFileUrl,
         dataSubjectButtonLabel,
         dataSubjectTitle,
         dataSubjectContent,
@@ -124,6 +144,7 @@ export default function FooterAdmin() {
         socialLinks,
       });
       setNewDocFile(null);
+      setNewCookieFile(null);
       setToast({ message: "Footer başarıyla güncellendi!", type: "success" });
       loadFooter();
     } catch (error) {
@@ -447,6 +468,90 @@ export default function FooterAdmin() {
               <textarea
                 value={kvkkContent}
                 onChange={(e) => setKvkkContent(e.target.value)}
+                rows={12}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
+                placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                HTML etiketleri kullanabilirsiniz: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── Çerez Aydınlatma Metni ─── */}
+        <div className="border-t border-white/10 pt-8">
+          <h3 className="text-white text-lg font-light tracking-wider mb-4">Çerez Aydınlatma Metni</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Footer Buton Başlığı</label>
+              <input
+                type="text"
+                value={cookieButtonLabel}
+                onChange={(e) => setCookieButtonLabel(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="ÇEREZ AYDINLATMA METNİ"
+                required
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Footer&apos;da görünecek buton metni (örn: ÇEREZ AYDINLATMA METNİ)
+              </p>
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Başlık</label>
+              <input
+                type="text"
+                value={cookieTitle}
+                onChange={(e) => setCookieTitle(e.target.value)}
+                className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors"
+                placeholder="ALAKA MEDIA - Çerez Aydınlatma Metni"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">Aydınlatma Metni Belgesi (Yüklendiğinde metin yerine doğrudan dosya iner)</label>
+              {cookieFileUrl && (
+                <div className="mb-3 text-sm text-white/60 flex items-center gap-2 bg-white/5 border border-white/10 rounded px-4 py-2.5">
+                  <span>Mevcut Dosya:</span>
+                  <a
+                    href={cookieFileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline text-white hover:text-white/80 transition-colors font-medium"
+                  >
+                    Dosyayı Gör / İndir
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (confirm("Mevcut dosyayı kaldırmak istediğinize emin misiniz? Aydınlatma metni yeniden metin moduna dönecektir.")) {
+                        setCookieFileUrl("");
+                      }
+                    }}
+                    className="text-red-400 hover:text-red-300 transition-colors ml-auto text-xs"
+                  >
+                    Dosyayı Kaldır
+                  </button>
+                </div>
+              )}
+              <input
+                type="file"
+                accept=".doc,.docx,.pdf"
+                onChange={(e) => setNewCookieFile(e.target.files?.[0] ?? null)}
+                className="text-white/60 text-sm file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-white/10 file:text-white/70 hover:file:bg-white/20"
+              />
+              <p className="text-white/30 text-xs mt-1">
+                Word (.doc, .docx) veya PDF dosyası yükleyebilirsiniz. Dosya yüklendiğinde, footer&apos;daki &quot;Çerez Aydınlatma Metni&quot; linki bu dosyayı doğrudan indirecektir. Dosya yüklenmez/kaldırılırsa, link tıklanınca aşağıdaki metin modaldan açılacaktır.
+              </p>
+            </div>
+            <div>
+              <label className="block text-white/40 text-xs uppercase tracking-wider mb-2">
+                İçerik (HTML destekler: &lt;p&gt;, &lt;h4&gt;, &lt;strong&gt;)
+              </label>
+              <textarea
+                value={cookieContent}
+                onChange={(e) => setCookieContent(e.target.value)}
                 rows={12}
                 className="w-full bg-white/5 border border-white/10 rounded px-4 py-2.5 text-white text-sm outline-none focus:border-white/30 transition-colors font-mono resize-y"
                 placeholder="<h4>1. Başlık</h4><p>Açıklama...</p>"

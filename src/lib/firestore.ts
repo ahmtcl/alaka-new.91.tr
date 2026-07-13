@@ -304,6 +304,10 @@ export interface FirestoreFooter {
   kvkkButtonLabel: string;
   kvkkTitle: string;
   kvkkContent: string;
+  cookieButtonLabel: string;
+  cookieTitle: string;
+  cookieContent: string;
+  cookieFileUrl: string;
   dataSubjectButtonLabel: string;
   dataSubjectTitle: string;
   dataSubjectContent: string;
@@ -339,6 +343,15 @@ const DEFAULT_FOOTER: FirestoreFooter = {
 <p>İletişim taleplerinin yanıtlanması, iş birliği ve proje başvurularının değerlendirilmesi, yasal yükümlülüklerin yerine getirilmesi ve web sitesi güvenliğinin sağlanması amaçlarıyla işlenmektedir.</p>
 <h4>4. KVKK Kapsamındaki Haklarınız</h4>
 <p>Bu kapsamda taleplerinizi: <strong>info@alaka.pro</strong> adresine yazılı olarak iletebilirsiniz.</p>`,
+  cookieButtonLabel: "ÇEREZ AYDINLATMA METNİ",
+  cookieTitle: "ALAKA MEDIA - Çerez Aydınlatma Metni",
+  cookieContent: `<h4>1. Çerezler Nedir?</h4>
+<p>Web sitemizde, kullanıcı deneyimini geliştirmek amacıyla çerezler (cookies) kullanılmaktadır.</p>
+<h4>2. Çerez Türleri ve Kullanım Amaçları</h4>
+<p>Sitemizde zorunlu çerezler ve analitik çerezler kullanılabilmektedir.</p>
+<h4>3. Çerez Yönetimi</h4>
+<p>Tarayıcınızın ayarlarını değiştirerek çerez tercihlerinizi yönetebilirsiniz.</p>`,
+  cookieFileUrl: "",
   dataSubjectButtonLabel: "VERİ SAHİBİ BAŞVURU FORMU",
   dataSubjectTitle: "ALAKA MEDIA - Veri Sahibi Başvuru Formu",
   dataSubjectContent: "",
