@@ -1,21 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import { Carousel } from "@/components/ui/Carousel";
 import type { Program } from "@/types";
 
 interface ProgramCardProps {
   program: Program;
+  expanded: boolean;
+  onToggle: () => void;
   onYoutubeClick: (url: string) => void;
 }
 
-export function ProgramCard({ program, onYoutubeClick }: ProgramCardProps) {
-  const [expanded, setExpanded] = useState(false);
+export function ProgramCard({ program, expanded, onToggle, onYoutubeClick }: ProgramCardProps) {
 
   return (
     <article
       id={`post-${program.id}`}
-      className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col h-full"
+      className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] flex flex-col"
     >
       {/* Carousel */}
       <Carousel
@@ -27,7 +27,7 @@ export function ProgramCard({ program, onYoutubeClick }: ProgramCardProps) {
       />
 
       {/* Content */}
-      <div className="px-4 pt-3.5 pb-1">
+      <div className="px-4 pt-3.5 pb-1 h-[140px] sm:h-[120px] overflow-hidden">
         <p className="text-[0.7rem] font-bold tracking-[0.12em] uppercase text-muted mb-2">
           — {program.title} —
         </p>
@@ -41,7 +41,7 @@ export function ProgramCard({ program, onYoutubeClick }: ProgramCardProps) {
       {/* Details toggle */}
       <div className="px-4 pb-4 mt-auto">
         <button
-          onClick={() => setExpanded(!expanded)}
+          onClick={onToggle}
           className={`bg-transparent border-b border-muted rounded-none text-muted cursor-pointer text-[0.7rem] py-0 px-0 pb-[2px] font-primary tracking-[0.1em] uppercase font-medium transition-colors hover:text-dark hover:border-dark ${
             expanded ? "text-dark border-dark" : ""
           }`}

@@ -9,6 +9,7 @@ import type { Program } from "@/types";
 
 export function ProgramsSection() {
   const [youtubeModal, setYoutubeModal] = useState<string | null>(null);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const { programs: firestorePrograms } = usePrograms();
 
   // Map Firestore programs to the Program type, fall back to static
@@ -36,11 +37,13 @@ export function ProgramsSection() {
       <section className="pt-[30px] md:pt-16 bg-light" id="bak">
         <SectionHead>BAK</SectionHead>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto px-4 mt-[50px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1200px] mx-auto px-4 mt-[50px] items-start">
           {programs.map((program) => (
-            <div key={program.id} id={`post-${program.id}`} className={`h-full ${program.featured ? "sm:col-span-2 lg:col-span-2" : ""}`}>
+            <div key={program.id} id={`post-${program.id}`} className={`${program.featured ? "sm:col-span-2 lg:col-span-2" : ""}`}>
               <ProgramCard
                 program={program}
+                expanded={expandedId === program.id}
+                onToggle={() => setExpandedId(expandedId === program.id ? null : program.id)}
                 onYoutubeClick={(url) => setYoutubeModal(url)}
               />
             </div>
