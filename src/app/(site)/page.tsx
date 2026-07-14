@@ -1,4 +1,4 @@
-﻿import { HeroSection } from "@/components/sections/HeroSection";
+import { HeroSection } from "@/components/sections/HeroSection";
 import { StatementDivider } from "@/components/sections/StatementDivider";
 import { ProgramsSection } from "@/components/sections/ProgramsSection";
 import { ManifestoSection } from "@/components/sections/ManifestoSection";
@@ -17,9 +17,9 @@ export default async function Home() {
       {vis.hero && <HeroSection />}
       <StatementDivider />
       {vis.programs && <ProgramsSection />}
-      {vis.manifesto && <ManifestoSection />}
-      {vis.upcoming && <UpcomingSection />}
       {vis.team && <TeamSection />}
+      {(vis.manifesto || !vis.team) && <ManifestoSection id={!vis.team ? "oku" : undefined} />}
+      {vis.upcoming && <UpcomingSection />}
       {vis.contact && <ContactSection />}
     </>
   );
