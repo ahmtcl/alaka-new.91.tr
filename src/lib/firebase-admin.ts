@@ -11,8 +11,14 @@ export function getAdminStorage() {
   if (!getApps().length) {
     // Vercel'de env var bazen tırnakla veya farklı escape ile saklanabilir
     let privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY || '';
-    // Başındaki/sonundaki tırnakları kaldır
-    privateKey = privateKey.replace(/^"([\s\S]*)"$/, '$1');
+    privateKey = privateKey.trim();
+    if (privateKey.startsWith('"')) {
+      privateKey = privateKey.substring(1);
+    }
+    if (privateKey.endsWith('"')) {
+      privateKey = privateKey.substring(0, privateKey.length - 1);
+    }
+    privateKey = privateKey.trim();
     // Escaped newline'ları gerçek newline'a çevir
     privateKey = privateKey.replace(/\\n/g, '\n');
 

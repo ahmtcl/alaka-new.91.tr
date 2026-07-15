@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { useSiteContent } from "@/lib/hooks";
-import { addContactForm, getFooter, type FirestoreFooter } from "@/lib/firestore";
+import { getFooter, type FirestoreFooter } from "@/lib/firestore";
 import { Modal } from "@/components/ui/Modal";
 
 export function ContactSection() {
@@ -18,10 +18,25 @@ export function ContactSection() {
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
   const [fileWarning, setFileWarning] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
+  
+  // Güvenlik sorusu (bot önleme)
+  const [num1, setNum1] = useState<number>(0);
+  const [num2, setNum2] = useState<number>(0);
+  const [securityAnswer, setSecurityAnswer] = useState<string>("");
+  const [securityError, setSecurityError] = useState<string | null>(null);
+
   const { content } = useSiteContent();
+
+  const generateQuestion = () => {
+    setNum1(Math.floor(Math.random() * 9) + 1); // 1-9
+    setNum2(Math.floor(Math.random() * 9) + 1); // 1-9
+    setSecurityAnswer("");
+    setSecurityError(null);
+  };
 
   useEffect(() => {
     getFooter().then(setFooterData);
+    generateQuestion();
   }, []);
 
   // Dosya boyutu limiti: 30 MB
@@ -50,6 +65,13 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Güvenlik sorusu kontrolü
+    const expected = num1 + num2;
+    if (Number(securityAnswer) !== expected) {
+      setSecurityError("Güvenlik sorusu cevabı yanlış. Lütfen tekrar hesaplayın.");
+      return;
+    }
     
     // Dosya kontrolü
     if (!selectedFile) {
@@ -107,15 +129,28 @@ export function ContactSection() {
         }
       }
 
-      // Save to Firestore
-      await addContactForm({
-        name,
-        email,
-        message: message || undefined,
-        attachmentUrl,
-        attachmentName,
-        kvkkConsent: true,
+      // Send to Yandex SMTP API endpoint
+      const contactRes = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message: message || "",
+          attachmentUrl: attachmentUrl || "",
+          attachmentName: attachmentName || "",
+          num1,
+          num2,
+          answer: securityAnswer,
+        }),
       });
+      
+      if (!contactRes.ok) {
+        const errData = await contactRes.json().catch(() => ({ error: "E-posta gönderilemedi" }));
+        throw new Error(errData.error || "E-posta gönderilemedi");
+      }
 
       setSubmitStatus('success');
       formEl.reset();
@@ -124,6 +159,7 @@ export function ContactSection() {
       setDisclosureAccepted(false);
       setTermsAccepted(false);
       setFileError(null);
+      generateQuestion(); // Reset security question on success
     } catch (error) {
       console.error('Form gönderme hatası:', error);
       setSubmitStatus('error');
@@ -175,6 +211,27 @@ export function ContactSection() {
               className="w-full bg-transparent border-none border-b border-white/20 py-4 text-base text-white placeholder-white/40 focus:outline-none focus:border-white/60 transition-colors"
               style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
             />
+          </div>
+
+          {/* Güvenlik Sorusu (Math equation) */}
+          <div className="relative">
+            <input
+              type="text"
+              required
+              placeholder={`Güvenlik Sorusu: ${num1} + ${num2} kaçtır?`}
+              value={securityAnswer}
+              onChange={(e) => {
+                setSecurityAnswer(e.target.value);
+                setSecurityError(null);
+              }}
+              className="w-full bg-transparent border-none border-b border-white/20 py-4 text-base text-white placeholder-white/40 focus:outline-none focus:border-white/60 transition-colors"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.2)" }}
+            />
+            {securityError && (
+              <p className="text-red-400 text-xs text-left mt-1 animate-fade-in">
+                ⚠ {securityError}
+              </p>
+            )}
           </div>
 
           {/* File Upload */}
