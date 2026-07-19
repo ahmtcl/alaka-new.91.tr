@@ -120,9 +120,12 @@ export function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-[0.75rem] text-dark opacity-50 tracking-wide">
-            {footerData?.copyright || "© 2026 ALAKA Media. Tüm hakları saklıdır."}
-          </p>
+          <p
+            className="text-[0.75rem] text-dark opacity-50 tracking-wide [&_a]:underline [&_a]:hover:opacity-80 transition-all"
+            dangerouslySetInnerHTML={{
+              __html: footerData?.copyright || "© 2026 ALAKA Media. Tüm hakları saklıdır."
+            }}
+          />
         </div>
       </footer>
 
