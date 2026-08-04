@@ -34,7 +34,7 @@ export function Header() {
   return (
     <>
       {/* Fixed Header */}
-      <header className="fixed top-0 left-0 right-0 z-[200] px-8 py-4 flex justify-between items-center bg-white pointer-events-none">
+      <header className="fixed top-0 left-0 right-0 z-[200] px-8 py-4 flex justify-between items-center bg-black pointer-events-none">
         {/* Logo */}
         <a
           href="#home"
@@ -42,11 +42,11 @@ export function Header() {
           className="pointer-events-auto"
         >
           <Image
-            src="/images/logo.svg"
-            alt="ALAKA"
-            width={120}
-            height={40}
-            className="max-w-[120px] md:max-w-[120px] max-w-[80px] brightness-0 hover:opacity-70 transition-opacity"
+            src="/images/logoyeni.png"
+            alt="ALAKA Pictures & Projects"
+            width={200}
+            height={70}
+            className="max-w-[200px] md:max-w-[200px] max-w-[120px] hover:opacity-80 transition-opacity"
             priority
           />
         </a>
@@ -58,7 +58,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-              className="text-dark text-base font-medium tracking-[0.15em] uppercase no-underline hover:opacity-60 transition-opacity"
+              className="text-white text-base font-medium tracking-[0.15em] uppercase no-underline hover:opacity-60 transition-opacity"
             >
               {link.label}
             </a>
@@ -72,17 +72,17 @@ export function Header() {
           aria-label="Menü"
         >
           <span
-            className={`block h-[2px] w-full bg-dark transition-all duration-300 ${
+            className={`block h-[2px] w-full bg-white transition-all duration-300 ${
               menuOpen ? "rotate-45 translate-y-[7px]" : ""
             }`}
           />
           <span
-            className={`block h-[2px] w-full bg-dark transition-all duration-300 ${
+            className={`block h-[2px] w-full bg-white transition-all duration-300 ${
               menuOpen ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`block h-[2px] w-full bg-dark transition-all duration-300 ${
+            className={`block h-[2px] w-full bg-white transition-all duration-300 ${
               menuOpen ? "-rotate-45 -translate-y-[7px]" : ""
             }`}
           />
@@ -91,14 +91,14 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[199] bg-white flex items-center justify-center animate-fade-in">
+        <div className="fixed inset-0 z-[199] bg-black flex items-center justify-center animate-fade-in">
           <nav className="flex flex-col items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                className="text-dark text-2xl font-medium tracking-[0.15em] uppercase no-underline hover:opacity-60 transition-opacity"
+                className="text-white text-2xl font-medium tracking-[0.15em] uppercase no-underline hover:opacity-60 transition-opacity"
               >
                 {link.label}
               </a>
