@@ -16,6 +16,7 @@ export function ContactSection() {
   const [footerData, setFooterData] = useState<FirestoreFooter | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [fileWarning, setFileWarning] = useState(false);
   const [fileError, setFileError] = useState<string | null>(null);
   
@@ -93,6 +94,7 @@ export function ContactSection() {
 
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setSubmitError(null);
 
     const formEl = e.currentTarget;
 
@@ -129,7 +131,7 @@ export function ContactSection() {
         }
       }
 
-      // Send to Yandex SMTP API endpoint
+      // Send through the server-side SMTP endpoint.
       const contactRes = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -162,6 +164,7 @@ export function ContactSection() {
       generateQuestion(); // Reset security question on success
     } catch (error) {
       console.error('Form gönderme hatası:', error);
+      setSubmitError(error instanceof Error ? error.message : "Bir hata oluştu. Lütfen tekrar deneyin.");
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -399,7 +402,7 @@ export function ContactSection() {
 
           {submitStatus === 'error' && (
             <p className="text-red-400 text-sm animate-fade-in">
-              ✗ Bir hata oluştu. Lütfen tekrar deneyin.
+              ✗ {submitError || "Bir hata oluştu. Lütfen tekrar deneyin."}
             </p>
           )}
         </form>

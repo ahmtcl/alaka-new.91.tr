@@ -1,13 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+export const runtime = "nodejs";
+
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (character) => {
+    const entities: Record<string, string> = {
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+    };
+    return entities[character];
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return NextResponse.json({ error: "Geçersiz form verisi." }, { status: 400 });
+    }
     const { name, email, message, attachmentUrl, attachmentName, num1, num2, answer } = body;
 
     // Check required fields
-    if (!name || !email || num1 === undefined || num2 === undefined || answer === undefined) {
+    if (typeof name !== "string" || !name.trim() || typeof email !== "string" ||
+        !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email) ||
+        (message !== undefined && typeof message !== "string") ||
+        (attachmentName !== undefined && typeof attachmentName !== "string") ||
+        (attachmentUrl !== undefined && typeof attachmentUrl !== "string") ||
+        num1 === undefined || num2 === undefined || answer === undefined) {
       return NextResponse.json(
         { error: "Lütfen gerekli tüm alanları doldurun." },
         { status: 400 }
@@ -16,22 +35,33 @@ export async function POST(request: NextRequest) {
 
     // Verify security question (dynamic math question)
     const expectedAnswer = Number(num1) + Number(num2);
-    if (Number(answer) !== expectedAnswer) {
+    if (!Number.isInteger(num1) || num1 < 1 || num1 > 9 ||
+        !Number.isInteger(num2) || num2 < 1 || num2 > 9 ||
+        (typeof answer !== "string" && typeof answer !== "number") ||
+        Number(answer) !== expectedAnswer) {
       return NextResponse.json(
         { error: "Güvenlik sorusu cevabı yanlış. Lütfen tekrar deneyin." },
         { status: 400 }
       );
     }
 
+    if (attachmentUrl) {
+      try {
+        if (new URL(attachmentUrl).protocol !== "https:") throw new Error("Invalid URL");
+      } catch {
+        return NextResponse.json({ error: "Geçersiz dosya bağlantısı." }, { status: 400 });
+      }
+    }
+
     // SMTP Configuration from env vars
-    const host = process.env.SMTP_HOST || "smtp.yandex.com";
-    const port = Number(process.env.SMTP_PORT) || 465;
+    const host = process.env.SMTP_HOST || "mail.91.com.tr";
+    const port = Number(process.env.SMTP_PORT || "587");
     const user = process.env.SMTP_USER;
     const pass = process.env.SMTP_PASS;
-    const receiver = process.env.CONTACT_RECEIVER_EMAIL || "alaka@alakamedia.com";
+    const receiver = process.env.CONTACT_RECEIVER_EMAIL || user;
 
-    if (!user || !pass) {
-      console.error("SMTP credentials (SMTP_USER or SMTP_PASS) are missing in environment variables.");
+    if (!user || !pass || !Number.isInteger(port) || port < 1 || port > 65535) {
+      console.error("SMTP credentials are missing or SMTP_PORT is invalid.");
       return NextResponse.json(
         { error: "E-posta gönderim altyapısı yapılandırılmamış." },
         { status: 500 }
@@ -42,7 +72,11 @@ export async function POST(request: NextRequest) {
     const transporter = nodemailer.createTransport({
       host,
       port,
-      secure: port === 465, // true for 465, false for 587
+      secure: port === 465,
+      requireTLS: port !== 465, // Port 587 upgrades the connection with STARTTLS.
+      connectionTimeout: 15_000,
+      greetingTimeout: 15_000,
+      socketTimeout: 30_000,
       auth: {
         user,
         pass,
@@ -153,19 +187,19 @@ export async function POST(request: NextRequest) {
     
     <div class="content-section">
       <div class="label">Gönderen Adı Soyadı</div>
-      <div class="value">${name}</div>
+      <div class="value">${escapeHtml(name)}</div>
     </div>
     
     <div class="content-section">
       <div class="label">E-posta Adresi</div>
       <div class="value">
-        <a href="mailto:${email}" style="color: #ffffff; text-decoration: underline;">${email}</a>
+        <a href="mailto:${escapeHtml(email)}" style="color: #ffffff; text-decoration: underline;">${escapeHtml(email)}</a>
       </div>
     </div>
     
     <div class="content-section">
       <div class="label">Mesaj</div>
-      <div class="value value-message">${message ? message : "<i>Mesaj belirtilmedi</i>"}</div>
+      <div class="value value-message">${message ? escapeHtml(message) : "<i>Mesaj belirtilmedi</i>"}</div>
     </div>
     
     ${
@@ -174,8 +208,8 @@ export async function POST(request: NextRequest) {
     <div class="content-section">
       <div class="label">Ekli Dosya</div>
       <div class="value">
-        <a href="${attachmentUrl}" class="attachment-button" target="_blank">📎 ${
-            attachmentName || "Ekli Dosyayı İndir"
+        <a href="${escapeHtml(attachmentUrl)}" class="attachment-button" target="_blank">📎 ${
+            escapeHtml(attachmentName || "Ekli Dosyayı İndir")
           }</a>
       </div>
     </div>
@@ -192,20 +226,29 @@ export async function POST(request: NextRequest) {
 `;
 
     // Send email using Nodemailer
-    await transporter.sendMail({
-      from: `"Alaka Media" <${user}>`,
+    const result = await transporter.sendMail({
+      from: { name: "Alaka Media", address: user },
       to: receiver,
       replyTo: email,
       subject: `Yeni Temas Formu Başvurusu - ${name}`,
+      text: `Gönderen: ${name}\nE-posta: ${email}\n\n${message || "Mesaj belirtilmedi"}${attachmentUrl ? `\n\nEkli dosya: ${attachmentUrl}` : ""}`,
       html: htmlContent,
     });
 
+    if (result.accepted.length === 0 || result.rejected.length > 0) {
+      throw new Error("SMTP server rejected the contact recipient.");
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error);
-    console.error("Mail gönderme hatası:", error);
+    const smtpError = error as { code?: string; command?: string; responseCode?: number };
+    console.error("Mail gönderme hatası:", {
+      code: smtpError?.code,
+      command: smtpError?.command,
+      responseCode: smtpError?.responseCode,
+    });
     return NextResponse.json(
-      { error: "Mesajınız kaydedildi ancak mail gönderilirken bir hata oluştu: " + errorMessage },
+      { error: "E-posta gönderilemedi. Lütfen tekrar deneyin veya doğrudan alaka@91.com.tr adresine yazın." },
       { status: 500 }
     );
   }

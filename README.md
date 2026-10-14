@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Contact email configuration
+
+Copy `.env.example` to `.env.local` and set `SMTP_PASS` to the mailbox password. The contact API sends from `SMTP_USER` through `mail.91.com.tr:587` with STARTTLS. `CONTACT_RECEIVER_EMAIL` defaults to the sending mailbox; the visitor's email is used as Reply-To.
+
+On Vercel, set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, and `CONTACT_RECEIVER_EMAIL` in the project's Production environment and redeploy. `.env.local` is ignored by Git and is not uploaded through a Git deployment. Keep the password in server-side environment variables, never in a `NEXT_PUBLIC_` variable.
+
+The form also requires a file upload. Configure `FIREBASE_ADMIN_PROJECT_ID`, `FIREBASE_ADMIN_CLIENT_EMAIL`, `FIREBASE_ADMIN_PRIVATE_KEY`, and `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` for the upload endpoint; its Firebase setup is independent of SMTP.
+
 ## Getting Started
 
 First, run the development server:
