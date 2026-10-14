@@ -6,6 +6,8 @@ Copy `.env.example` to `.env.local` and set `SMTP_PASS` to the mailbox password.
 
 On Vercel, set `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, and `CONTACT_RECEIVER_EMAIL` in the project's Production environment and redeploy. `.env.local` is ignored by Git and is not uploaded through a Git deployment. Keep the password in server-side environment variables, never in a `NEXT_PUBLIC_` variable.
 
+Enter only the value in each Vercel field (not `SMTP_PASS=...`). Outer whitespace and one matching pair of literal quotes are removed from SMTP settings. If sending fails, the runtime log `Mail gönderme hatası` includes the SMTP server response, selected host/port/user, and names of normalized settings; passwords and authentication tokens are redacted. `EAUTH` with response code `535` indicates that SMTP authentication was rejected. Run the configuration checks with `node --experimental-strip-types --test scripts/smtp-config.test.mjs`.
+
 The form also requires a file upload. Configure `FIREBASE_ADMIN_PROJECT_ID`, `FIREBASE_ADMIN_CLIENT_EMAIL`, `FIREBASE_ADMIN_PRIVATE_KEY`, and `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` for the upload endpoint; its Firebase setup is independent of SMTP.
 
 ## Getting Started

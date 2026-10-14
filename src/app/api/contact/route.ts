@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { getSmtpConfig, getSmtpErrorDetails } from "@/lib/smtp-config";
 
 export const runtime = "nodejs";
 
@@ -13,6 +14,7 @@ function escapeHtml(value: string) {
 }
 
 export async function POST(request: NextRequest) {
+  const smtpConfig = getSmtpConfig();
   try {
     const body = await request.json().catch(() => null);
     if (!body || typeof body !== "object" || Array.isArray(body)) {
@@ -54,11 +56,7 @@ export async function POST(request: NextRequest) {
     }
 
     // SMTP Configuration from env vars
-    const host = process.env.SMTP_HOST || "mail.91.com.tr";
-    const port = Number(process.env.SMTP_PORT || "587");
-    const user = process.env.SMTP_USER;
-    const pass = process.env.SMTP_PASS;
-    const receiver = process.env.CONTACT_RECEIVER_EMAIL || user;
+    const { host, port, user, pass, receiver } = smtpConfig;
 
     if (!user || !pass || !Number.isInteger(port) || port < 1 || port > 65535) {
       console.error("SMTP credentials are missing or SMTP_PORT is invalid.");
@@ -241,12 +239,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    const smtpError = error as { code?: string; command?: string; responseCode?: number };
-    console.error("Mail gönderme hatası:", {
-      code: smtpError?.code,
-      command: smtpError?.command,
-      responseCode: smtpError?.responseCode,
-    });
+    console.error("Mail gönderme hatası:", getSmtpErrorDetails(error, smtpConfig));
     return NextResponse.json(
       { error: "E-posta gönderilemedi. Lütfen tekrar deneyin veya doğrudan alaka@91.com.tr adresine yazın." },
       { status: 500 }
