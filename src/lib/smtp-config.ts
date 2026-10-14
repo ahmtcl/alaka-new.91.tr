@@ -21,7 +21,7 @@ export function getSmtpConfig(env: Record<string, string | undefined> = process.
     port: Number(values.SMTP_PORT || "587"),
     user: values.SMTP_USER,
     pass: values.SMTP_PASS,
-    receiver: values.CONTACT_RECEIVER_EMAIL || values.SMTP_USER,
+    receiver: values.CONTACT_RECEIVER_EMAIL || "alaka@alakamedia.com",
     rawPassword: env.SMTP_PASS,
     normalizedSettings: SMTP_SETTINGS.filter((key) => env[key] !== values[key]),
   };

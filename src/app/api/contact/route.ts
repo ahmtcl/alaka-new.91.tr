@@ -241,7 +241,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Mail gönderme hatası:", getSmtpErrorDetails(error, smtpConfig));
     return NextResponse.json(
-      { error: "E-posta gönderilemedi. Lütfen tekrar deneyin veya doğrudan alaka@91.com.tr adresine yazın." },
+      { error: "E-posta gönderilemedi. Lütfen tekrar deneyin veya doğrudan alaka@alakamedia.com adresine yazın." },
       { status: 500 }
     );
   }

@@ -29,7 +29,7 @@ test("missing settings retain defaults and don't invent credentials", () => {
   assert.equal(config.user, undefined);
   assert.equal(config.pass, undefined);
   assert.deepEqual(config.normalizedSettings, []);
-  assert.equal(getSmtpConfig({ SMTP_USER: "sender@example.com" }).receiver, "sender@example.com");
+  assert.equal(getSmtpConfig({ SMTP_USER: "sender@example.com" }).receiver, "alaka@alakamedia.com");
 });
 
 test("diagnostics retain the SMTP rejection but redact credentials and AUTH tokens", () => {
